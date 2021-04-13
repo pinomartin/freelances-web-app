@@ -1,25 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink,
+} from "react-router-dom";
+import { auth } from "./firebase";
+import Login from "./components/Login";
+import NavBar from "./components/NavBar";
+import Admin from "./components/Admin";
+import Home from "./components/Home";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  // interface UserData {
+  //   username: string;
+  //   password: string;
+  //   prevState: null
+  // }
+  
+  // //...
+  // const [user, setUser] = useState<UserData | null>(null);
+
+  const [firebaseUser, setFirebaseUser] = useState<any | null>(null);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      console.log(user);
+      user !== null ? setFirebaseUser(user) : setFirebaseUser(null);
+    });
+  }, []);
+
+  return firebaseUser !== false ? (
+    <Router>
+      <div className="container-fluid">
+        <NavBar firebaseUserActive={firebaseUser} />
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/admin">
+            <Admin />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  ) : (
+    <p>...Loading</p>
   );
 }
 
