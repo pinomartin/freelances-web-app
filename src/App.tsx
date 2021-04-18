@@ -3,8 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  NavLink,
 } from "react-router-dom";
 import { auth } from "./firebase";
 import Login from "./components/Login";
@@ -12,27 +10,18 @@ import NavBar from "./components/NavBar";
 import Admin from "./components/Admin";
 import Home from "./components/Home";
 
-
 function App() {
-  // interface UserData {
-  //   username: string;
-  //   password: string;
-  //   prevState: null
-  // }
-  
-  // //...
-  // const [user, setUser] = useState<UserData | null>(null);
-
   const [firebaseUser, setFirebaseUser] = useState<any | null>(null);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       console.log(user);
       user !== null ? setFirebaseUser(user) : setFirebaseUser(null);
+      console.log(firebaseUser);
     });
-  }, []);
+  }, [firebaseUser]);
 
-  return firebaseUser !== false ? (
+  return (
     <Router>
       <div className="container-fluid">
         <NavBar firebaseUserActive={firebaseUser} />
@@ -41,7 +30,7 @@ function App() {
             <Home />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login firebaseUserActive={firebaseUser} />
           </Route>
           <Route path="/admin">
             <Admin />
@@ -49,8 +38,6 @@ function App() {
         </Switch>
       </div>
     </Router>
-  ) : (
-    <p>...Loading</p>
   );
 }
 

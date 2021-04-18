@@ -3,6 +3,7 @@ import MainLogo from "../assets/mainLogoTransparent.svg";
 
 const Home = () => {
   return (
+    <>
     <div className="mt-5 text-center">
       <img src={MainLogo} alt="" width={500} />
       <hr />
@@ -10,6 +11,7 @@ const Home = () => {
         {"Bienvenido a una nueva forma de trabajo Freelance"}
       </h3>
     </div>
+    </>
   );
 };
 

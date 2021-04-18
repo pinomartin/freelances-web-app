@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { ProjectListItem } from "./ProjectListItem";
+import { ProjectCard } from "./ProjectCard";
+import SpinnerLoader from "./SpinnerLoader";
+import AddProjectButton from "./AddProjectButton";
 
 const Admin = ({ history }: RouteComponentProps<any>) => {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [projects, setProjects] = useState<any>([]);
+  const [isLoaderVisible, setIsLoaderVisible] = useState(true);
 
   const getUserFromDB = async (uid: string | any) => {
     const dbUser = await db.collection("users").doc(uid).get();
@@ -21,6 +24,7 @@ const Admin = ({ history }: RouteComponentProps<any>) => {
       id: doc.id,
       ...doc.data(),
     }));
+    setIsLoaderVisible(false);
     console.log(userprojectsData);
     setProjects(userprojectsData);
   };
@@ -37,23 +41,24 @@ const Admin = ({ history }: RouteComponentProps<any>) => {
 
   return (
     <div className="container">
-      <div className="row">
-        <div className="col-12 text-center">
-          <h2>Admin Ruta Protegida</h2>
-          {usuario && <h4>Bienvenido {usuario.userName} !! </h4>}
-        </div>
-      </div>
-      <div className="row justify-content-center bg-white">
-        <div className="col-12">
+      {isLoaderVisible ? (
+        <SpinnerLoader />
+      ) : (
+        <>
           <div className="row">
-            <div className="col-12 col-sm-6 col-lg-4">
-              {projects.map((item: any, index: number) => (
-                <ProjectListItem data={item} key={index} />
-              ))}
+            <div className="col-12 text-center">
+              <h2>Admin Ruta Protegida</h2>
+              {usuario && <h4>Bienvenido {usuario.userName} !! </h4>}
             </div>
           </div>
-        </div>
-      </div>
+          <div className="row justify-content-between align-items-center bg-transparent">
+            {projects.map((item: any, index: number) => (
+              <ProjectCard data={item} key={index} />
+            ))}
+            <AddProjectButton />
+          </div>
+        </>
+      )}
     </div>
   );
 };
