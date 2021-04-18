@@ -16,7 +16,7 @@ const Login = ({ history, firebaseUserActive }: IProps) => {
 
   useEffect(() => {
     if (firebaseUserActive && auth.currentUser) {
-      history.push("/spinner");
+      history.push("/admin");
     } else {
       history.push("/login");
     }

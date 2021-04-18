@@ -21,7 +21,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
   return (
     <div className="navbar navbar-dark bg-dark">
       <NavLink className="navbar-brand NavBar__navBarBrand__hover" to="/" exact>
-        <img src={MainLogo} alt="" width={150} />
+        <img src={MainLogo} alt="MainAppLogo" width="120" />
       </NavLink>
       <div>
         <div className="d-flex">

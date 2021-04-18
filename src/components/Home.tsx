@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
     <div className="mt-5 text-center">
-      <img src={MainLogo} alt="" width={500} />
+      <img src={MainLogo} alt="" className="img-fluid"/>
       <hr />
       <h3 className="text-white">
         {"Bienvenido a una nueva forma de trabajo Freelance"}
