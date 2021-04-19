@@ -18,7 +18,11 @@ body {
   color: white;
 }
 
-.NavBar__navBarBrand__hover:hover {
+.NavBar__navBarBrand{
+  margin: 0;
+}
+
+.NavBar__navBarBrand:hover {
   filter: brightness(1.2);
 }
 

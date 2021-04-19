@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { auth } from "./firebase";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
@@ -23,8 +19,8 @@ function App() {
 
   return (
     <Router>
+      <NavBar firebaseUserActive={firebaseUser} />
       <div className="container-fluid">
-        <NavBar firebaseUserActive={firebaseUser} />
         <Switch>
           <Route path="/" exact>
             <Home />
