@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import Admin from "./components/Admin";
 import Home from "./components/Home";
+import NewProjectForm from "./components/NewProjectForm";
 
 function App() {
   const [firebaseUser, setFirebaseUser] = useState<any | null>(null);
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route path="/admin">
             <Admin />
+          </Route>
+          <Route path="/newproject">
+            <NewProjectForm />
           </Route>
         </Switch>
       </div>

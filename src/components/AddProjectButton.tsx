@@ -1,17 +1,17 @@
 import React from 'react'
-import NewProjectForm from './NewProjectForm'
+import { withRouter, Link } from "react-router-dom";
 
-const AddProjectButton = () => {
+const AddProjectButton = ()  => {
     return (
         <>
-            <button
+            <Link to={'/newproject'}
               className="addProjectButton"
-              onClick={ () =>  NewProjectForm }
+              
             >
               <i className="fas fa-plus addProjectButton__icon"></i>
-            </button>
+            </Link>
         </>
     )
 }
 
-export default AddProjectButton
+export default withRouter (AddProjectButton)

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import { db, auth } from "../firebase";
 
 const NewProjectForm = () => {
 
@@ -8,7 +9,6 @@ const NewProjectForm = () => {
   const [error, setError] = useState("");
 
   const procesarData = (e: any) => {
-    console.log(typeof e);
     e.preventDefault();
     if (!projectName.trim()) {
       setError("Ingrese Nombre de Proyecto");
@@ -19,7 +19,7 @@ const NewProjectForm = () => {
       return;
     }
     if (!description.trim()) {
-      setError("Debe Ingresar una breve descripción del proyecto");
+      setError("Debe ingresar una breve descripción");
       return;
     }
     console.log("Paso todas las pruebas");
@@ -27,12 +27,27 @@ const NewProjectForm = () => {
 
   };
 
+  // const createNewProject = async () => {
+  //   try {
+  //     await db.collection("projects").doc().set({
+  //       userId: ''
+  //     })
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
   
   return (
     <>
+     <div className="mt-5">
+      <h3 className="text-center">
+       Proyecto {<small>{projectName}</small>}
+      </h3>
+      <hr />
       <div className="row justify-content-center">
         <div className="col-12 col-sm-8 col-md-6 col-xl-3">
-          <form onSubmit={() => procesarData}>
+          <form onSubmit={(e) => procesarData(e)}>
             {error && <div className="alert alert-danger">{error}</div>}
 
             <input
@@ -51,19 +66,19 @@ const NewProjectForm = () => {
               value={clientName}
             />
 
-            <input
-              type="text"
+            <textarea
               className="form-control form-control-sm mb-2"
-              placeholder="Descripcion"
+              placeholder="Qué es lo que harás?"
               onChange={(e) => setDescription(e.target.value)}
               value={description}
             />
 
             <button className="btn btn-dark btn-lg btn-block" type="submit">
-              "Crear Proyecto"
+              Crear !
             </button>
           </form>
         </div>
+      </div>
       </div>
     </>
   );

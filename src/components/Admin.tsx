@@ -46,8 +46,8 @@ const Admin = ({ history }: RouteComponentProps<any>) => {
       ) : (
         <>
           <div className="row">
-            <div className="col-12 text-center">
-              <h2>Admin Ruta Protegida</h2>
+            <div className="col-12 text-center mt-2">
+              <h2>Mis Proyectos</h2>
               {usuario && <h4>Bienvenido {usuario.userName} !! </h4>}
             </div>
           </div>

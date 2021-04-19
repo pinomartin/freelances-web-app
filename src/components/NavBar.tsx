@@ -17,7 +17,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
   };
 
   return (
-    <div className="navbar navbar-dark bg-dark">
+    <div className="navbar navbar-dark bg-dark sticky-top">
       <NavLink className="navbar-brand NavBar__navBarBrand" to="/" exact>
         <img src={MainLogo} alt="MainAppLogo" width="120" />
       </NavLink>
@@ -34,14 +34,14 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   aria-expanded="false"
                 >
                   
-                  {firebaseUserActive.photoURL ? (<img src={firebaseUserActive.photoURL} className="img-rounded" alt="userProfilePhoto" width="30px"></img>) : 'Menu'}
+                  {firebaseUserActive.photoURL ? (<img src={firebaseUserActive.photoURL} className="img-rounded" alt="userProfilePhoto" width="25px"></img>) : 'Menu'}
                 </button>
                 <div
                   className="dropdown-menu dropdown-menu-right bg-dark"
                   aria-labelledby="dropdownMenuButton"
                 >
                   <NavLink className="dropdown-item bg-dark text-white" to="/admin" exact>
-                    Admin
+                    Mis Proyectos
                   </NavLink>
                   <NavLink className="dropdown-item bg-dark" to="">
                     Perfil
