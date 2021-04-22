@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,400;0,700;1,100;1,400&display=swap');
 
 :root{
-  --primary-color: #14ECE5;
+  --primary-color: #61DAFB;
   --primary-color-down: #13c7c1;
   --primary-color-hover: #7bf0ec;
-  --secondary-color: #9f92f6;
-  --card--primary-color:#41597c;
+  --secondary-color: #a47dff;
+  --font--color: #F5F6F7;
+  --card--primary-color:#242526;
   --card--hover-color:#425066;
 }
 
@@ -14,7 +15,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0F1724;
+  background-color: #282C34;
   color: white;
 }
 
@@ -38,9 +39,9 @@ body {
 .projectListItem__card {
   background-color: var(--card--primary-color);
   -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
-  0 1px 3px 1px rgb(60 64 67 / 15%);
-  box-shadow: 0 1px 2px 0 var(--secondary-color), 0 1px 3px 1px var(--secondary-color);
-  color: var(--primary-color);
+  0 1px 1px 1px rgb(60 64 67 / 15%);
+  box-shadow: 0  1px 4px 0 var(--secondary-color), 0 1px 4px 1px var(--secondary-color);
+  color: var(--font--color);
   transition: all 50ms ease-in-out;
   cursor: pointer;
 }

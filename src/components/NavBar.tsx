@@ -41,16 +41,16 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   aria-labelledby="dropdownMenuButton"
                 >
                   <NavLink className="dropdown-item bg-dark text-white" to="/admin" exact>
-                    Mis Proyectos
+                  💼 Mis Proyectos
                   </NavLink>
                   <NavLink className="dropdown-item bg-dark" to="">
-                    Perfil
+                  👥 Perfil
                   </NavLink>
                   <button
-                    className="dropdown-item bg-danger"
+                    className="dropdown-item bg-danger text-white"
                     onClick={() => cerrarSesion()}
                   >
-                    Cerrar Sesion
+                    🔒 Cerrar Sesion
                   </button>
                 </div>
               </div>
