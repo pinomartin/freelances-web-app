@@ -47,7 +47,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   👥 Perfil
                   </NavLink>
                   <button
-                    className="dropdown-item bg-danger text-white"
+                    className="dropdown-item text-white bg-dark"
                     onClick={() => cerrarSesion()}
                   >
                     🔒 Cerrar Sesion
