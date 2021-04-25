@@ -45,7 +45,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   💼 Mis Proyectos
                   </NavLink>
                   <NavLink className="dropdown-item bg-dark text-white" to="/profile">
-                  👥 Perfil
+                  👥 Mi Perfil
                   </NavLink>
                   <button
                     className="dropdown-item text-white bg-dark"

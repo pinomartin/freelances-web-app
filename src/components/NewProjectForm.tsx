@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import { db, auth } from "../firebase";
+import SpinnerLoader from "./SpinnerLoader";
+
 
 const NewProjectForm = ({history}:RouteComponentProps<any>) => {
-  // const [projectName, setProjectName] = useState("");
-  // const [clientName, setClientName] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [amount, setAmount] = useState(0); 
+ 
   interface ProjectType{
       name: string,
       client:string,
@@ -30,6 +29,8 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
     creationDate: Date.now()
   });
   const [error, setError] = useState("");
+  const [isLoaderVisible, setIsLoaderVisible] = useState(false);
+
   
   const procesarData = (e: any) => {
     e.preventDefault();
@@ -59,6 +60,7 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
 
   const addNewProjectToDB = async (project:ProjectType) => {
     try {
+      setIsLoaderVisible(true);
       await db.collection("projects").add({
         userId: auth.currentUser?.email,
         name: project.name,
@@ -77,7 +79,7 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
     }
   }
 
-  return (
+  return !isLoaderVisible? (
     <>
       <div className="mt-5">
         <h3 className="text-center">
@@ -188,7 +190,7 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
         </div>
       </div>
     </>
-  );
+  ) : <SpinnerLoader />
 };
 
 export default withRouter(NewProjectForm);

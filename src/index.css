@@ -117,6 +117,12 @@ body {
 
 .userProfileCard__container{
   border-radius: 15px;
+  background-color: var(--card--primary-color);
+}
+
+.userProfileCard__image{
+  width: 100px;
+  border-radius:50px;
 }
 
 .currency {
