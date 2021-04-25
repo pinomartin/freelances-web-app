@@ -4,6 +4,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { ProjectCard } from "./ProjectCard";
 import SpinnerLoader from "./SpinnerLoader";
 import AddProjectButton from "./AddProjectButton";
+import WelcomeNewUser  from './WelcomeNewUser';
 
 const Admin = ({ history }: RouteComponentProps<any>) => {
   const [usuario, setUsuario] = useState<any | null>(null);
@@ -19,13 +20,13 @@ const Admin = ({ history }: RouteComponentProps<any>) => {
     const userprojects: any = await db
       .collection("projects")
       .where("userId", "==", userId)
+      .orderBy("creationDate", "desc")
       .get();
     const userprojectsData = await userprojects.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data(),
     }));
     setIsLoaderVisible(false);
-    console.log(userprojectsData);
     setProjects(userprojectsData);
   };
 
@@ -52,9 +53,10 @@ const Admin = ({ history }: RouteComponentProps<any>) => {
             </div>
           </div>
           <div className="row justify-content-between align-items-center bg-transparent">
-            {projects.map((item: any, index: number) => (
+            {projects.length !== 0 ? projects.map((item: any, index: number) => (
               <ProjectCard data={item} key={index} />
-            ))}
+            )) : <WelcomeNewUser/>}
+            
             <AddProjectButton />
           </div>
         </>

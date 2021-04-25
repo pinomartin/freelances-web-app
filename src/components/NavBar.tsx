@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
 import { auth } from "../firebase";
 import MainLogo from "../assets/mainLogoTransparent.svg";
+import DefaultProfilePhoto from "../assets/defaultProfilePhoto.png";
 
 interface IProps extends RouteComponentProps<any> {
   firebaseUserActive: {
@@ -34,7 +35,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   aria-expanded="false"
                 >
                   
-                  {firebaseUserActive.photoURL ? (<img src={firebaseUserActive.photoURL} className="img-rounded" alt="userProfilePhoto" width="25px"></img>) : 'Menu'}
+                  {firebaseUserActive.photoURL ? (<img src={firebaseUserActive.photoURL} className="img-rounded" alt="userProfilePhoto" width="25px"></img>) : <img src={DefaultProfilePhoto} className="img-rounded" alt="userProfilePhoto" width="25px"></img>}
                 </button>
                 <div
                   className="dropdown-menu dropdown-menu-right bg-dark"
@@ -43,7 +44,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   <NavLink className="dropdown-item bg-dark text-white" to="/admin" exact>
                   💼 Mis Proyectos
                   </NavLink>
-                  <NavLink className="dropdown-item bg-dark" to="">
+                  <NavLink className="dropdown-item bg-dark text-white" to="/profile">
                   👥 Perfil
                   </NavLink>
                   <button

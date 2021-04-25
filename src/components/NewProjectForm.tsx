@@ -15,7 +15,8 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
       amountXHour: number,
       estimatedHours: number,
       estimatedTotal: number,
-      creationDate: string
+      estimatedFinishDate?: string
+      creationDate: number,
   }
 
   const [project, setProject] = useState({
@@ -25,7 +26,8 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
     amountXHour: 0,
     estimatedHours: 0,
     estimatedTotal: 0,
-    creationDate: new Date().toDateString()
+    estimatedFinishDate: '',
+    creationDate: Date.now()
   });
   const [error, setError] = useState("");
   
@@ -65,7 +67,8 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
         amountXHour: project.amountXHour,
         estimatedHours: project.estimatedHours,
         estimatedTotal: project.estimatedTotal,
-        creationDate: project.creationDate,
+        estimatedFinishDate: project.estimatedFinishDate,
+        creationDate: Date.now(),
         isDone: false
       });
       history.push("/admin");
@@ -78,8 +81,9 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
     <>
       <div className="mt-5">
         <h3 className="text-center">
-          Proyecto {<small className="primaryFontColor">{project.name}</small>}
+          Proyecto 
         </h3>
+        <span className="primaryFontColor text-center d-block">{project.name}</span>
         <hr />
         <div className="row justify-content-center">
           <div className="col-12 col-sm-8 col-md-6 col-xl-3">
@@ -171,8 +175,8 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
                   step="0.10"
                   data-number-to-fixed="2"
                   data-number-stepfactor="100"
-                  onChange={(e: any) => setProject({...project, creationDate: e.target.value})}
-                  value={project.creationDate}
+                  onChange={(e: any) => setProject({...project, estimatedFinishDate: e.target.value})}
+                  value={project.estimatedFinishDate}
                 />
               </div>
 

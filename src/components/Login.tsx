@@ -3,11 +3,11 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { auth, db, provider } from "../firebase";
 import GoogleLoginIcon from "../assets/googleLoginIcon.svg";
 
-interface IProps extends RouteComponentProps<any> {
+interface LoginProps extends RouteComponentProps<any> {
   firebaseUserActive?: object;
 }
 
-const Login = ({ history, firebaseUserActive }: IProps) => {
+const Login = ({ history, firebaseUserActive }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
@@ -104,7 +104,7 @@ const Login = ({ history, firebaseUserActive }: IProps) => {
         userName: userName,
         email: response.user.email,
         uid: response.user.uid,
-        profilePhotoURL: "",
+        profilePhotoURL: "https://firebasestorage.googleapis.com/v0/b/freelances-app.appspot.com/o/defaultProfilePhoto.png?alt=media&token=e99ffccf-b9bd-41c8-b55a-92e2a0103dea",
       });
       //Reset de los campos del formulario
       setEmail("");

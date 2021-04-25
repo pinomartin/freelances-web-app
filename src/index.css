@@ -6,8 +6,9 @@
   --primary-color-hover: #7bf0ec;
   --secondary-color: #a47dff;
   --font--color: #F5F6F7;
-  --card--primary-color:#242526;
-  --card--hover-color:#425066;
+  --card--primary-color:#2B3566;
+  --card--hover-color:#50306e;
+  --boxShadow--boder-color: #000000;
 }
 
 body {
@@ -15,12 +16,16 @@ body {
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #282C34;
+  background-color: #0E1431;
   color: white;
 }
 
 .primaryFontColor{
   color: var(--primary-color);
+}
+
+.secondaryFontColor{
+  color: var(--secondary-color);
 }
 
 .NavBar__navBarBrand{
@@ -40,18 +45,34 @@ body {
   padding: 0;
 }
 
+@keyframes spinerRotate{
+  from{  transform: rotate(
+    0deg
+    ) scale(0.5);}
+  to{  transform: rotate(
+    360deg
+    ) scale(.9);}
+}
+.spinnerLoader__rotate{
+    animation: spinerRotate 1s infinite;
+}
+
+
 .projectListItem__card {
   background-color: var(--card--primary-color);
   -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
   0 1px 1px 1px rgb(60 64 67 / 15%);
-  box-shadow: 0  1px 4px 0 var(--secondary-color), 0 1px 4px 1px var(--secondary-color);
+  box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
   color: var(--font--color);
   transition: all 50ms ease-in-out;
+  border-radius: 15px;
   cursor: pointer;
 }
 
 .projectListItem__card:hover{
   background-color:var(--card--hover-color);
+  /* box-shadow: 0  1px 4px 0 var(--primary-color), 0 1px 4px 1px var(--primary-color); */
+  transform: scale(1.01);
 }
 
 
@@ -92,6 +113,10 @@ body {
   .addProjectButton__icon{
     margin-top: 18px;
   }
+}
+
+.userProfileCard__container{
+  border-radius: 15px;
 }
 
 .currency {

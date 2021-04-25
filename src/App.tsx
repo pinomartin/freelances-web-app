@@ -6,15 +6,14 @@ import NavBar from "./components/NavBar";
 import Admin from "./components/Admin";
 import Home from "./components/Home";
 import NewProjectForm from "./components/NewProjectForm";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   const [firebaseUser, setFirebaseUser] = useState<any | null>(null);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      console.log(user);
       user !== null ? setFirebaseUser(user) : setFirebaseUser(null);
-      console.log(firebaseUser);
     });
   }, [firebaseUser]);
 
@@ -34,6 +33,9 @@ function App() {
           </Route>
           <Route path="/newproject">
             <NewProjectForm />
+          </Route>
+          <Route path="/profile">
+            <UserProfile />
           </Route>
         </Switch>
       </div>

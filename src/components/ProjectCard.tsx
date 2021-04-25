@@ -1,4 +1,5 @@
 import React from "react";
+import { format } from 'date-fns';
 
 type Props = {
   data: any;
@@ -22,7 +23,7 @@ export const ProjectCard = ({ data: projectData }: Props) => {
         <div className="card projectListItem__card" onClick={()=> {}}>
           <div className="card-body">
             <h5 className="card-title primaryFontColor">{name}</h5>
-            <h6 className="card-subtitle mb-2 text-muted">{creationDate}</h6>
+            <h6 className="card-subtitle mb-2 secondaryFontColor">{format(creationDate, 'dd/MM/yyyy HH:mm:ss')}</h6>
             <p className="card-text">
               {description}
             </p>
@@ -35,11 +36,11 @@ export const ProjectCard = ({ data: projectData }: Props) => {
             </small>
             <br/>
             <small>
-              Monto por Hora: {amountXHour}
+              Monto por Hora: $ {amountXHour}
             </small>
             <br/>
             <small>
-              Estimado Total: {estimatedTotal}
+              Estimado Total: $ {estimatedTotal}
             </small>
           </div>
         </div>
