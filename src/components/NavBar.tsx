@@ -41,7 +41,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   className="dropdown-menu dropdown-menu-right bg-dark"
                   aria-labelledby="dropdownMenuButton"
                 >
-                  <NavLink className="dropdown-item bg-dark text-white" to="/admin" exact>
+                  <NavLink className="dropdown-item bg-dark text-white" to="/projects" exact>
                   💼 Mis Proyectos
                   </NavLink>
                   <NavLink className="dropdown-item bg-dark text-white" to="/profile">

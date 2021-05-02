@@ -73,7 +73,7 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
         creationDate: Date.now(),
         isDone: false
       });
-      history.push("/admin");
+      history.push("/projects");
     } catch (error) {
       console.log('No se pudo guardar proyecto en DB');
     }
@@ -88,7 +88,7 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
         <span className="primaryFontColor text-center d-block">{project.name}</span>
         <hr />
         <div className="row justify-content-center">
-          <div className="col-12 col-sm-8 col-md-6 col-xl-3">
+          <div className="col-10 col-sm-8 col-md-6 col-xl-3">
             <form onSubmit={(e) => procesarData(e)}>
               {error && <div className="alert alert-danger">{error}</div>}
 

@@ -8,8 +8,8 @@ type Props = {
 export const ProjectCard = ({ data: projectData }: Props) => {
 
   const {
+    id,
     name,
-    // userId ,
     client ,
     description,
     amountXHour,
@@ -40,7 +40,11 @@ export const ProjectCard = ({ data: projectData }: Props) => {
             </small>
             <br/>
             <small>
-              Estimado Total: $ {estimatedTotal}
+              Estimado Total: <span className="successFontColor">$ {estimatedTotal}</span>
+            </small>
+            <br/>
+            <small>
+              ID: <span className="successFontColor">{id}</span>
             </small>
           </div>
         </div>

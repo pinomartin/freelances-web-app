@@ -6,7 +6,7 @@ import SpinnerLoader from "./SpinnerLoader";
 import AddProjectButton from "./AddProjectButton";
 import WelcomeNewUser  from './WelcomeNewUser';
 
-const Admin = ({ history }: RouteComponentProps<any>) => {
+const ProjectsList = ({ history }: RouteComponentProps<any>) => {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [projects, setProjects] = useState<any>([]);
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
@@ -65,4 +65,4 @@ const Admin = ({ history }: RouteComponentProps<any>) => {
   );
 };
 
-export default withRouter(Admin);
+export default withRouter(ProjectsList);

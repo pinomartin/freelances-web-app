@@ -1,54 +1,71 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { auth } from "../firebase";
-import { getUserFromDB } from "../firebaseUtils/getFirestoreData";
+import { getUserFromDB, getProjectsFromUser } from "../firebaseUtils/getFirestoreData";
 import SpinnerLoader from "./SpinnerLoader";
 
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
   const [user, setUser] = useState<any>({});
+  const [userProjects, setUserProjects] = useState<any>({});
 
   useEffect(() => {
     if (auth.currentUser) {
       getUserFromDB(auth.currentUser?.email).then((user) => setUser(user));
+      getProjectsFromUser(auth.currentUser?.email).then((project) => setUserProjects(getStateOfProjects(project)));
     } else {
       history.push("/login");
     }
   }, [history]);
 
+
+  const getStateOfProjects = (projects:any) => {
+    const activeProjects =  projects.filter((item:any) => item.isDone === false);
+    const numberActiveProjects = activeProjects.length;
+    const doneProjects =  projects.filter((item:any) => item.isDone !== false);
+    const numberDoneProjects = doneProjects.length;
+    const totalProjects = numberActiveProjects + numberDoneProjects;
+    
+    return {
+      numberActiveProjects, numberDoneProjects, totalProjects
+    }
+    
+  };
+
   return user.profilePhotoURL? (
     <div className="row justify-content-center align-content-center mt-5">
-      <div className="col-9 col-md-6 col-lg-4 userProfileCard__container">
+      <div className="col-10 col-md-6 col-lg-4 userProfileCard__headerContainer">
         <div className="row justify-content-center m-2">
           <img
             src={user.profilePhotoURL}
             alt=""
             className="userProfileCard__image"
             width="100px"
-            onClick={() => {}}
+            onClick={() => {console.log('gola');}}
           />
         </div>
         <div className="row justify-content-center">
-          <p className="p-0 m-0">{user.userName}</p>
+          <p className="p-0 m-2 userProfileCard__userName">{user.userName}</p>
         </div>
         <div className="row justify-content-center">
-          <small>{user.email}</small>
+          <small className="userProfileCard__userEmail">{user.email}</small>
         </div>
-        <div className="row justify-content-center mt-2 bg-dark">
+        <hr/>
+        <div className="row justify-content-center mt-2 ">
           <div className="col-12 text-center">
             <p className="lead">Proyectos</p>
           </div>
-          <div className="col-4 text-center">
+          <div className="col-4 text-center successFontColor">
             <p>Activos</p>
-            <p>0</p>
+            <p className="userProfileCard__projectsNumbers">{userProjects.numberActiveProjects}</p>
           </div>
-          <div className="col-4 text-center">
+          <div className="col-4 text-center secondaryFontColor">
             <p>Terminados</p>
-            <p>0</p>
+            <p className="userProfileCard__projectsNumbers">{userProjects.numberDoneProjects}</p>
           </div>
-          <div className="col-4 text-center">
+          <div className="col-4 text-center primaryFontColor">
             <p>Totales</p>
-            <p>0</p>
-          </div>
+            <p className="userProfileCard__projectsNumbers">{userProjects.totalProjects}</p>
+          </div> 
         </div>
       </div>
     </div>

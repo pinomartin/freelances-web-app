@@ -16,7 +16,7 @@ const Login = ({ history, firebaseUserActive }: LoginProps) => {
 
   useEffect(() => {
     if (firebaseUserActive && auth.currentUser) {
-      history.push("/admin");
+      history.push("/projects");
     } else {
       history.push("/login");
     }
@@ -55,7 +55,7 @@ const Login = ({ history, firebaseUserActive }: LoginProps) => {
       setPassword("");
       setError("");
 
-      history.push("/admin"); //Lo mandamos al Admin al loggearse
+      history.push("/projects"); //Lo mandamos al Admin al loggearse
     } catch (error) {
       console.log(error);
       if (error.code === "auth/invalid-email") {
@@ -86,7 +86,7 @@ const Login = ({ history, firebaseUserActive }: LoginProps) => {
           profilePhotoURL: resp.user.photoURL,
         });
       }
-      history.push("/admin");
+      history.push("/projects");
     } catch (error) {
       error.code === "auth/popup-closed-by-user" &&
         setError("Cerraste el popUp de Google");
@@ -111,7 +111,7 @@ const Login = ({ history, firebaseUserActive }: LoginProps) => {
       setPassword("");
       setError("");
 
-      history.push("/admin");
+      history.push("/projects");
     } catch (error) {
       console.log(error);
       if (error.code === "auth/invalid-email") {

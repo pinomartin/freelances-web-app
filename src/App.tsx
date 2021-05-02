@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { auth } from "./firebase";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
-import Admin from "./components/Admin";
+import ProjectsList from "./components/ProjectsList";
 import Home from "./components/Home";
 import NewProjectForm from "./components/NewProjectForm";
 import UserProfile from "./components/UserProfile";
@@ -28,8 +28,8 @@ function App() {
           <Route path="/login">
             <Login firebaseUserActive={firebaseUser} />
           </Route>
-          <Route path="/admin">
-            <Admin />
+          <Route path="/projects">
+            <ProjectsList />
           </Route>
           <Route path="/newproject">
             <NewProjectForm />
