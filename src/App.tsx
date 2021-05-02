@@ -7,6 +7,7 @@ import ProjectsList from "./components/ProjectsList";
 import Home from "./components/Home";
 import NewProjectForm from "./components/NewProjectForm";
 import UserProfile from "./components/UserProfile";
+import ProjectScreen from "./components/ProjectScreen";
 
 function App() {
   const [firebaseUser, setFirebaseUser] = useState<any | null>(null);
@@ -34,6 +35,7 @@ function App() {
           <Route path="/newproject">
             <NewProjectForm />
           </Route>
+          <Route path="/projects/:id" component={ProjectScreen} />
           <Route path="/profile">
             <UserProfile />
           </Route>

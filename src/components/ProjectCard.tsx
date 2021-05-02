@@ -1,11 +1,12 @@
 import React from "react";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { format } from 'date-fns';
 
-type Props = {
+interface Props extends RouteComponentProps<any>{
   data: any;
 };
 
-export const ProjectCard = ({ data: projectData }: Props) => {
+const ProjectCard = ({ data: projectData, history }: Props) => {
 
   const {
     id,
@@ -20,8 +21,8 @@ export const ProjectCard = ({ data: projectData }: Props) => {
   return (
     <>
       <div className="col-12 col-sm-6 col-lg-4 mb-3 mt-3">
-        <div className="card projectListItem__card" onClick={()=> {}}>
-          <div className="card-body">
+        <div className="card projectListItem__card">
+          <div className="card-body">            
             <h5 className="card-title primaryFontColor">{name}</h5>
             <h6 className="card-subtitle mb-2 secondaryFontColor">{format(creationDate, 'dd/MM/yyyy HH:mm:ss')}</h6>
             <p className="card-text">
@@ -44,7 +45,9 @@ export const ProjectCard = ({ data: projectData }: Props) => {
             </small>
             <br/>
             <small>
+            <Link to={`/projects/${id}`}>
               ID: <span className="successFontColor">{id}</span>
+            </Link>
             </small>
           </div>
         </div>
@@ -52,3 +55,5 @@ export const ProjectCard = ({ data: projectData }: Props) => {
     </>
   );
 };
+
+export default withRouter (ProjectCard);

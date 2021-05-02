@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { ProjectCard } from "./ProjectCard";
+import  ProjectCard  from "./ProjectCard";
 import SpinnerLoader from "./SpinnerLoader";
 import AddProjectButton from "./AddProjectButton";
 import WelcomeNewUser  from './WelcomeNewUser';
