@@ -37,7 +37,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
         <div className="row justify-content-center m-2">
           <img
             src={user.profilePhotoURL}
-            alt=""
+            alt="Foto de Perfil de usuario"
             className="userProfileCard__image"
             width="100px"
             onClick={() => {console.log('gola');}}
@@ -52,13 +52,13 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
         <hr/>
         <div className="row justify-content-center mt-2 ">
           <div className="col-12 text-center">
-            <p className="lead">Proyectos</p>
+            <p className="">Proyectos</p>
           </div>
           <div className="col-4 text-center successFontColor">
             <p>Activos</p>
             <p className="userProfileCard__projectsNumbers">{userProjects.numberActiveProjects}</p>
           </div>
-          <div className="col-4 text-center secondaryFontColor">
+          <div className="col-4 text-center userProfileCard__userEmail">
             <p>Terminados</p>
             <p className="userProfileCard__projectsNumbers">{userProjects.numberDoneProjects}</p>
           </div>

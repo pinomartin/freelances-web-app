@@ -10,7 +10,7 @@
   --card--hover-color:#50306e;
   --boxShadow--boder-color: #000000;
   --success-color: #5AE277;
-  --error-color: #E71A27;
+  --error-color: #E91E63;
   --disabled-color:#92ABCF;
 }
 
@@ -136,6 +136,7 @@ body {
 .userProfileCard__image{
   width: 100px;
   border-radius:50px;
+  border: 7px double var(--primary-color); 
 }
 
 .userProfileCard__userName{

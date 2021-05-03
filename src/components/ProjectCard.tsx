@@ -45,8 +45,8 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
             </small>
             <br/>
             <small>
-            <Link to={`/projects/${id}`}>
-              ID: <span className="successFontColor">{id}</span>
+            <Link to={`/projects/${id}`} className="btn btn-info float-right">
+              <span className="">Ver Mas...</span>
             </Link>
             </small>
           </div>

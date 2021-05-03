@@ -29,13 +29,13 @@ function App() {
           <Route path="/login">
             <Login firebaseUserActive={firebaseUser} />
           </Route>
+          <Route path="/projects/:id" children={ProjectScreen} />
           <Route path="/projects">
             <ProjectsList />
           </Route>
           <Route path="/newproject">
             <NewProjectForm />
           </Route>
-          <Route path="/projects/:id" component={ProjectScreen} />
           <Route path="/profile">
             <UserProfile />
           </Route>
