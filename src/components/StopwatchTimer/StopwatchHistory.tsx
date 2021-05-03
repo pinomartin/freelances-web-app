@@ -19,18 +19,16 @@ const StopwatchHistory = (props: any) => {
     if (localStorage.times) {
       localStorage.times =
         `${Date().toString()} :: ${props.formatTime(
+          props.currentTimeHour
+        )}:${props.formatTime(
           props.currentTimeMin
-        )}:${props.formatTime(props.currentTimeSec)}:${props.formatTime(
-          props.currentTimeMs,
-          "ms"
-        )}|` + localStorage.times;
+        )}:${props.formatTime(props.currentTimeSec)}|` + localStorage.times;
     } else {
       localStorage.times = `${Date().toString()} :: ${props.formatTime(
+        props.currentTimeHour
+      )}:${props.formatTime(
         props.currentTimeMin
-      )}:${props.formatTime(props.currentTimeSec)}:${props.formatTime(
-        props.currentTimeMs,
-        "ms"
-      )}|`;
+      )}:${props.formatTime(props.currentTimeSec)}|`;
     }
   };
 
@@ -52,7 +50,7 @@ const StopwatchHistory = (props: any) => {
 
   return (
     <div className={"stopwatch__history"}>
-      <button onClick={saveTime}>SAVE TIME</button>
+      <button onClick={saveTime}><i className="far fa-save"></i></button>
       <button onClick={resetHistory}>RESET HISTORY</button>
       <h3>History</h3>
       <ul>

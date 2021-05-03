@@ -6,20 +6,20 @@ import useInterval from "../../hooks/useInterval";
 const Stopwatch = () => {
 
   const [stopwatchValues, setStopwatchValues] = useState({
-    currentTimeMs: 0,
+    // currentTimeMs: 0,
     currentTimeSec: 0,
     currentTimeMin: 0,
     currentTimeHour:0,
   });
 
-  const [currentTimeMs, setCurrentTimeMs] = useState(0);
+  // const [currentTimeMs, setCurrentTimeMs] = useState(0);
   const [currentTimeSec, setCurrentTimeSec] = useState(0);
   const [currentTimeMin, setCurrentTimeMin] = useState(0);
   const [currentTimeHour, setCurrentTimeHour] = useState(0);
 
   const [isRunning, setIsRunning] = useState(false);
 
-  useInterval(()=> pace(), isRunning ? 10 : null);
+  useInterval(()=> pace(), isRunning ? 1000 : null);
 
 
   const formatTime = ((val:any, ...rest:any) => {
@@ -35,16 +35,16 @@ const Stopwatch = () => {
 
   
   const pace = () => {
-    setCurrentTimeMs(currentTimeMs + 10);
-    if (currentTimeMs >= 1000) {
-        setCurrentTimeSec(currentTimeSec + 1);
-        setCurrentTimeMs(0);
-    }
-    if (currentTimeSec >= 60) {
+    setCurrentTimeSec(currentTimeSec + 1);
+    // setCurrentTimeMs(currentTimeMs + 10);
+    // if (currentTimeMs >= 1000) {
+        // setCurrentTimeMs(0);
+    // }
+    if (currentTimeSec === 60) {
         setCurrentTimeMin(currentTimeMin + 1);
         setCurrentTimeSec(0);
     }
-    if (currentTimeHour >= 60){
+    if (currentTimeMin === 60){
         setCurrentTimeHour(currentTimeHour + 1);
         setCurrentTimeMin(0);
     } 
@@ -55,7 +55,7 @@ const Stopwatch = () => {
   const start = () => {
     if (!isRunning) {
         setIsRunning(true);
-        setCurrentTimeMs(currentTimeMs);
+        // setCurrentTimeMs(currentTimeMs);
         setCurrentTimeSec(currentTimeSec);
         setCurrentTimeMin(currentTimeMin);
         setCurrentTimeHour(currentTimeHour);
@@ -68,7 +68,7 @@ const Stopwatch = () => {
   };
 
   const reset = () => {
-    setCurrentTimeMs(0);
+    // setCurrentTimeMs(0);
     setCurrentTimeSec(0);
     setCurrentTimeMin(0);
     setCurrentTimeHour(0);
@@ -79,21 +79,25 @@ const Stopwatch = () => {
     <div className={"stopwatch"}>
       <h2>Timer</h2>
       {isRunning === false && (
-        <button onClick={() => start()}>Comenzar!</button>
+        <button onClick={() => start()}><i className="far fa-play-circle"></i></button>
       )}
       {isRunning === true && (
-        <button onClick={() => stop()}>Pausar</button>
+        <button onClick={() => stop()}><i className="far fa-pause-circle"></i></button>
       )}
-      <button onClick={() => reset()}>RESET</button>
+      <button onClick={() => reset()}><i className="fas fa-sync-alt"></i></button>
       <StopwatchDisplay
-        currentTimeMs={currentTimeMs}
-        currentTimeMin={currentTimeMin}
+        // currentTimeMs={currentTimeMs}
         currentTimeSec={currentTimeSec}
+        currentTimeMin={currentTimeMin}
+        currentTimeHour={currentTimeHour}
         formatTime={formatTime}
       />
-      <StopwatchHistory  currentTimeMs={currentTimeMs}
+      <StopwatchHistory  
+        // currentTimeMs={currentTimeMs}
+        currentTimeSec={currentTimeSec}
         currentTimeMin={currentTimeMin}
-        currentTimeSec={currentTimeSec} formatTime={formatTime} />
+        currentTimeHour={currentTimeHour}
+        formatTime={formatTime} />
     </div>
   );
 
