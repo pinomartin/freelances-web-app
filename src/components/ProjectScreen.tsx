@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, withRouter } from "react-router-dom";
-// import { getProjectsFromUser } from '../firebaseUtils/getFirestoreData';
+import { getProjectByID } from '../firebaseUtils/getFirestoreData';
 import Stopwatch from "./StopwatchTimer/Stopwatch";
 
 // interface ProjectDetailProps {
@@ -14,13 +14,16 @@ interface URLParamsProps {
 const ProjectScreen = () => {
   let { id } = useParams<URLParamsProps>();
 
-  useEffect(() => {
+  const [projectData, setProjectData] = useState<any>({});
+  console.log(projectData);
 
-  }, [])
+  useEffect(() => {
+    getProjectByID(id).then(project=> setProjectData(project));
+  }, [id])
 
   return (
     <div>
-      <h4 className="text-white">Hola Soy id {id}</h4>
+      <h4 className="text-white">{projectData?.name}</h4> {/*REVISAR ESTO !!!!*/ }
 
       <div className="row mt-5">
         <div className="col-12 col-md-4">

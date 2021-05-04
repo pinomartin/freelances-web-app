@@ -40,11 +40,11 @@ const Stopwatch = () => {
     // if (currentTimeMs >= 1000) {
         // setCurrentTimeMs(0);
     // }
-    if (currentTimeSec === 60) {
+    if (currentTimeSec >= 59) {
         setCurrentTimeMin(currentTimeMin + 1);
         setCurrentTimeSec(0);
     }
-    if (currentTimeMin === 60){
+    if (currentTimeMin >= 60){
         setCurrentTimeHour(currentTimeHour + 1);
         setCurrentTimeMin(0);
     } 

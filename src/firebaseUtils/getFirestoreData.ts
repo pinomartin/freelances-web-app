@@ -19,4 +19,13 @@ const getProjectsFromUser = async (userId: string | any) => {
   return userprojectsData;
 };
 
-export { getUserFromDB, getProjectsFromUser };
+const getProjectByID = async (projectID: string | any) => {
+  const projectFromDB: any = await db
+    .collection("projects")
+    .doc(projectID)
+    .get();
+  const singleProject = await projectFromDB.data();
+  return singleProject;
+};
+
+export { getUserFromDB, getProjectsFromUser, getProjectByID };
