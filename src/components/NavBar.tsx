@@ -7,10 +7,12 @@ import DefaultProfilePhoto from "../assets/defaultProfilePhoto.png";
 interface IProps extends RouteComponentProps<any> {
   firebaseUserActive: {
     photoURL:string;
+    displayName:string;
   };
 }
 
 const NavBar = ({ firebaseUserActive, history }: IProps) => {
+  console.log(firebaseUserActive);
   const cerrarSesion = () => {
     auth.signOut().then(() => {
       history.push("/login");
@@ -34,7 +36,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  
+                  {firebaseUserActive.displayName ? (<small className="m-2">{firebaseUserActive.displayName}</small>) : null}
                   {firebaseUserActive.photoURL ? (<img src={firebaseUserActive.photoURL} className="img-rounded" alt="userProfilePhoto" width="25px"></img>) : <img src={DefaultProfilePhoto} className="img-rounded" alt="userProfilePhoto" width="25px"></img>}
                 </button>
                 <div

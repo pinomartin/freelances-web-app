@@ -23,6 +23,10 @@ body {
   color: white;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .primaryFontColor{
   color: var(--primary-color);
 }
@@ -83,9 +87,9 @@ body {
 }
 
 .projectListItem__card:hover{
-  background-color:var(--card--hover-color);
-  /* box-shadow: 0  1px 4px 0 var(--primary-color), 0 1px 4px 1px var(--primary-color); */
-  transform: scale(1.01);
+  /* background-color:var(--card--hover-color); */
+  box-shadow: 0  0px 8px 0 var(--secondary-color), 0 0px 8px 0px var(--primary-color);
+  
 }
 
 
@@ -160,4 +164,37 @@ body {
 .currency {
   text-align: left;
   padding-right: 15px;
+}
+
+
+.sidebar-container {
+  min-height: 100vh;
+  background-color: var(-);
+}
+
+.sidebar-container .logo{
+  padding: 0.875rem 1.25rem;
+}
+
+.sidebar-container .menu {
+  width: 15rem;
+}
+
+.sidebar-container .menu button{
+  color: var(--primary-color);
+  background-color: transparent;
+  text-align: left;
+}
+
+.menu button:hover{
+  background-color: var(--card--hover-color);
+}
+
+@media (max-width: 768px) {
+  .sidebar-container {
+    display: none;
+  }
+  .stat {
+      border: 0;
+  }
 }

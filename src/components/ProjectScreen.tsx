@@ -23,10 +23,33 @@ const ProjectScreen = () => {
 
   return (
     <div>
-      <h4 className="text-white">{projectData?.name}</h4> {/*REVISAR ESTO !!!!*/ }
+      {/*  {/*REVISAR ESTO !!!!*/ } 
 
-      <div className="row mt-5">
-        <div className="col-12 col-md-4">
+      <div className="d-flex p-0">
+
+      <div className="sidebar-container">
+            
+            <div className="menu mt-2">
+                <button className="d-block btn-block  p-3 border-0"><i className="icon ion-md-apps lead mr-2"></i>
+                    Tablero</button>
+
+                <button className="d-block btn-block p-3 border-0"><i className="icon ion-md-people lead mr-2"></i>
+                    Usuarios</button>
+
+                <button  className="d-block btn-block p-3 border-0"><i className="icon ion-md-stats lead mr-2"></i>
+                    Estadísticas</button>
+                <button className="d-block btn-block p-3 border-0"><i className="icon ion-md-person lead mr-2"></i>
+                    Perfil</button>
+                <button className="d-block btn-block p-3 border-0"> <i className="icon ion-md-settings lead mr-2"></i>
+                    Configuración</button>
+            </div>
+        </div>
+      <div className="w-100">
+      <div className="row m-0">
+        <div className="col-12">
+        <h4 className="text-white"><small>Proyecto</small> {projectData?.name}</h4>
+        </div>
+        <div className="col-12 col-md-4 p-0">
         <h3 className="text-center">Tiempos</h3>
           <div className="accordion" id="accordionExample">
             <div className="card bg-dark">
@@ -97,11 +120,14 @@ const ProjectScreen = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-8">
+        <div className="col-12 col-md-4">
         {/* <h3 className="text-center">Tiempos</h3> */}
                 <Stopwatch />
         </div>
       </div>
+      </div>
+      </div>
+
     </div>
   );
 };

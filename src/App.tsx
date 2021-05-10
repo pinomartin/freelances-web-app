@@ -21,7 +21,7 @@ function App() {
   return (
     <Router>
       <NavBar firebaseUserActive={firebaseUser} />
-      <div className="container-fluid">
+      <div className="container-fluid p-0">
         <Switch>
           <Route path="/" exact>
             <Home />
