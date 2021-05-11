@@ -77,7 +77,7 @@ const Stopwatch = () => {
 
   return (
     <div className={"stopwatch"}>
-      <h2>Timer</h2>
+      <h2>Contador Tiempos</h2>
       {isRunning === false && (
         <button onClick={() => start()}><i className="far fa-play-circle"></i></button>
       )}

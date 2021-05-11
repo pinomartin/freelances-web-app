@@ -51,8 +51,8 @@ const StopwatchHistory = (props: any) => {
   return (
     <div className={"stopwatch__history"}>
       <button onClick={saveTime}><i className="far fa-save"></i></button>
-      <button onClick={resetHistory}>RESET HISTORY</button>
-      <h3>History</h3>
+      <button onClick={resetHistory}>Resetear Historial</button>
+      <h3>Historial</h3>
       <ul>
         {history.history.map((item, index) => (
           <li key={index}>{item}</li>

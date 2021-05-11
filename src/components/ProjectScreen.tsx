@@ -31,17 +31,11 @@ const ProjectScreen = () => {
             
             <div className="menu mt-2">
                 <button className="d-block btn-block  p-3 border-0"><i className="icon ion-md-apps lead mr-2"></i>
-                    Tablero</button>
-
+                    Proyecto</button>
                 <button className="d-block btn-block p-3 border-0"><i className="icon ion-md-people lead mr-2"></i>
-                    Usuarios</button>
-
+                    Tiempos</button>
                 <button  className="d-block btn-block p-3 border-0"><i className="icon ion-md-stats lead mr-2"></i>
-                    Estadísticas</button>
-                <button className="d-block btn-block p-3 border-0"><i className="icon ion-md-person lead mr-2"></i>
-                    Perfil</button>
-                <button className="d-block btn-block p-3 border-0"> <i className="icon ion-md-settings lead mr-2"></i>
-                    Configuración</button>
+                    Reportes</button>
             </div>
         </div>
       <div className="w-100">
@@ -121,7 +115,6 @@ const ProjectScreen = () => {
           </div>
         </div>
         <div className="col-12 col-md-4">
-        {/* <h3 className="text-center">Tiempos</h3> */}
                 <Stopwatch />
         </div>
       </div>

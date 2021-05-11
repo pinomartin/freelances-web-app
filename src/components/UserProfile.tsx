@@ -32,7 +32,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
   };
 
   return user.profilePhotoURL? (
-    <div className="row justify-content-center align-content-center mt-5">
+    <div className="row justify-content-center align-content-center mt-5 p-0 m-0">
       <div className="col-10 col-md-6 col-lg-4 userProfileCard__headerContainer">
         <div className="row justify-content-center m-2">
           <img
