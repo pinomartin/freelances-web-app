@@ -177,13 +177,15 @@ a:hover {
 }
 
 .sidebar-container .menu {
-  width: 15rem;
+  padding-top: 1rem;
+  width: 12rem;
 }
 
 .sidebar-container .menu button{
   color: var(--primary-color);
   background-color: transparent;
   text-align: left;
+  border-radius: 10px;
 }
 
 .menu button:hover{

@@ -43,7 +43,8 @@ const ProjectScreen = () => {
         <div className="col-12">
         <h4 className="text-white"><small>Proyecto</small> {projectData?.name}</h4>
         </div>
-        <div className="col-12 col-md-4 p-0">
+        <div className="row justify-content-center align-items-center"></div>
+        <div className="col-6 col-md-4 p-0">
         <h3 className="text-center">Tiempos</h3>
           <div className="accordion" id="accordionExample">
             <div className="card bg-dark">
@@ -85,33 +86,7 @@ const ProjectScreen = () => {
                 </div>
               </div>
             </div>
-            <div className="card">
-              <div className="card-header" id="headingTwo">
-                <h2 className="mb-0">
-                  <button
-                    className="btn btn-link btn-block text-left collapsed"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#collapseTwo"
-                    aria-expanded="false"
-                    aria-controls="collapseTwo"
-                  >
-                    Collapsible Group Item #2
-                  </button>
-                </h2>
-              </div>
-              <div
-                id="collapseTwo"
-                className="collapse"
-                aria-labelledby="headingTwo"
-                data-parent="#accordionExample"
-              >
-                <div className="card-body">
-                  Some placeholder content for the second accordion panel. This
-                  panel is hidden by default.
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
         <div className="col-12 col-md-4">

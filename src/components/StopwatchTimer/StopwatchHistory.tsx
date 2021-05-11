@@ -50,7 +50,7 @@ const StopwatchHistory = (props: any) => {
 
   return (
     <div className={"stopwatch__history"}>
-      <button onClick={saveTime}><i className="far fa-save"></i></button>
+      <button className="btn btn-info" onClick={saveTime}><i className="far fa-save"></i></button>
       <button onClick={resetHistory}>Resetear Historial</button>
       <h3>Historial</h3>
       <ul>
