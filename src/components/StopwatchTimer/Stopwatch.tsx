@@ -79,12 +79,12 @@ const Stopwatch = () => {
     <div className={"stopwatch"}>
       <h2>Contador Tiempos</h2>
       {isRunning === false && (
-        <button onClick={() => start()}><i className="far fa-play-circle"></i></button>
+        <button className="btn btn-success" onClick={() => start()}><i className="far fa-play-circle"></i></button>
       )}
       {isRunning === true && (
-        <button onClick={() => stop()}><i className="far fa-pause-circle"></i></button>
+        <button className="btn btn-danger" onClick={() => stop()}><i className="far fa-pause-circle"></i></button>
       )}
-      <button onClick={() => reset()}><i className="fas fa-sync-alt"></i></button>
+      <button className="btn btn-warning" onClick={() => reset()}><i className="fas fa-sync-alt"></i></button>
       <StopwatchDisplay
         // currentTimeMs={currentTimeMs}
         currentTimeSec={currentTimeSec}

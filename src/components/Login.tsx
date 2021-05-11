@@ -131,8 +131,8 @@ const Login = ({ history, firebaseUserActive }: LoginProps) => {
         {esRegistro ? "Registro de Usuarios" : "Inicio de Sesion"}
       </h3>
       <hr />
-      <div className="row justify-content-center">
-        <div className="col-12 col-sm-8 col-md-6 col-xl-3">
+      <div className="row justify-content-center m-0">
+        <div className="col-9 col-sm-8 col-md-6 col-xl-3">
           <form onSubmit={procesarData}>
             {error && <div className="alert alert-danger">{error}</div>}
             {esRegistro ? (

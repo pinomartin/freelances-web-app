@@ -29,12 +29,12 @@ const ProjectScreen = () => {
 
       <div className="sidebar-container">
             
-            <div className="menu mt-2">
-                <button className="d-block btn-block  p-3 border-0"><i className="icon ion-md-apps lead mr-2"></i>
+            <div className="menu">
+                <button className="d-block btn-block  p-3 border-0"><i className="far fa-paper-plane mr-2"></i>
                     Proyecto</button>
-                <button className="d-block btn-block p-3 border-0"><i className="icon ion-md-people lead mr-2"></i>
+                <button className="d-block btn-block p-3 border-0"><i className="far fa-clock mr-2"></i>
                     Tiempos</button>
-                <button  className="d-block btn-block p-3 border-0"><i className="icon ion-md-stats lead mr-2"></i>
+                <button  className="d-block btn-block p-3 border-0"><i className="far fa-chart-bar mr-2"></i>
                     Reportes</button>
             </div>
         </div>

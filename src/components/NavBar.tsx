@@ -36,7 +36,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  {firebaseUserActive.displayName ? (<small className="m-2">{firebaseUserActive.displayName}</small>) : null}
+                  {firebaseUserActive.displayName ? (<small className="m-2 primaryFontColor"><strong>{firebaseUserActive.displayName}</strong></small>) : null}
                   {firebaseUserActive.photoURL ? (<img src={firebaseUserActive.photoURL} className="img-rounded" alt="userProfilePhoto" width="25px"></img>) : <img src={DefaultProfilePhoto} className="img-rounded" alt="userProfilePhoto" width="25px"></img>}
                 </button>
                 <div

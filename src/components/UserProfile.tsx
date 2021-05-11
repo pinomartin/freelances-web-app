@@ -52,7 +52,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
         <hr/>
         <div className="row justify-content-center mt-2 ">
           <div className="col-12 text-center">
-            <p className="">Proyectos</p>
+            <p className=""><strong>Proyectos</strong></p>
           </div>
           <div className="col-4 text-center successFontColor">
             <p>Activos</p>
