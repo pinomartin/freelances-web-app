@@ -1,8 +1,21 @@
 import { useEffect, useState } from "react";
 import addNewTaskTime  from "../../firebaseUtils/setFirestoreData";
+import { TaskTime } from "../../interfaces/tasktime";
+
 
 const StopwatchHistory = (props: any) => {
   const [history, setHistory] = useState({ history: [] });
+  const [taskTime, setTaskTime] = useState<TaskTime>({
+    description: '',
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    isActive: true,
+    creationDate: 0,
+    projectUid: '',
+  });
+
+  const { formatTime, hours, minutes, seconds} = props;
 
   useEffect(() => {
     setHistoryState();
@@ -33,11 +46,16 @@ const StopwatchHistory = (props: any) => {
     }
   };
 
+  const addNewTaskTime =  () => {
+    
+
+  }
   
 
   const saveTime = () => {
     if (typeof Storage !== "undefined") {
       saveToLocalStorage();
+      addNewTaskTime()
     } else {
       console.error("local storage not supported");
     }
