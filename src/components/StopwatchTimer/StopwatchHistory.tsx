@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import addNewTaskTime  from "../../firebaseUtils/setFirestoreData";
 
 const StopwatchHistory = (props: any) => {
   const [history, setHistory] = useState({ history: [] });
@@ -31,6 +32,8 @@ const StopwatchHistory = (props: any) => {
       )}:${props.formatTime(props.currentTimeSec)}|`;
     }
   };
+
+  
 
   const saveTime = () => {
     if (typeof Storage !== "undefined") {
