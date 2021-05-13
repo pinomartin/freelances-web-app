@@ -30,11 +30,11 @@ const ProjectScreen = () => {
       <div className="sidebar-container">
             
             <div className="menu">
-                <button className="d-block btn-block  p-3 border-0"><i className="far fa-paper-plane mr-2"></i>
+                <button className="d-block btn-block  p-3 border-0"><i className="far fa-paper-plane mr-3"></i>
                     Proyecto</button>
-                <button className="d-block btn-block p-3 border-0"><i className="far fa-clock mr-2"></i>
+                <button className="d-block btn-block p-3 border-0"><i className="far fa-clock mr-3"></i>
                     Tiempos</button>
-                <button  className="d-block btn-block p-3 border-0"><i className="far fa-chart-bar mr-2"></i>
+                <button  className="d-block btn-block p-3 border-0"><i className="far fa-chart-bar mr-3"></i>
                     Reportes</button>
             </div>
         </div>
@@ -44,7 +44,7 @@ const ProjectScreen = () => {
         <h4 className="text-white"><small>Proyecto</small> {projectData?.name}</h4>
         </div>
         <div className="row justify-content-center align-items-center"></div>
-        <div className="col-6 col-md-4 p-0">
+        <div className="col-6 col-md-3 p-0">
         <h3 className="text-center">Tiempos</h3>
           <div className="accordion" id="accordionExample">
             <div className="card bg-dark">
@@ -89,8 +89,11 @@ const ProjectScreen = () => {
             
           </div>
         </div>
-        <div className="col-12 col-md-4">
+        <div className="col-12 col-md-3">
                 <Stopwatch />
+        </div>
+        <div className="col-12 col-md-3">
+               <h4>edicion datos</h4>
         </div>
       </div>
       </div>

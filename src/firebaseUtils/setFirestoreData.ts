@@ -1,29 +1,11 @@
 import { db } from "../firebase";
 
-interface ProjectType{
-    name: string;
-    client:string;
-    description: string;
-    amountXHour: number;
-    estimatedHours: number;
-    estimatedTotal: number;
-    estimatedFinishDate?: string;
-    creationDate: number;
-}
+import { ProjectType } from "../interfaces/project"
+import { TaskTime } from "../interfaces/tasktime"
 
-interface TaskTime {
-    description: string;
-    hours: number;
-    minutes: number;
-    seconds: number;
-    isActive: boolean;
-    creationDate: number;
-    projectUid: string;
-}
-
-const addNewProjectToDB = async (project:ProjectType) => {
+const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese any
     try {
-      setIsLoaderVisible(true);
+    //   setIsLoaderVisible(true);
       await db.collection("projects").add({
         userId: auth.currentUser?.email,
         name: project.name,
@@ -36,25 +18,29 @@ const addNewProjectToDB = async (project:ProjectType) => {
         creationDate: Date.now(),
         isDone: false
       });
-      history.push("/projects");
+    //   history.push("/projects");
     } catch (error) {
       console.log('No se pudo guardar proyecto en DB');
     }
   }
 
-  const addNewTaskTime = async (task:TaskTime, projectUID: string) => {
+  const addNewTaskTimeToDB = async (task:TaskTime, projectUID: string, userUID: string) => {
     try {
       await db.collection("timetasks").add({
         description: task.description,
         hours: task.hours,
         minutes: task,
         seconds: task,
-        projectUid: projectUID,
+        projectUID: projectUID,
         creationDate: Date.now(),
-        isDone: false
+        isDone: false,
+        userUID: userUID
       });
     } catch (error) {
         console.log('No se puede guardar tarea en DB');
     }
   }
+
+  export default { addNewTaskTimeToDB }
+
 

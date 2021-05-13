@@ -6,4 +6,5 @@ export interface TaskTime {
     isActive: boolean;
     creationDate: number;
     projectUid: string;
+    clientUID: string;
 }

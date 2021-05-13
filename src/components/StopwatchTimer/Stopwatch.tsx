@@ -44,7 +44,7 @@ const Stopwatch = () => {
         setCurrentTimeMin(currentTimeMin + 1);
         setCurrentTimeSec(0);
     }
-    if (currentTimeMin >= 60){
+    if (currentTimeMin >= 59){
         setCurrentTimeHour(currentTimeHour + 1);
         setCurrentTimeMin(0);
     } 
@@ -78,13 +78,6 @@ const Stopwatch = () => {
   return (
     <div className={"stopwatch"}>
       <h2>Contador Tiempos</h2>
-      {isRunning === false && (
-        <button className="btn btn-success" onClick={() => start()}><i className="far fa-play-circle"></i></button>
-      )}
-      {isRunning === true && (
-        <button className="btn btn-danger" onClick={() => stop()}><i className="far fa-pause-circle"></i></button>
-      )}
-      <button className="btn btn-warning" onClick={() => reset()}><i className="fas fa-sync-alt"></i></button>
       <StopwatchDisplay
         // currentTimeMs={currentTimeMs}
         currentTimeSec={currentTimeSec}
@@ -92,6 +85,13 @@ const Stopwatch = () => {
         currentTimeHour={currentTimeHour}
         formatTime={formatTime}
       />
+      {isRunning === false && (
+        <button className="btn btn-success" onClick={() => start()}><i className="far fa-play-circle"></i></button>
+      )}
+      {isRunning === true && (
+        <button className="btn btn-danger" onClick={() => stop()}><i className="far fa-pause-circle"></i></button>
+      )}
+      <button className="btn btn-warning" onClick={() => reset()}><i className="fas fa-sync-alt"></i></button>
       <StopwatchHistory  
         // currentTimeMs={currentTimeMs}
         currentTimeSec={currentTimeSec}

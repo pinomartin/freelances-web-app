@@ -67,6 +67,24 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
             <p className="userProfileCard__projectsNumbers">{userProjects.totalProjects}</p>
           </div> 
         </div>
+        <hr/>
+        <div className="row justify-content-center mt-2 ">
+          <div className="col-12 text-center">
+            <p className=""><strong>Tiempos Historicos</strong></p>
+          </div>
+          <div className="col-4 text-center successFontColor">
+            <p>Horas</p>
+            <p className="userProfileCard__projectsNumbers">{userProjects.numberActiveProjects}</p>
+          </div>
+          <div className="col-4 text-center userProfileCard__userEmail">
+            <p>Minutos</p>
+            <p className="userProfileCard__projectsNumbers">{userProjects.numberDoneProjects}</p>
+          </div>
+          <div className="col-4 text-center primaryFontColor">
+            <p>Segundos</p>
+            <p className="userProfileCard__projectsNumbers">{userProjects.totalProjects}</p>
+          </div> 
+        </div>
       </div>
     </div>
   ) : <SpinnerLoader />
