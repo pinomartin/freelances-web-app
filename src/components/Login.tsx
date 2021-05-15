@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { auth, db, provider } from "../firebase";
 import GoogleLoginIcon from "../assets/googleLoginIcon.svg";

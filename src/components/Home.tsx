@@ -1,4 +1,3 @@
-import React from "react";
 import MainLogo from "../assets/mainLogoTransparent.svg";
 
 const Home = () => {

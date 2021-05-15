@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import  ProjectCard  from "./ProjectCard";

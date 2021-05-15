@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-
+import  parse  from 'date-fns/parse';
 import { db, auth } from "../firebase";
 import SpinnerLoader from "./SpinnerLoader";
-
 
 const NewProjectForm = ({history}:RouteComponentProps<any>) => {
  
   interface ProjectType{
-      name: string,
-      client:string,
-      description: string,
-      amountXHour: number,
-      estimatedHours: number,
-      estimatedTotal: number,
-      estimatedFinishDate?: string
-      creationDate: number,
+      name: string;
+      client:string;
+      description: string;
+      amountXHour: number;
+      estimatedHours: number;
+      estimatedTotal: number;
+      estimatedFinishDate?: any;
+      creationDate: number;
   }
 
   const [project, setProject] = useState({
@@ -25,12 +24,18 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
     amountXHour: 0,
     estimatedHours: 0,
     estimatedTotal: 0,
-    estimatedFinishDate: '',
+    estimatedFinishDate: 0,
     creationDate: Date.now()
   });
   const [error, setError] = useState("");
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
 
+  const finishDateProcessor = (dateFromInput:string) => {
+    const parsedDate = parse(dateFromInput, 'yyyy-MM-dd', new Date()).getTime();
+    return parsedDate;
+  }
+
+ 
   
   const procesarData = (e: any) => {
     e.preventDefault();
@@ -55,7 +60,6 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
     if (!auth.currentUser) {
       history.push("/login");
     }
-    
   }, [history]);
 
   const addNewProjectToDB = async (project:ProjectType) => {
@@ -69,7 +73,7 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
         amountXHour: project.amountXHour,
         estimatedHours: project.estimatedHours,
         estimatedTotal: project.estimatedTotal,
-        estimatedFinishDate: project.estimatedFinishDate,
+        estimatedFinishDate: finishDateProcessor(`${project.estimatedFinishDate}`),
         creationDate: Date.now(),
         isDone: false
       });
@@ -158,7 +162,7 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
                   className="form-control form-control-sm mb-2 currency"
                   placeholder="Presupuesto Inicial"
                   min="0"
-                  step="0.10"
+                  step="10"
                   data-number-to-fixed="2"
                   data-number-stepfactor="100"
                   onChange={(e: any) => setProject({...project, estimatedTotal: e.target.value})}
@@ -177,7 +181,7 @@ const NewProjectForm = ({history}:RouteComponentProps<any>) => {
                   step="0.10"
                   data-number-to-fixed="2"
                   data-number-stepfactor="100"
-                  onChange={(e: any) => setProject({...project, estimatedFinishDate: e.target.value})}
+                  onChange={(e: any) => setProject({...project, estimatedFinishDate: e.target.value })}
                   value={project.estimatedFinishDate}
                 />
               </div>

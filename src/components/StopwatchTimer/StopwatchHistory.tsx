@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import addNewTaskTimeToDB  from "../../firebaseUtils/setFirestoreData";
+// import addNewTaskTimeToDB  from "../../firebaseUtils/setFirestoreData";
 import { TaskTime } from "../../interfaces/tasktime";
 
 
@@ -16,7 +16,8 @@ const StopwatchHistory = (props: any) => {
     clientUID: '',
   });
 
-  const { formatTime, currentTimeHour, currentTimeMin, currentTimeSec} = props;
+  console.log(taskTime);
+  // const { formatTime, currentTimeHour, currentTimeMin, currentTimeSec} = props;
 
   useEffect(() => {
     setHistoryState();
