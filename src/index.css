@@ -29,6 +29,29 @@ a:hover {
   text-decoration: none;
 }
 
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+
 .primaryFontColor{
   color: var(--primary-color);
 }
@@ -75,6 +98,31 @@ a:hover {
 .spinnerLoader__rotate{
     animation: spinerRotate 1s infinite;
 }
+
+/*------------Form Inputs */
+.customForm__input{
+  border: none;
+  border-bottom: 0.5px solid var(--primary-color);
+  color: var(--secondary-color);
+  background-color: transparent;
+  padding-left: 10px;
+}
+
+.customForm__input:focus{
+  border: none;
+  border-bottom: 2px solid var(--primary-color-hover);
+  color: var(--secondary-color);
+  background-color: transparent;
+  font-weight: 800;
+
+}
+
+.currency {
+  text-align: center;
+  padding-right: 15px;
+}
+
+
 /*-----*/
 /*----- PROJECT CARDS*/
 .projectListItem__card {
@@ -86,6 +134,7 @@ a:hover {
   transition: all 50ms ease-in-out;
   border-radius: 15px;
   cursor: pointer;
+  height: 320px;
 }
 
 .projectListItem__card:hover{
@@ -161,11 +210,6 @@ a:hover {
 .userProfileCard__projectsNumbers{
   font-size: 20px;
   font-weight: bold;
-}
-
-.currency {
-  text-align: left;
-  padding-right: 15px;
 }
 
 

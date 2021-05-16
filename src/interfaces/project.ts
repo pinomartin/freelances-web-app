@@ -1,11 +1,11 @@
-export interface ProjectType{
+export interface ProjectType {
     name: string;
-    client:string;
+    client: string;
     description: string;
+    type: string;
     amountXHour: number;
     estimatedHours: number;
     estimatedTotal: number;
-    estimatedFinishDate?: string;
+    estimatedFinishDate?: string | number;
     creationDate: number;
-}
-
+  }

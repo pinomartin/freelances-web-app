@@ -12,9 +12,11 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
     name,
     client ,
     description,
+    // type,
     amountXHour,
     estimatedHours ,
     estimatedTotal ,
+    estimatedFinishDate,
     creationDate } = projectData;
 
   return (
@@ -23,7 +25,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
         <div className="card projectListItem__card">
           <div className="card-body">            
             <h5 className="card-title primaryFontColor">{name}</h5>
-            <h6 className="card-subtitle mb-2 secondaryFontColor">{format(creationDate, 'dd/MM/yyyy HH:mm:ss')}</h6>
+            {/* <h6 className="card-subtitle mb-2 secondaryFontColor">{format(creationDate, 'dd/MM/yyyy')}</h6> */}
             <p className="card-text">
               {description}
             </p>
@@ -32,7 +34,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
             </small>
             <br/>
             <small>
-              Horas Estimadas: {estimatedHours}
+              Horas Estimadas: <span className="text-warning">{estimatedHours} hs.</span>
             </small>
             <br/>
             <small>
@@ -41,6 +43,14 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
             <br/>
             <small>
               Estimado Total: <span className="successFontColor">$ {estimatedTotal}</span>
+            </small>
+            <br/>
+            <small>
+              Fecha Entrega: <span className="successFontColor">{format(estimatedFinishDate, 'dd/MM/yyyy')}</span>
+            </small>
+            <br/>
+            <small>
+              Fecha Creación: <span className="secondaryFontColor">{format(creationDate, 'dd/MM/yyyy')}</span>
             </small>
             <br/>
             <small>

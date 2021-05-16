@@ -138,7 +138,7 @@ const Login = ({ history, firebaseUserActive }: LoginProps) => {
             {esRegistro ? (
               <input
                 type="text"
-                className="form-control form-control-sm mb-2"
+                className="form-control form-control-sm mb-2 customForm__input"
                 placeholder="Nombre de Usuario"
                 onChange={(e) => setUserName(e.target.value)}
                 value={userName}
@@ -147,7 +147,7 @@ const Login = ({ history, firebaseUserActive }: LoginProps) => {
 
             <input
               type="email"
-              className="form-control form-control-sm mb-2"
+              className="form-control form-control-sm mb-2 customForm__input"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
@@ -155,7 +155,7 @@ const Login = ({ history, firebaseUserActive }: LoginProps) => {
 
             <input
               type="password"
-              className="form-control form-control-sm mb-2"
+              className="form-control form-control-sm mb-3 customForm__input"
               placeholder="Contraseña"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -174,7 +174,7 @@ const Login = ({ history, firebaseUserActive }: LoginProps) => {
             </button>
           </form>
           <button
-            className="btn btn-outline-light btn-sm btn-block"
+            className="btn btn-outline-light btn-sm btn-block mt-5"
             onClick={loginWithGoogleAccount}
           >
             <img src={GoogleLoginIcon} alt="" />

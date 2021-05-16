@@ -72,18 +72,18 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
           <div className="col-12 text-center">
             <p className=""><strong>Tiempos Historicos</strong></p>
           </div>
+          <div className="row justify-content-center">
+
           <div className="col-4 text-center successFontColor">
-            <p>Horas</p>
-            <p className="userProfileCard__projectsNumbers">{userProjects.numberActiveProjects}</p>
+            <p className="userProfileCard__projectsNumbers">{userProjects.numberActiveProjects}hs</p>
           </div>
           <div className="col-4 text-center userProfileCard__userEmail">
-            <p>Minutos</p>
-            <p className="userProfileCard__projectsNumbers">{userProjects.numberDoneProjects}</p>
+            <p className="userProfileCard__projectsNumbers">{userProjects.numberDoneProjects}min</p>
           </div>
           <div className="col-4 text-center primaryFontColor">
-            <p>Segundos</p>
-            <p className="userProfileCard__projectsNumbers">{userProjects.totalProjects}</p>
+            <p className="userProfileCard__projectsNumbers">{userProjects.totalProjects}seg</p>
           </div> 
+          </div>
         </div>
       </div>
     </div>
