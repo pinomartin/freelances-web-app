@@ -12,7 +12,7 @@ const StopwatchHistory = (props: any) => {
     seconds: 0,
     isActive: true,
     creationDate: 0,
-    projectUid: '',
+    projectUID: '',
     clientUID: '',
   });
 
@@ -56,7 +56,7 @@ const StopwatchHistory = (props: any) => {
       seconds: 0,
       isActive: true,
       creationDate: 0,
-      projectUid: '',
+      projectUID: '',
       clientUID: '',
     })
 

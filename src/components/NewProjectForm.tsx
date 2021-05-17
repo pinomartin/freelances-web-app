@@ -21,11 +21,17 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
   const [error, setError] = useState("");
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
 
+
+
+
   useEffect(() => {
     if (!auth.currentUser) {
       history.push("/login");
     }
-    
+    estimatedTotalXHourSetter(project.amountXHour, project.estimatedHours);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history,project.amountXHour, project.estimatedHours]);
+
   const estimatedTotalXHourSetter = (amountXHour: number, estimatedHours: number) => {
     if (project.amountXHour !== 0 && project.estimatedHours !== 0) {
       const estimatedTotalXHour = Number(
@@ -38,9 +44,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
     }
   };
 
-  estimatedTotalXHourSetter(project.amountXHour, project.estimatedHours);
-
-  }, [history, project ,project.amountXHour, project.estimatedHours]);
+ 
 
   const finishDateProcessor = (dateFromInput: string) => {
     const parsedDate = parse(dateFromInput, "yyyy-MM-dd", new Date()).getTime();
@@ -115,7 +119,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
             type="number"
             className="form-control form-control-sm mb-2 customForm__input currency"
             min="0"
-            step="1"
+            step="0.01"
             data-number-to-fixed="2"
             data-number-stepfactor="100"
             onChange={(e: any) =>
