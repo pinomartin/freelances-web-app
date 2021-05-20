@@ -24,23 +24,24 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
     }
   }
 
-  const addNewTaskTimeToDB = async (task:TaskTime, projectUID: string, userUID: string) => {
+  const addNewTaskTimeToDB = async (task:TaskTime):Promise<any> => {
     try {
       await db.collection("timetasks").add({
         description: task.description,
         hours: task.hours,
-        minutes: task,
-        seconds: task,
-        projectUID: projectUID,
-        creationDate: Date.now(),
-        isDone: false,
-        userUID: userUID
+        minutes: task.minutes,
+        seconds: task.seconds,
+        projectUID: task.projectUID,
+        creationDate: task.creationDate,
+        isDone: task.isActive,
+        userUID: task.clientUID,
       });
     } catch (error) {
         console.log('No se puede guardar tarea en DB');
     }
   }
+ 
 
-  export default { addNewTaskTimeToDB }
+  export { addNewTaskTimeToDB }
 
 

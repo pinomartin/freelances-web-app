@@ -12,14 +12,14 @@ interface URLParamsProps {
 }
 
 const ProjectScreen = () => {
-  let { id } = useParams<URLParamsProps>();
+  let { id : projectUID } = useParams<URLParamsProps>();
 
   const [projectData, setProjectData] = useState<any>({});
   console.log(projectData);
 
   useEffect(() => {
-    getProjectByID(id).then(project=> setProjectData(project));
-  }, [id])
+    getProjectByID(projectUID).then(project=> setProjectData(project));
+  }, [projectUID])
 
   return (
     <div>
@@ -95,7 +95,7 @@ const ProjectScreen = () => {
           </div>
         </div>
         <div className="col-12 col-md-3">
-                <Stopwatch />
+                <Stopwatch projectUID={projectUID} clientUID={projectData?.userId}/>
         </div>
         <div className="col-12 col-md-3">
                <h4>edicion datos</h4>

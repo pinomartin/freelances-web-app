@@ -2,8 +2,10 @@ import { useState } from "react";
 import StopwatchDisplay from "./StopwatchDisplay";
 import StopwatchHistory from "./StopwatchHistory";
 import useInterval from "../../hooks/useInterval";
+import { StopwatchProps } from "../../interfaces/stopwatch";
 
-const Stopwatch = () => {
+
+const Stopwatch = ({projectUID, clientUID}:StopwatchProps) => {
 
   const [stopwatchValues, setStopwatchValues] = useState({
     // currentTimeMs: 0,
@@ -40,9 +42,9 @@ const Stopwatch = () => {
     // if (currentTimeMs >= 1000) {
         // setCurrentTimeMs(0);
     // }
-    if (currentTimeSec >= 59) {
-        setCurrentTimeMin(currentTimeMin + 1);
+    if (currentTimeSec === 59) {
         setCurrentTimeSec(0);
+        setCurrentTimeMin(currentTimeMin + 1);
     }
     if (currentTimeMin >= 59){
         setCurrentTimeHour(currentTimeHour + 1);
@@ -97,7 +99,9 @@ const Stopwatch = () => {
         currentTimeSec={currentTimeSec}
         currentTimeMin={currentTimeMin}
         currentTimeHour={currentTimeHour}
-        formatTime={formatTime} />
+        formatTime={formatTime}
+        projectUID={projectUID}
+        clientUID={clientUID}/>
     </div>
   );
 

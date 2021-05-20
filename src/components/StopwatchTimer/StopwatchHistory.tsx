@@ -1,23 +1,24 @@
-import { useEffect, useState } from "react";
-// import addNewTaskTimeToDB  from "../../firebaseUtils/setFirestoreData";
+import { useCallback, useEffect, useState } from "react";
+import { addNewTaskTimeToDB }  from "../../firebaseUtils/setFirestoreData";
 import { TaskTime } from "../../interfaces/tasktime";
 
-
+console.log(addNewTaskTimeToDB)
 const StopwatchHistory = (props: any) => {
-  const [history, setHistory] = useState({ history: [] });
-  const [taskTime, setTaskTime] = useState<TaskTime>({
-    description: '',
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    isActive: true,
-    creationDate: 0,
-    projectUID: '',
-    clientUID: '',
-  });
 
-  console.log(taskTime);
-  // const { formatTime, currentTimeHour, currentTimeMin, currentTimeSec} = props;
+  const initialStateTask = {description: '',
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+  isActive: true,
+  creationDate: 0,
+  projectUID: '',
+  clientUID: '',}
+
+  const [history, setHistory] = useState({ history: [] });
+  const [taskTime, setTaskTime] = useState<TaskTime>(initialStateTask);
+
+  const { formatTime, currentTimeHour, currentTimeMin, currentTimeSec, projectUID, clientUID} = props;
+console.log(currentTimeHour, currentTimeMin, currentTimeSec, projectUID, clientUID);
 
   useEffect(() => {
     setHistoryState();
@@ -51,22 +52,24 @@ const StopwatchHistory = (props: any) => {
   const addNewTaskTime =  () => {
     setTaskTime({
       description: '',
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
+      hours: currentTimeHour,
+      minutes: currentTimeMin,
+      seconds: currentTimeSec,
       isActive: true,
-      creationDate: 0,
-      projectUID: '',
-      clientUID: '',
+      creationDate: Date.now(),
+      projectUID: projectUID,
+      clientUID: clientUID,
     })
+    console.log(taskTime)
+}; 
 
-  }
+  
   
 
   const saveTime = () => {
     if (typeof Storage !== "undefined") {
       saveToLocalStorage();
-      addNewTaskTime()
+      addNewTaskTime();
     } else {
       console.error("local storage not supported");
     }
