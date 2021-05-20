@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { addNewTaskTimeToDB }  from "../../firebaseUtils/setFirestoreData";
 import { TaskTime } from "../../interfaces/tasktime";
 
-console.log(addNewTaskTimeToDB)
 const StopwatchHistory = (props: any) => {
 
   const initialStateTask = {description: '',
@@ -16,9 +15,10 @@ const StopwatchHistory = (props: any) => {
 
   const [history, setHistory] = useState({ history: [] });
   const [taskTime, setTaskTime] = useState<TaskTime>(initialStateTask);
+  const [isVisible, setisVisible] = useState<boolean>(false);
 
-  const { formatTime, currentTimeHour, currentTimeMin, currentTimeSec, projectUID, clientUID} = props;
-console.log(currentTimeHour, currentTimeMin, currentTimeSec, projectUID, clientUID);
+  const { currentTimeHour, currentTimeMin, currentTimeSec, projectUID, clientUID} = props;
+  console.log(currentTimeHour, currentTimeMin, currentTimeSec, projectUID, clientUID);
 
   useEffect(() => {
     setHistoryState();
@@ -60,9 +60,18 @@ console.log(currentTimeHour, currentTimeMin, currentTimeSec, projectUID, clientU
       projectUID: projectUID,
       clientUID: clientUID,
     })
-    console.log(taskTime)
+    setisVisible(true);
 }; 
 
+const handleSubmitTaskDescription = (e: any) => {
+  e.preventDefault();
+  if (!taskTime.description.trim()) {
+    console.log('Debe ingresar descripcion');
+    return;
+  }
+  addNewTaskTimeToDB(taskTime);
+  setisVisible(false);
+}
   
   
 
@@ -87,6 +96,26 @@ console.log(currentTimeHour, currentTimeMin, currentTimeSec, projectUID, clientU
     <div className={"stopwatch__history"}>
       <button className="btn btn-info" onClick={saveTime}><i className="far fa-save"></i></button>
       <button onClick={resetHistory}>Resetear Historial</button>
+      {isVisible && (<form onSubmit={(e) => handleSubmitTaskDescription(e)}>
+        <div className="input-group">
+        <span className="input-group-addon p-1 pr-3 primaryFontColor w-25">
+          Descripcion
+        </span>
+
+        <input
+          type="text"
+          className="form-control form-control-sm customForm__input mb-2"
+          onChange={(e) =>
+            setTaskTime({ ...taskTime, description: e.target.value })
+          }
+          value={taskTime.description}
+        />
+      </div>
+      <button className="btn btn-dark btn-lg btn-block" type="submit">
+                Guardar Tarea!
+              </button>
+      </form>
+      )}
       <h3>Historial</h3>
       <ul>
         {history.history.map((item, index) => (

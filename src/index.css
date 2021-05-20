@@ -246,3 +246,9 @@ label:focus,
       border: 0;
   }
 }
+
+.stopwatch__display{
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
