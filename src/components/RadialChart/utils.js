@@ -32,6 +32,7 @@
    * @param {*} endAngle
    */
   export function describeArc(x, y, radius, startAngle, endAngle) {
+    
     var start = polarToCartesian(x, y, radius, endAngle);
     var end = polarToCartesian(x, y, radius, startAngle);
   
@@ -50,6 +51,8 @@
       end.x,
       end.y,
     ].join(' ');
+
+    console.log(d);
   
     return d;
   }

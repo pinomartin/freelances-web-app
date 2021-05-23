@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { addNewTaskTimeToDB }  from "../../firebaseUtils/setFirestoreData";
 import { TaskTime } from "../../interfaces/tasktime";
 
 const StopwatchHistory = (props: any) => {
 
-  const initialStateTask = {description: '',
+  const initialStateTask = {
+  description: '',
   hours: 0,
   minutes: 0,
   seconds: 0,

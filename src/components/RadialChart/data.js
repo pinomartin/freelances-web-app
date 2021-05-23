@@ -1,16 +1,13 @@
 export default [
     {
       label: 'Bamity',
-      value: 4,
+      value: 2,
     },
+   
     {
-      label: 'Temp',
-      value: 5,
-    },
-    // {
-    //   label: 'Bigtax',
-    //   value: 13389,
-    // },
+        label: 'Bigtax',
+        value: 5,
+      },
     // {
     //   label: 'Otcom',
     //   value: 7263,
