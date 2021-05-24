@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams, withRouter } from "react-router-dom";
+import { useParams, withRouter, RouteComponentProps} from "react-router-dom";
 import { getProjectByID } from "../firebaseUtils/getFirestoreData";
 import Stopwatch from "./StopwatchTimer/Stopwatch";
 import SpinnerLoader from "./SpinnerLoader";
 import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark";
 import { TasksList } from "./TasksList";
+import { deleteProject } from "../firebaseUtils/setFirestoreData";
 // interface ProjectDetailProps {
 
 // }
@@ -14,7 +15,7 @@ interface URLParamsProps {
   id: string;
 }
 
-const ProjectScreen = () => {
+const ProjectScreen = ({history}:RouteComponentProps) => {
   let { id: projectUID } = useParams<URLParamsProps>();
 
   const [projectData, setProjectData] = useState<any>({});
@@ -66,9 +67,28 @@ const ProjectScreen = () => {
                     className="btn btn-danger float-right"
                     onClick={() =>
                       Swal.fire({
-                        title: "Gola",
-                        backdrop: `
-                                rgba(164,125,255,0.3)`,
+                        title: 'Eliminar Proyecto?',
+                        text: "Este cambio sera permanente...",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#a47dff',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, borrar',
+                        cancelButtonText: 'Cancelar',
+                        backdrop: `rgba(50,82,136,0.3)`,
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          Swal.fire({
+                            title:'Proyecto Borrado ! ',
+                            icon:'success',
+                            backdrop: `rgba(50,82,136,0.3)`
+                          }
+                           
+                          ).then(() => {
+                            deleteProject(projectUID);
+                            history.push('/projects');
+                          })
+                        }
                       })
                     }
                   >

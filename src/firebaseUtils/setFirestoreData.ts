@@ -41,7 +41,26 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
     }
   }
  
+  const deleteProject = async (id:string) => {
+    try{
+      await db.collection('projects').doc(id).delete();  
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
 
-  export { addNewTaskTimeToDB }
+  const deleteTask = async (id:string) => {
+    try{
+      await db.collection('timetasks').doc(id).delete();  
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+
+
+
+  export { addNewTaskTimeToDB, deleteProject, deleteTask }
 
 

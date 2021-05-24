@@ -7,4 +7,5 @@ export interface TaskTime {
     creationDate: number;
     projectUID: string;
     clientUID: string;
+    id?:string;
 }

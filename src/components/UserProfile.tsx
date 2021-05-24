@@ -11,6 +11,7 @@ import data from "./RadialChart/data";
 import Tippy from "@tippyjs/react";
 import SpinnerLoader from "./SpinnerLoader";
 
+
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
   const [user, setUser] = useState<any>({});
   const [userProjects, setUserProjects] = useState<any>({});

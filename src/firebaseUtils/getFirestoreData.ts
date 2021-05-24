@@ -28,4 +28,18 @@ const getProjectByID = async (projectID: string | any) => {
   return singleProject;
 };
 
-export { getUserFromDB, getProjectsFromUser, getProjectByID };
+const getTasksFromProjectUser = async (userId: string, projectUID: string) => {
+  const tasks: any = await db
+    .collection("timetasks")
+    .where("userUID", "==", userId)
+    .where("projectUID", "==", projectUID)
+    .orderBy("creationDate", "desc")
+    .get();
+  const userprojectsData = await tasks.docs.map((doc: any) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  return userprojectsData;
+};
+
+export { getUserFromDB, getProjectsFromUser, getProjectByID, getTasksFromProjectUser };

@@ -5,7 +5,7 @@ import { StopwatchProps } from "../../interfaces/stopwatch";
 import { TaskTime } from "../../interfaces/tasktime";
 import StopwatchDisplay from "./StopwatchDisplay";
 import Swal from "sweetalert2";
-import withReactContent from 'sweetalert2-react-content'
+import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
@@ -162,14 +162,13 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
       </div>
         {isVisible && (
           <form onSubmit={(e) => handleSubmitTaskDescription(e)}>
-            <div className="input-group mt-2">
+            <div className="input-group mt-4">
               <span className="input-group-addon p-1 pr-3 mr-4 primaryFontColor w-25">
                 Descripcion
               </span>
-
-              <input
-                type="text"
-                className="form-control form-control-sm customForm__input mb-2"
+              <textarea
+                className="form-control form-control-sm mb-2 customForm__input"
+                placeholder="Qué hiciste en este tiempo?"
                 onChange={(e) =>
                   setTaskTime({ ...taskTime, description: e.target.value })
                 }
