@@ -52,8 +52,6 @@
       end.y,
     ].join(' ');
 
-    console.log(d);
-  
     return d;
   }
   

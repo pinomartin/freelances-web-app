@@ -6,6 +6,7 @@ import SpinnerLoader from "./SpinnerLoader";
 import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark";
 import { TasksList } from "./TasksList";
+import { EditProjectDataForm } from './EditProjectDataForm';
 import { deleteProject } from "../firebaseUtils/setFirestoreData";
 // interface ProjectDetailProps {
 
@@ -28,6 +29,7 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
       setProjectData(project);
       setIsLoaderVisible(false);
     });
+    console.log('render');
   }, [projectUID]);
 
   return (
@@ -56,7 +58,7 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
               </div>
             </div>
             <div className="w-100">
-              <div className="row m-0">
+              <div className="row m-0 justify-content-center">
                 <div className="col-12">
                   <h4 className="text-white">
                     <small>Proyecto</small> {projectData?.name}
@@ -102,17 +104,17 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
                   </button>
                 </div>
 
-                <div className="col-6 col-md-3 p-0">
+                <div className="col-10 col-md-3 p-0 mt-2">
                   <TasksList projectUID={projectUID}
                     clientUID={projectData?.userId}/>
                 </div>
-                <div className="col-12 col-md-3 text-center">
+                <div className="col-10 col-md-3 text-center">
                   <Stopwatch
                     projectUID={projectUID}
                     clientUID={projectData?.userId}
                   />
                 </div>
-                <div className="col-12 col-md-3">
+                <div className="col-10 col-md-6">
                   <h4>edicion datos</h4>
                 </div>
               </div>

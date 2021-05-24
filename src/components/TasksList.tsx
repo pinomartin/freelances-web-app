@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
-import { getTasksFromProjectUser } from "../firebaseUtils/getFirestoreData";
+import { db } from "../firebase";
 import { TasksListProps } from "../interfaces/tasklist";
 import { TaskListItem } from "./TaskListItem";
 
 export const TasksList = ({ projectUID, clientUID }: TasksListProps) => {
   const [tasks, setTasks] = useState([]);
+
   useEffect(() => {
-    getTasksFromProjectUser(clientUID, projectUID).then((tasks) =>
-      setTasks(tasks)
-    );
+    const unsuscribe = db.collection("timetasks")
+    .where("userUID", "==", clientUID)
+    .where("projectUID", "==", projectUID)
+    .orderBy("creationDate", "desc")
+    .onSnapshot((query:any) => {
+      const tasks = query.docs.map((item:any) => ({
+        id: item.id,
+        ...item.data()}));
+     setTasks(tasks);
+    });
+    return unsuscribe;
+    
   }, [clientUID, projectUID]);
 
   return (

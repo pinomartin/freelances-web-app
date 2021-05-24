@@ -70,9 +70,10 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
           <small>{`${taskTime.hours}hs ${taskTime.minutes}min ${taskTime.seconds}sec`}</small>
       </>,
       showConfirmButton: false,
-      timer: 2000
+      timer: 2000,
+      backdrop: `rgba(50,82,136,0.3)`,
     })
-    // addNewTaskTimeToDB(taskTime);
+    addNewTaskTimeToDB(taskTime);
     reset();
     setisVisible(false);
   };
@@ -127,6 +128,7 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
     setCurrentTimeMin(0);
     setCurrentTimeHour(0);
     setIsRunning(false);
+    setisVisible(false);
   };
 
   return (
@@ -151,14 +153,19 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
           <i className="far fa-pause-circle"></i>
         </button>
       )}
-      <button className="btn btn-warning w-25" onClick={() => reset()}>
+     
+
+     {currentTimeSec || currentTimeMin || currentTimeHour !== 0 ?  (
+        <>
+      
+        <button className="btn btn-warning w-25" onClick={() => reset()}>
         <i className="fas fa-sync-alt"></i>
       </button>
-
-     
         <button className="btn btn-info w-25" onClick={addNewTaskTime}>
           <i className="far fa-save"></i>
         </button>
+        </>
+     ) : null }
       </div>
         {isVisible && (
           <form onSubmit={(e) => handleSubmitTaskDescription(e)}>

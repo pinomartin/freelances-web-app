@@ -214,8 +214,8 @@ label:focus,
 
 
 .sidebar-container {
-  min-height: 100vh;
-  background-color: var(-);
+  min-height: 90vh;
+  
 }
 
 .sidebar-container .logo{
@@ -224,7 +224,7 @@ label:focus,
 
 .sidebar-container .menu {
   padding-top: 1rem;
-  width: 15rem;
+  width: 12rem;
 }
 
 .sidebar-container .menu button{

@@ -11,7 +11,6 @@ interface IProps extends RouteComponentProps<any> {
 }
 
 const NavBar = ({ firebaseUserActive, history }: IProps) => {
-  console.log(firebaseUserActive);
   const cerrarSesion = () => {
     auth.signOut().then(() => {
       history.push("/login");
