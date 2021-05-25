@@ -21,6 +21,7 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
 
   const [projectData, setProjectData] = useState<any>({});
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
+  const [editionMode, setEditionMode] = useState(false);
 
   console.log(projectData);
 
@@ -96,7 +97,7 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
                   >
                     Eliminar Proyecto
                   </button>
-                  <button className="btn btn-warning float-right">
+                  <button className="btn btn-warning float-right" onClick={() => setEditionMode(!editionMode)}>
                     Editar Proyecto
                   </button>
                   <button className="btn btn-success float-right">
@@ -104,18 +105,23 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
                   </button>
                 </div>
 
-                <div className="col-10 col-md-3 p-0 mt-2">
+                <div className="col-10 col-md-4 p-0 mt-2">
                   <TasksList projectUID={projectUID}
                     clientUID={projectData?.userId}/>
                 </div>
-                <div className="col-10 col-md-3 text-center">
+                <div className="col-10 col-md-4 text-center">
                   <Stopwatch
                     projectUID={projectUID}
                     clientUID={projectData?.userId}
                   />
                 </div>
-                <div className="col-10 col-md-6">
-                  <h4>edicion datos</h4>
+                <div className="col-10 col-md-4">
+                  {editionMode? (
+                  <>
+                  
+                  <EditProjectDataForm projectData={projectData}/>
+                  </>) : null}
+                  
                 </div>
               </div>
             </div>

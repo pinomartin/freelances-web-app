@@ -12,7 +12,6 @@
     "@types/node": "^12.20.7",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
-    "chart.js": "^3.2.1",
     "chroma-js": "^2.1.1",
     "date-fns": "^2.21.1",
     "firebase": "^8.3.3",

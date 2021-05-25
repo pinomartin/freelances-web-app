@@ -36,7 +36,7 @@ function App() {
           <Route path="/newproject">
             <NewProjectForm />
           </Route>
-          <Route path="/profile">
+          <Route path="/profile" exact>
             <UserProfile />
           </Route>
         </Switch>
