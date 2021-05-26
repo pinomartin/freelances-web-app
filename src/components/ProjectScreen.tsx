@@ -119,7 +119,7 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
                   {editionMode? (
                   <>
                   
-                  <EditProjectDataForm projectData={projectData}/>
+                  <EditProjectDataForm projectData={projectData} projectUID={projectUID}/>
                   </>) : null}
                   
                 </div>

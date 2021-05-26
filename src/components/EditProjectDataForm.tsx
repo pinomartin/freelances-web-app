@@ -1,8 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { updateProjectDB } from '../firebaseUtils/setFirestoreData'; 
 
-export const EditProjectDataForm = ({projectData}:any) => {
+
+export const EditProjectDataForm = ({projectData, projectUID }:any) => {
     const [error, setError] = useState('');
     const [onEditProjectData, setOnEditProjectData] = useState<any>({...projectData, estimatedFinishDate: new Date().toISOString().slice(0, 10)});
+
+    useEffect(() => {
+      estimatedTotalXHourSetter(onEditProjectData.amountXHour, onEditProjectData.estimatedHours)
+    }, [onEditProjectData.amountXHour, onEditProjectData.estimatedHours]);
+
+    const estimatedTotalXHourSetter = (amountXHour: number, estimatedHours: number) => {
+      if (onEditProjectData.amountXHour !== 0 && onEditProjectData.estimatedHours !== 0) {
+        const estimatedTotalXHour = Number(
+          (amountXHour * estimatedHours).toFixed(2)
+        );
+        setOnEditProjectData({
+          ...onEditProjectData,
+          estimatedTotal: estimatedTotalXHour,
+        });
+      }
+    };
+  
     console.log(onEditProjectData);
 
     const projectTypeUIHandler =
@@ -43,14 +62,14 @@ export const EditProjectDataForm = ({projectData}:any) => {
           />
         </div>
                     {/* {ESTE ES EL CALCULADOR PREVIO ,,,, } */}
-        {/* {project.type === "hour" && project.estimatedTotal > 0 ? (
+        {onEditProjectData.type === "hour" && onEditProjectData.estimatedTotal > 0 ? (
           <p className="text-center primaryFontColor mt-2">
             Monto a cobrar estimado:
             <strong className="input-group-addon p-1 successFontColor w-50">
-              ${project.estimatedTotal}
+              ${onEditProjectData.estimatedTotal}
             </strong>
           </p>
-        ) : null} */}
+        ) : null}
       </>
     ) : (
       <>
@@ -89,6 +108,8 @@ export const EditProjectDataForm = ({projectData}:any) => {
         // }
         // console.log("Paso todas las pruebas");
         // setError("");
+
+        updateProjectDB(onEditProjectData, projectUID );
         
       };
     return (

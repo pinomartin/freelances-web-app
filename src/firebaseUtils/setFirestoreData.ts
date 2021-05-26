@@ -1,7 +1,7 @@
 import { db } from "../firebase";
-
 import { ProjectType } from "../interfaces/project"
 import { TaskTime } from "../interfaces/tasktime"
+import { finishDateProcessorForm } from '../utils/time/finishDateProcessorForm';
 
 const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese any
     try {
@@ -23,6 +23,24 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
       console.log('No se pudo guardar proyecto en DB');
     }
   }
+
+  const updateProjectDB = async (project: ProjectType, projectUID: string) => {
+    try {
+      await db.collection("projects").doc(projectUID).update({
+        name: project.name,
+        client: project.client,
+        description: project.description,
+        amountXHour: project.amountXHour,
+        estimatedHours: project.estimatedHours,
+        estimatedTotal: project.estimatedTotal,
+        estimatedFinishDate: finishDateProcessorForm(
+          `${project.estimatedFinishDate}`
+        ),
+      });
+    } catch (error) {
+      console.log("No se pudo actualizar proyecto en DB");
+    }
+  };
 
   const addNewTaskTimeToDB = async (task:TaskTime):Promise<any> => {
     try {
@@ -61,6 +79,6 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
 
 
 
-  export { addNewTaskTimeToDB, deleteProject, deleteTask }
+  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB}
 
 

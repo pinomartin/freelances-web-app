@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import parse from "date-fns/parse";
+import { finishDateProcessorForm } from '../utils/time/finishDateProcessorForm';
 import { db, auth } from "../firebase";
 import SpinnerLoader from "./SpinnerLoader";
 import RadioButton from "./RadioButton";
@@ -46,10 +46,10 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
 
  
 
-  const finishDateProcessor = (dateFromInput: string) => {
-    const parsedDate = parse(dateFromInput, "yyyy-MM-dd", new Date()).getTime();
-    return parsedDate;
-  };
+  // const finishDateProcessor = (dateFromInput: string) => {
+  //   const parsedDate = parse(dateFromInput, "yyyy-MM-dd", new Date()).getTime();
+  //   return parsedDate;
+  // };
 
   const radioChangeTypeResetHandler = (event: any) => {
     setProject({
@@ -162,7 +162,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
         amountXHour: project.amountXHour,
         estimatedHours: project.estimatedHours,
         estimatedTotal: project.estimatedTotal,
-        estimatedFinishDate: finishDateProcessor(
+        estimatedFinishDate: finishDateProcessorForm(
           `${project.estimatedFinishDate}`
         ),
         creationDate: Date.now(),
