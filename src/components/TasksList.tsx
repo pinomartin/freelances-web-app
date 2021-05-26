@@ -26,7 +26,7 @@ export const TasksList = ({ projectUID, clientUID }: TasksListProps) => {
       <h3 className="text-center">Tiempos</h3>
       <div className="accordion" id="tasksAccordion">
       {tasks.length !== 0 ? tasks.map((item: any, index: number) => (
-              <TaskListItem data={item} key={index} />
+              <TaskListItem task={item} key={index} />
             )) : null}
   
       </div>

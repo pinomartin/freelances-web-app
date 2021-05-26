@@ -41,7 +41,15 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
       console.log("No se pudo actualizar proyecto en DB");
     }
   };
-
+  
+  const deleteProject = async (id:string) => {
+    try{
+      await db.collection('projects').doc(id).delete();  
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
   const addNewTaskTimeToDB = async (task:TaskTime):Promise<any> => {
     try {
       await db.collection("timetasks").add({
@@ -58,15 +66,18 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
         console.log('No se puede guardar tarea en DB');
     }
   }
- 
-  const deleteProject = async (id:string) => {
-    try{
-      await db.collection('projects').doc(id).delete();  
-    }
-    catch(error){
-      console.log(error);
-    }
+
+  const updateTask = async (task:TaskTime, taskUID:string) => {
+      try {
+        await db.collection("timetasks").doc(taskUID).update({
+          description: task.description
+        })
+        
+      } catch (error) {
+        console.log('No se pudo actualizar task en BD');
+      }
   }
+ 
 
   const deleteTask = async (id:string) => {
     try{
@@ -79,6 +90,6 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
 
 
 
-  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB}
+  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB, updateTask}
 
 

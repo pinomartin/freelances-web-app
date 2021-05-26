@@ -1,18 +1,27 @@
+import { useState } from "react";
 import Swal from "sweetalert2";
-import { deleteTask } from "../firebaseUtils/setFirestoreData";
+import { updateTask, deleteTask } from "../firebaseUtils/setFirestoreData";
 
 interface TaskListItemProps {
-  data: any;
+  task: any;
 }
-export const TaskListItem = ({ data }: TaskListItemProps) => {
+export const TaskListItem = ({ task }: TaskListItemProps) => {
+  const { id, description, creationDate, hours, minutes, seconds } = task;
 
-  console.log(data);
-  const { id, description, creationDate, hours, minutes, seconds } = data;
+  const [taskEditionMode, setTaskEditionMode] = useState(false);
+  const [onEditTaskData, setOnEditTaskData] = useState(task);
+
+  const handleSubmitTaskDescriptionUpdate = (e: any) => {
+    e.preventDefault();
+    updateTask(onEditTaskData, task.id);
+    setTaskEditionMode(false);
+  };
+  console.log(task);
 
   return (
     <div className="card bg-dark">
       <div className="card-header" id="headingOne">
-        <p className="p-0 m-0 d-inline">
+        <p className="p-0 m-0 d-inline primaryFontColor">
           <span>{hours}hs </span>
           <span>{minutes}min </span>
           <span>{seconds}sec </span>
@@ -37,34 +46,69 @@ export const TaskListItem = ({ data }: TaskListItemProps) => {
         data-parent="#tasksAccordion"
       >
         <div className="card-body">
-          {description}
-          <button
-            className="btn btn-danger float-right ml-1 "
-            type="button"
-            onClick={() =>
-              Swal.fire({
-                title: "Eliminar Tiempo?",
-                text: "Este cambio sera permanente...",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#a47dff",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Si, borrar",
-                cancelButtonText: "Cancelar",
-                backdrop: `rgba(50,82,136,0.3)`,
-              }).then((result) => {
-                if (result.isConfirmed) {
+          {taskEditionMode ? (
+            <form onSubmit={(e) => handleSubmitTaskDescriptionUpdate(e)}>
+              <div className="input-group">
+                <textarea
+                  className="form-control form-control-sm  customForm__input"
+                  placeholder="Qué hiciste en este tiempo?"
+                  onChange={(e) => setOnEditTaskData({...onEditTaskData, description: e.target.value})}
+                  value={onEditTaskData.description}
+                />
+                <button
+                  className="btn btn-success float-right ml-2"
+                  type="submit"
+                >
+                  <i className="far fa-save"></i>
+                </button>
+                <button
+                  className="btn btn-danger float-right ml-2"
+                  type="button"
+                  onClick={() => setTaskEditionMode(false)}
+                >
+                  <i className="far fa-window-close"></i>
+                </button>
+              </div>
+            </form>
+          ) : (
+            <>
+              <span>{description}</span>
+              <button
+                className="btn btn-danger float-right ml-1 "
+                type="button"
+                onClick={() =>
                   Swal.fire({
-                    title: "Tiempo Borrado !",
-                    icon: "success",
+                    title: "Eliminar Tiempo?",
+                    text: "Este cambio sera permanente...",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#a47dff",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, borrar",
+                    cancelButtonText: "Cancelar",
                     backdrop: `rgba(50,82,136,0.3)`,
-                  }).then(() => deleteTask(id));
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire({
+                        title: "Tiempo Borrado !",
+                        icon: "success",
+                        backdrop: `rgba(50,82,136,0.3)`,
+                      }).then(() => deleteTask(id));
+                    }
+                  })
                 }
-              })
-            }
-          >
-            <i className="far fa-trash-alt"></i>
-          </button>
+              >
+                <i className="far fa-trash-alt"></i>
+              </button>
+              <button
+                className="btn btn-warning float-right"
+                type="button"
+                onClick={() => setTaskEditionMode(true)}
+              >
+                <i className="far fa-edit"></i>
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

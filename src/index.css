@@ -249,8 +249,15 @@ label:focus,
 
 .stopwatch__display{
   font-size: 1.3rem;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-  background-color: #50306e;
+  margin: 2rem 0;
 }
 
+.stopwatch__display span{
+  font-size: 1.3rem;
+  padding: 1rem 0.9rem;
+  background-color: var(--card--primary-color);
+  border-radius: 10px;
+  -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
+  0 1px 1px 1px rgb(60 64 67 / 15%);
+  box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
+}
