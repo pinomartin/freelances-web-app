@@ -261,3 +261,7 @@ label:focus,
   0 1px 1px 1px rgb(60 64 67 / 15%);
   box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
 }
+
+.chart{
+  width: 250px;
+}

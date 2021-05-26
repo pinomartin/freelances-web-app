@@ -6,10 +6,21 @@ import {
   getProjectsFromUser,
 } from "../firebaseUtils/getFirestoreData";
 
-import RadialChart from "./RadialChart/RadialChart";
-import data from "./RadialChart/data";
+
 import Tippy from "@tippyjs/react";
 import SpinnerLoader from "./SpinnerLoader";
+import { Doughnut } from "react-chartjs-2";
+
+
+const data = {
+  labels: ['Activos', 'Terminados'],
+  datasets: [
+    {
+      label: 'Proyectos',
+      data: [3, 2]
+    }
+  ]
+}
 
 
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
@@ -134,16 +145,10 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
           <div className="col-4 text-center primaryFontColor">
             <p className="userProfileCard__projectsNumbers">{userProjects.totalProjects}seg</p>
           </div>  */}
-            <div className="col-6 mb-2">
-              <RadialChart
-                data={data}
-                innerRadius={53}
-                outerRadius={106}
-                startAngle={0}
-                tooltip={true}
-                responsive={true}
-                tooltipContent={<TooltipContent />}
-              />
+            <div className="col-12 mb-2 text-center">
+              <div className="chart">
+                    <Doughnut type='' data={data} />
+              </div>
             </div>
           </div>
         </div>

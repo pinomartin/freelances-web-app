@@ -1,5 +1,7 @@
 import MainLogo from "../assets/mainLogoTransparent.svg";
 
+
+
 const Home = () => {
   return (
     <>
@@ -8,7 +10,7 @@ const Home = () => {
       <hr />
       <h3 className="text-white">
         {"Bienvenido a una nueva forma de trabajo Freelance"}
-      </h3>
+      </h3>      
     </div>
     </>
   );
