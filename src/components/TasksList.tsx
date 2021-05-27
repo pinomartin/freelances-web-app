@@ -21,6 +21,25 @@ export const TasksList = ({ projectUID, clientUID }: TasksListProps) => {
     
   }, [clientUID, projectUID]);
 
+  const times = tasks.map((item:any) => 
+   (item.seconds)
+  );
+  const totalSeconds = tasks.reduce((acc:number, seconds:any) => acc + seconds.seconds, 0);
+  console.log(totalSeconds)
+
+  const getMapFromArray = (tasks:any) =>
+  tasks.reduce((acc:any, item:any) => {
+    // add object key to our object i.e. charmander: { type: 'water' }
+    acc[item] = { seconds: item.seconds, 
+                        minutes: item.minutes,
+                      hours: item.hours };
+    return acc;
+  }, {});
+
+  console.log(getMapFromArray(tasks));
+
+
+
   return (
     <>
       <h3 className="text-center">Tiempos</h3>
@@ -30,6 +49,7 @@ export const TasksList = ({ projectUID, clientUID }: TasksListProps) => {
             )) : null}
   
       </div>
+      
       <p>Tiempo total: </p>
     </>
   );

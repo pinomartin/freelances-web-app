@@ -72,9 +72,15 @@ export const TaskListItem = ({ task }: TaskListItemProps) => {
             </form>
           ) : (
             <>
-              <span>{description}</span>
+            <div className="row align-items-center">
+              <div className="col-8">
+              <p className="m-0">{description}</p>
+
+              </div>
+              <div className="col-4">
+
               <button
-                className="btn btn-danger float-right ml-1 "
+                className="btn btn-danger d-inline float-right ml-1"
                 type="button"
                 onClick={() =>
                   Swal.fire({
@@ -101,12 +107,14 @@ export const TaskListItem = ({ task }: TaskListItemProps) => {
                 <i className="far fa-trash-alt"></i>
               </button>
               <button
-                className="btn btn-warning float-right"
+                className="btn btn-warning d-inline float-right"
                 type="button"
                 onClick={() => setTaskEditionMode(true)}
               >
                 <i className="far fa-edit"></i>
               </button>
+              </div>
+            </div>
             </>
           )}
         </div>

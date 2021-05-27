@@ -6,15 +6,10 @@ import {
   getProjectsFromUser,
 } from "../firebaseUtils/getFirestoreData";
 
-
 import Tippy from "@tippyjs/react";
 import 'tippy.js/dist/tippy.css';
 import SpinnerLoader from "./SpinnerLoader";
 import { Doughnut } from "react-chartjs-2";
-
-
-
-
 
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
   const [user, setUser] = useState<any>({});
@@ -40,10 +35,18 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
         backgroundColor: [
           'rgba(17, 236, 229, 1)',
           'rgba(164, 125, 255, 0.5)',],
-        color: '#11ECE5'
       }
     ]
-  }
+  };
+
+  const options = { 
+    legend: {
+        labels: {
+            fontColor: "#ffffff",
+            fontSize: 18
+        }
+    }};
+
 
   const getStateOfProjects = (projects: any) => {
     const activeProjects = projects.filter(
@@ -109,7 +112,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
           <div className="row justify-content-center">
           <div className="col-12 mb-2 text-center">
               <div className="userProfile-chart">
-                    <Doughnut type='' data={data} />
+                    <Doughnut type='' data={data} options={options} />
               </div>
             </div>
         </div>
@@ -120,7 +123,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
               <strong>Tiempos Historicos</strong>
             </p>
           </div>
-          <div className="row justify-content-center">
+          {/* <div className="row justify-content-center"> */}
             {/* <div className="col-4 text-center successFontColor">
             <p className="userProfileCard__projectsNumbers">{userProjects.numberActiveProjects}hs</p>
           </div>
@@ -134,7 +137,6 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
           </div>
         </div>
       </div>
-    </div>
   ) : (
     <SpinnerLoader />
   );
