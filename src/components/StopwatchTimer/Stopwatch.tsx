@@ -144,7 +144,7 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
       <div className="row justify-content-center">
 
       {isRunning === false && (
-        <button className="btn btn-success w-25" onClick={() => start()}>
+        <button className="btn btn-primary w-25" onClick={() => start()}>
           <i className="far fa-play-circle"></i>
         </button>
       )}

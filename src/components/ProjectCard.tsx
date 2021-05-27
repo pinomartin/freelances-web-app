@@ -55,7 +55,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
             <br/>
             <small>
             <Link to={`/projects/${id}`} className="btn btn-info float-right">
-              <span className="">Info...</span>
+            <i className="fas fa-plus m-0 p-0"></i>
             </Link>
             </small>
           </div>

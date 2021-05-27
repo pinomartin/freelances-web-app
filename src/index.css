@@ -51,6 +51,28 @@ label:focus,
   filter: invert(1);
 }
 
+.btn-primary{
+  background-color: var(--secondary-color);
+  border: none;
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus{
+  background-color: var(--card--hover-color);
+}
+
+.btn-success{
+  background-color: var(--success-color);
+  color: #000000;
+}
+
+.btn-warning:hover{
+  color: #fff;
+}
+
+.btn-danger{
+  background-color: var(--error-color);
+  color: #000000;
+}
+
 
 .primaryFontColor{
   color: var(--primary-color);
@@ -66,7 +88,6 @@ label:focus,
 
 .errorFontColor{
   color: var(--error-color);
-  
 }
 
 .NavBar__navBarBrand{
@@ -247,6 +268,14 @@ label:focus,
   }
 }
 
+/*-----------------Time Task Styles-----------------*/
+.card-header{
+  background-color: var(--card--primary-color);
+}
+.card-body{
+  /* background-color: var(--card--hover-color); */
+}
+
 .stopwatch__display{
   font-size: 1.3rem;
   margin: 2rem 0;
@@ -262,6 +291,12 @@ label:focus,
   box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
 }
 
-.chart{
-  width: 250px;
+
+/*Charts Styles - Sizes*/
+
+
+.userProfile-chart{
+  max-width: 40%;
+  margin: 0 auto;
+  
 }

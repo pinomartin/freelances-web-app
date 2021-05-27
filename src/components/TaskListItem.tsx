@@ -28,7 +28,7 @@ export const TaskListItem = ({ task }: TaskListItemProps) => {
         </p>
 
         <button
-          className="btn btn-info float-right"
+          className="btn btn-primary float-right"
           type="button"
           data-toggle="collapse"
           data-target={`#collapse${id}`}
@@ -83,7 +83,7 @@ export const TaskListItem = ({ task }: TaskListItemProps) => {
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#a47dff",
-                    cancelButtonColor: "#d33",
+                    cancelButtonColor: "#E91E63",
                     confirmButtonText: "Si, borrar",
                     cancelButtonText: "Cancelar",
                     backdrop: `rgba(50,82,136,0.3)`,

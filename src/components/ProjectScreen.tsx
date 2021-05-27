@@ -75,7 +75,7 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#a47dff',
-                        cancelButtonColor: '#d33',
+                        cancelButtonColor: '#E91E63',
                         confirmButtonText: 'Si, borrar',
                         cancelButtonText: 'Cancelar',
                         backdrop: `rgba(50,82,136,0.3)`,

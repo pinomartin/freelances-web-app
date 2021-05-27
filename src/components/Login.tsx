@@ -161,7 +161,7 @@ const Login = ({ history, firebaseUserActive }: LoginProps) => {
               value={password}
             />
 
-            <button className="btn btn-dark btn-lg btn-block" type="submit">
+            <button className="btn btn-primary btn-lg btn-block" type="submit">
               {esRegistro ? "Registrarse" : "Acceder"}
             </button>
 

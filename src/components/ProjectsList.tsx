@@ -50,11 +50,20 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
             <div className="col-12 text-center mt-2">
               <h2>Mis Proyectos</h2>
               {usuario && <h4>Bienvenido {usuario.userName} !! </h4>}
+              
             </div>
           </div>
+          <div className="row justify-content-center d-block text-center mt-3">
+                  <button className="btn btn-primary ">Activos</button>
+                  <button className="btn btn-secondary m-0 ">Terminados</button>
+              </div>
+              <br />
           <div className="row justify-content-center align-items-center bg-transparent">
             {projects.length !== 0 ? projects.map((item: any, index: number) => (
+              <>
+              
               <ProjectCard data={item} key={index} />
+              </>
             )) : <WelcomeNewUser/>}
             
             <AddProjectButton />
