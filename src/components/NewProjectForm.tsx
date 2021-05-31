@@ -264,7 +264,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
                   value={project.estimatedFinishDate}
                 />
               </div>
-              <button className="btn btn-dark btn-lg btn-block" type="submit">
+              <button className="btn btn-primary btn-lg btn-block" type="submit">
                 Comenzar !
               </button>
             </form>

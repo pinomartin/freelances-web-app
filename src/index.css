@@ -13,6 +13,7 @@
   --success-color: #5AE277;
   --error-color: #E91E63;
   --disabled-color:#92ABCF;
+  --button--hover-color: #8c5cfd;
 }
 
 body {
@@ -54,9 +55,10 @@ label:focus,
 .btn-primary{
   background-color: var(--secondary-color);
   border: none;
+  font-weight: bold;
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus{
-  background-color: var(--card--hover-color);
+  background-color: var(--button--hover-color);
 }
 
 .btn-success{

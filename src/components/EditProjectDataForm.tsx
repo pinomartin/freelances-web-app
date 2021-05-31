@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { updateProjectDB } from '../firebaseUtils/setFirestoreData'; 
-
+import { ProjectType } from '../interfaces/project';
 
 export const EditProjectDataForm = ({projectData, projectUID }:any) => {
     const [error, setError] = useState('');
-    const [onEditProjectData, setOnEditProjectData] = useState<any>({...projectData, estimatedFinishDate: new Date().toISOString().slice(0, 10)});
+    const [onEditProjectData, setOnEditProjectData] = useState<ProjectType>({...projectData, estimatedFinishDate: new Date().toISOString().slice(0, 10)});
 
     useEffect(() => {
       estimatedTotalXHourSetter(onEditProjectData.amountXHour, onEditProjectData.estimatedHours)
     }, [onEditProjectData.amountXHour, onEditProjectData.estimatedHours]);
 
     const estimatedTotalXHourSetter = (amountXHour: number, estimatedHours: number) => {
-      if (onEditProjectData.amountXHour !== 0 && onEditProjectData.estimatedHours !== 0) {
+      if (onEditProjectData.amountXHour !== 0 || onEditProjectData.estimatedHours !== 0) {
         const estimatedTotalXHour = Number(
           (amountXHour * estimatedHours).toFixed(2)
         );
@@ -94,22 +94,26 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
     );
     const procesarData = (e: any) => {
         e.preventDefault();
-        // if (!project.name.trim()) {
-        //   setError("Ingrese Nombre de Proyecto");
-        //   return;
-        // }
-        // if (!project.client.trim()) {
-        //   setError("Ingrese Cliente");
-        //   return;
-        // }
-        // if (!project.description.trim()) {
-        //   setError("Debe ingresar una breve descripción");
-        //   return;
-        // }
-        // console.log("Paso todas las pruebas");
-        // setError("");
+        if (!onEditProjectData.name.trim()) {
+          setError("Ingrese Nombre de Proyecto");
+          return;
+        }
+        if (!onEditProjectData.client.trim()) {
+          setError("Ingrese Cliente");
+          return;
+        }
+        if (!onEditProjectData.description.trim()) {
+          setError("Debe ingresar una breve descripción");
+          return;
+        }
+        if(onEditProjectData.estimatedTotal === 0){
+          setError("Ajuste $ x Hora / Horas");
+          return;
+        }
+        console.log("Paso todas las pruebas");
+        setError("");
 
-        updateProjectDB(onEditProjectData, projectUID );
+        updateProjectDB(onEditProjectData, projectUID);
         
       };
     return (

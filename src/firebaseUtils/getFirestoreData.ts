@@ -42,5 +42,23 @@ const getTasksFromProjectUser = async (userId: string, projectUID: string) => {
   return userprojectsData;
 };
 
+const streamTasksFromProject = (
+  userId: string,
+  projectUID: string,
+  observer: any
+) => {
+  return db
+    .collection("timetasks")
+    .where("userUID", "==", userId)
+    .where("projectUID", "==", projectUID)
+    .orderBy("creationDate", "desc")
+    .onSnapshot(observer);
+};
 
-export { getUserFromDB, getProjectsFromUser, getProjectByID, getTasksFromProjectUser };
+export {
+  getUserFromDB,
+  getProjectsFromUser,
+  getProjectByID,
+  getTasksFromProjectUser,
+  streamTasksFromProject
+};

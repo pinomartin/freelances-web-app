@@ -30,7 +30,7 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
       setProjectData(project);
       setIsLoaderVisible(false);
     });
-    console.log('render');
+    console.log('render ProjectScreen');
   }, [projectUID]);
 
   return (

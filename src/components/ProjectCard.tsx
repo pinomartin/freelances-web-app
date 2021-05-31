@@ -54,7 +54,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
             </small>
             <br/>
             <small>
-            <Link to={`/projects/${id}`} className="btn btn-info float-right">
+            <Link to={`/projects/${id}`} className="btn btn-primary float-right">
             <i className="fas fa-plus m-0 p-0"></i>
             </Link>
             </small>
