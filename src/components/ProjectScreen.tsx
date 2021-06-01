@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams, withRouter, RouteComponentProps} from "react-router-dom";
+import { useParams, withRouter, RouteComponentProps } from "react-router-dom";
 import { getProjectByID } from "../firebaseUtils/getFirestoreData";
 import Stopwatch from "./StopwatchTimer/Stopwatch";
 import SpinnerLoader from "./SpinnerLoader";
 import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark";
 import { TasksList } from "./TasksList";
-import { EditProjectDataForm } from './EditProjectDataForm';
+import { EditProjectDataForm } from "./EditProjectDataForm";
 import { deleteProject } from "../firebaseUtils/setFirestoreData";
+import { ProjectData } from "./ProjectData";
 // interface ProjectDetailProps {
 
 // }
@@ -16,7 +17,7 @@ interface URLParamsProps {
   id: string;
 }
 
-const ProjectScreen = ({history}:RouteComponentProps) => {
+const ProjectScreen = ({ history }: RouteComponentProps) => {
   let { id: projectUID } = useParams<URLParamsProps>();
 
   const [projectData, setProjectData] = useState<any>({});
@@ -30,7 +31,7 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
       setProjectData(project);
       setIsLoaderVisible(false);
     });
-    console.log('render ProjectScreen');
+    console.log("render ProjectScreen");
   }, [projectUID]);
 
   return (
@@ -65,39 +66,40 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
                     <small>Proyecto</small> {projectData?.name}
                   </h4>
                 </div>
-                <div className="col-12">
+                <div className="col-12 mb-3">
                   <button
                     className="btn btn-danger float-right"
                     onClick={() =>
                       Swal.fire({
-                        title: 'Eliminar Proyecto?',
+                        title: "Eliminar Proyecto?",
                         text: "Este cambio sera permanente...",
-                        icon: 'warning',
+                        icon: "warning",
                         showCancelButton: true,
-                        confirmButtonColor: '#a47dff',
-                        cancelButtonColor: '#E91E63',
-                        confirmButtonText: 'Si, borrar',
-                        cancelButtonText: 'Cancelar',
+                        confirmButtonColor: "#a47dff",
+                        cancelButtonColor: "#E91E63",
+                        confirmButtonText: "Si, borrar",
+                        cancelButtonText: "Cancelar",
                         backdrop: `rgba(50,82,136,0.3)`,
                       }).then((result) => {
                         if (result.isConfirmed) {
                           Swal.fire({
-                            title:'Proyecto Borrado ! ',
-                            icon:'success',
-                            backdrop: `rgba(50,82,136,0.3)`
-                          }
-                           
-                          ).then(() => {
+                            title: "Proyecto Borrado ! ",
+                            icon: "success",
+                            backdrop: `rgba(50,82,136,0.3)`,
+                          }).then(() => {
                             deleteProject(projectUID);
-                            history.push('/projects');
-                          })
+                            history.push("/projects");
+                          });
                         }
                       })
                     }
                   >
                     Eliminar Proyecto
                   </button>
-                  <button className="btn btn-warning float-right" onClick={() => setEditionMode(!editionMode)}>
+                  <button
+                    className="btn btn-warning float-right"
+                    onClick={() => setEditionMode(!editionMode)}
+                  >
                     Editar Proyecto
                   </button>
                   <button className="btn btn-success float-right">
@@ -105,9 +107,12 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
                   </button>
                 </div>
 
-                <div className="col-10 col-md-4 p-0 mt-2">
-                  <TasksList projectUID={projectUID}
-                    clientUID={projectData?.userId}/>
+                <div className="col-10 col-md-4 p-0">
+                  <TasksList
+                    projectUID={projectUID}
+                    projectData={projectData}
+                    clientUID={projectData?.userId}
+                  />
                 </div>
                 <div className="col-10 col-md-4 text-center">
                   <Stopwatch
@@ -116,12 +121,16 @@ const ProjectScreen = ({history}:RouteComponentProps) => {
                   />
                 </div>
                 <div className="col-10 col-md-4">
-                  {editionMode? (
-                  <>
-                  
-                  <EditProjectDataForm projectData={projectData} projectUID={projectUID}/>
-                  </>) : null}
-                  
+                  {editionMode ? (
+                    <>
+                      <EditProjectDataForm
+                        projectData={projectData}
+                        projectUID={projectUID}
+                      />
+                    </>
+                  ) : (
+                    <ProjectData />
+                  )}
                 </div>
               </div>
             </div>

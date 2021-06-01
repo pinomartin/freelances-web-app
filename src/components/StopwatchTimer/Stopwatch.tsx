@@ -143,11 +143,11 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
       />
       <div className="row justify-content-center">
 
-      {isRunning === false && (
-        <button className="btn btn-primary w-25" onClick={() => start()}>
-          <i className="far fa-play-circle"></i>
-        </button>
-      )}
+        {isRunning === false && (
+          <button className="btn btn-primary w-25" onClick={() => start()}>
+            <i className="far fa-play-circle"></i>
+          </button>
+        )}
       {isRunning === true && (
         <button className="btn btn-danger w-25" onClick={() => stop()}>
           <i className="far fa-pause-circle"></i>
@@ -158,7 +158,7 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
      {currentTimeSec || currentTimeMin || currentTimeHour !== 0 ?  (
         <>
       
-        <button className="btn btn-warning w-25" onClick={() => reset()}>
+        <button className="btn btn-warning stopwatch__resetButton" onClick={() => reset()}>
         <i className="fas fa-sync-alt"></i>
       </button>
         <button className="btn btn-info w-25" onClick={addNewTaskTime}>

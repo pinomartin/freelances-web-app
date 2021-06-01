@@ -293,6 +293,14 @@ label:focus,
   box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
 }
 
+.stopwatch__resetButton{
+position: absolute;
+width: 2.5rem;
+top: 20%;
+right: 18%;
+border-radius: 100%;
+}
+
 
 /*Charts Styles - Sizes*/
 

@@ -6,7 +6,7 @@ import { formatDuration } from "date-fns";
 import formatISO from "date-fns/formatISO";
 import { es } from "date-fns/esm/locale";
 
-export const TasksList = ({ projectUID, clientUID }: TasksListProps) => {
+export const TasksList = ({ projectUID, clientUID, projectData }: TasksListProps) => {
   const [tasks, setTasks] = useState([]);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [timeToString, setTimeToString] = useState("");

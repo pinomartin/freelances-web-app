@@ -201,8 +201,8 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
                   value={onEditProjectData.estimatedFinishDate}
                 />
               </div>
-              <button className="btn btn-dark btn-lg btn-block" type="submit">
-                Guardar Cambios !
+              <button className="btn btn-primary float-right " type="submit">
+                  Actualizar
               </button>
             </form>
         </>
