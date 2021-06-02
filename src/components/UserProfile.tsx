@@ -24,6 +24,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     } else {
       history.push("/login");
     }
+
   }, [history]);
 
   const data = {
@@ -31,7 +32,8 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     datasets: [
       {
         label: 'Proyectos',
-        data: [userProjects.numberActiveProjects, userProjects.numberDoneProjects],
+        // data: [userProjects.numberDoneProjects, userProjects.numberDoneProjects],
+        data: [10, 15],
         backgroundColor: [
           'rgba(17, 236, 229, 1)',
           'rgba(164, 125, 255, 0.5)',],
@@ -79,6 +81,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
   //   );
   // };
 
+
   return user.profilePhotoURL ? (
     <div className="row justify-content-center align-content-center mt-5 p-0 m-0">
       <div className="col-10 col-md-6 col-lg-4 userProfileCard__headerContainer">
@@ -110,10 +113,16 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
           </div>
           </div>
           <div className="row justify-content-center">
-          <div className="col-12 mb-2 text-center">
-              <div className="userProfile-chart">
+          <div className="col-12 mb-2 text-center">    
+          <div className="userProfile-chart">
+                {
+                  userProjects.totalProjects !== 0 &&  userProjects.totalProjects !== undefined ? (
+                    
                     <Doughnut type='' data={data} options={options} />
-              </div>
+                   
+                    ) : (<p className="badge badge-info">Aun no tienes Proyectos</p>)
+                }
+                 </div>
             </div>
         </div>
         <hr />

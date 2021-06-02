@@ -1,6 +1,19 @@
-import React from 'react'
+import formatDistanceStrict from 'date-fns/formatDistanceStrict'
+import formatDistance from 'date-fns/formatDistance'
+import { es } from "date-fns/esm/locale";
 
-export const ProjectData = () => {
+
+
+export const ProjectData = ({projectData}:any) => {
+
+    console.log(projectData);
+
+    const getDaysRemaining = formatDistanceStrict(Date.now(), projectData.estimatedFinishDate, {unit: "day",addSuffix: false, locale: es})
+    console.log(getDaysRemaining);
+
+
+
+
     return (
         <>
             {/* <h4>Datos Proyecto</h4> */}
@@ -13,8 +26,8 @@ export const ProjectData = () => {
                     <span className="text-success">10</span>
                 </div>
                 <div className="col-6 text-center">
-                    <small className="d-block">Dias restantes</small>
-                    <span>10</span>
+                    <span>{getDaysRemaining}</span>
+                    <small className="d-block">restantes</small>
                 </div>
             </div>
             <br />

@@ -59,7 +59,7 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
               </div>
               <br />
           <div className="row justify-content-center align-items-center bg-transparent">
-            {projects.length !== 0 ? projects.map((item: any, index: number) => (
+            {projects.length !== 0 ? projects.map((item: any, index:number) => (
               <>
               
               <ProjectCard data={item} key={index} />

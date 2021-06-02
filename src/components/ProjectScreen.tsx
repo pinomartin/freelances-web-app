@@ -129,7 +129,8 @@ const ProjectScreen = ({ history }: RouteComponentProps) => {
                       />
                     </>
                   ) : (
-                    <ProjectData />
+                    <ProjectData 
+                    projectData={projectData}/>
                   )}
                 </div>
               </div>

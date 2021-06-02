@@ -209,6 +209,9 @@ label:focus,
 .userProfileCard__headerContainer{
   background-color: var(--card--primary-color);
   border-radius: 15px;
+  -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
+  0 1px 1px 1px rgb(60 64 67 / 15%);
+  box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
 }
 
 .userProfileCard__image{
@@ -296,9 +299,10 @@ label:focus,
 .stopwatch__resetButton{
 position: absolute;
 width: 2.5rem;
-top: 20%;
+top: 17%;
 right: 18%;
 border-radius: 100%;
+align-self: center;
 }
 
 
