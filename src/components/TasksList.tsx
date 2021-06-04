@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { streamTasksFromProject } from "../firebaseUtils/getFirestoreData";
 import { TasksListProps } from "../interfaces/tasklist";
+import { ProjectType } from "../interfaces/project";
 import { TaskListItem } from "./TaskListItem";
 import { formatDuration } from "date-fns";
 import formatISO from "date-fns/formatISO";
 import { es } from "date-fns/esm/locale";
 
 export const TasksList = ({ projectUID, clientUID, projectData }: TasksListProps) => {
+
+  const { amountXHour }:any = projectData;
+
   const [tasks, setTasks] = useState([]);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [timeToString, setTimeToString] = useState("");
+  const [estimatedTotal, setEstimatedTotal] = useState(0);
 
   const getTotalSecondsFromTasks = async (tasks: any) => {
     const totalSeconds = await tasks.reduce(function (
@@ -50,6 +55,13 @@ export const TasksList = ({ projectUID, clientUID, projectData }: TasksListProps
     return totalTimeperProject;
   };
 
+  const getEstimatedAmount = (seconds: number, amountPerHour: number):number => {
+      const hourPortion = seconds / 3600;
+      const estimatedTotalAmount = Number((hourPortion * amountPerHour).toFixed(2));
+
+      return estimatedTotalAmount;
+  }
+
   // useEffect(() => {
   //   const unsuscribe = db
   //     .collection("timetasks")
@@ -76,7 +88,7 @@ export const TasksList = ({ projectUID, clientUID, projectData }: TasksListProps
         );
         setTasks(updatedTasksItems);
       },
-      error: () => console.log("grocery-list-item-get-fail"),
+      error: () => console.log("task-list-item-failed"),
     });
 
     return unsubscribe;
@@ -85,6 +97,7 @@ export const TasksList = ({ projectUID, clientUID, projectData }: TasksListProps
   useEffect(() => {
     getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
     setTimeToString(getTotalTimeperProject(totalSeconds));
+    setEstimatedTotal(getEstimatedAmount(totalSeconds, amountXHour));
   }, [tasks, totalSeconds]);
 
   const totalSeconds1 = tasks.reduce(
@@ -132,7 +145,12 @@ export const TasksList = ({ projectUID, clientUID, projectData }: TasksListProps
           </>
         )}
       </div>
+      <div className="row justify-content-center">
           {tasks.length !== 0 && (<p>Tiempo total: {timeToString}</p>)}
+      </div>
+      <div className="row justify-content-center">
+          {tasks.length !== 0 && (<p>Monto a cobrar: ${estimatedTotal}</p>)}
+      </div>
     </>
   );
 };

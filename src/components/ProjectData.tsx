@@ -8,8 +8,8 @@ export const ProjectData = ({projectData}:any) => {
 
     console.log(projectData);
 
-    const getDaysRemaining = formatDistanceStrict(Date.now(), projectData.estimatedFinishDate, {unit: "day",addSuffix: false, locale: es})
-    console.log(getDaysRemaining);
+    const getDaysRemaining = formatDistanceStrict(Date.now(), projectData.estimatedFinishDate, {unit: "day",addSuffix: false, locale: es});
+    const getRemaingHours = '';
 
 
 
