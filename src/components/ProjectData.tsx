@@ -4,9 +4,10 @@ import { es } from "date-fns/esm/locale";
 
 
 
-export const ProjectData = ({projectData}:any) => {
+export const ProjectData = ({projectData, tasks }:any) => {
 
     console.log(projectData);
+    console.log(tasks);
 
     const getDaysRemaining = formatDistanceStrict(Date.now(), projectData.estimatedFinishDate, {unit: "day",addSuffix: false, locale: es});
     const getRemaingHours = '';

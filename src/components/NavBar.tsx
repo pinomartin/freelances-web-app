@@ -1,21 +1,19 @@
 import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
 import { auth } from "../firebase";
+
 import MainLogo from "../assets/mainLogoTransparent.svg";
 import DefaultProfilePhoto from "../assets/defaultProfilePhoto.png";
+import { FreelancesContext } from '../context/FreelancesProvider';
+import { useContext } from "react";
 
-interface IProps extends RouteComponentProps<any> {
-  firebaseUserActive: {
-    photoURL:string;
-    displayName:string;
-  };
-}
 
-const NavBar = ({ firebaseUserActive, history }: IProps) => {
-  const cerrarSesion = () => {
-    auth.signOut().then(() => {
-      history.push("/login");
-    });
-  };
+const NavBar = ({ history }: RouteComponentProps<any>) => {
+
+  const { authUser, userSignOut } = useContext(FreelancesContext);
+
+
+  // console.log('ANTERIOR',firebaseUserActive);
+  console.log('Context',authUser);
 
   return (
     <div className="navbar navbar-dark bg-dark sticky-top">
@@ -23,7 +21,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
         <img src={MainLogo} alt="MainAppLogo" width="120" />
       </NavLink>
         <div className="d-flex">
-          {firebaseUserActive !== null ? (
+          {authUser !== null ? (
             <>
               <div className="dropdown">
                 <button
@@ -34,8 +32,8 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  {firebaseUserActive.displayName ? (<small className="m-2 primaryFontColor"><strong>{firebaseUserActive.displayName}</strong></small>) : null}
-                  {firebaseUserActive.photoURL ? (<img src={firebaseUserActive.photoURL} className="img-rounded" alt="userProfilePhoto" width="25px"></img>) : <img src={DefaultProfilePhoto} className="img-rounded" alt="userProfilePhoto" width="25px"></img>}
+                  {authUser.displayName ? (<small className="m-2 primaryFontColor"><strong>{authUser.displayName}</strong></small>) : null}
+                  {authUser.photoURL ? (<img src={authUser.photoURL} className="img-rounded" alt="userProfilePhoto" width="25px"></img>) : <img src={DefaultProfilePhoto} className="img-rounded" alt="userProfilePhoto" width="25px"></img>}
                 </button>
                 <div
                   className="dropdown-menu dropdown-menu-right bg-dark"
@@ -49,7 +47,7 @@ const NavBar = ({ firebaseUserActive, history }: IProps) => {
                   </NavLink>
                   <button
                     className="dropdown-item text-white bg-dark"
-                    onClick={() => cerrarSesion()}
+                    onClick={() => userSignOut().then(history.push('/login'))}
                   >
                     🔒 Cerrar Sesion
                   </button>

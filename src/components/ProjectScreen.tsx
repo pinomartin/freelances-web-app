@@ -1,28 +1,33 @@
 import { useEffect, useState } from "react";
 import { useParams, withRouter, RouteComponentProps } from "react-router-dom";
 import { getProjectByID } from "../firebaseUtils/getFirestoreData";
+import { streamTasksFromProject } from "../firebaseUtils/getFirestoreData";
+import { deleteProject } from "../firebaseUtils/setFirestoreData";
 import Stopwatch from "./StopwatchTimer/Stopwatch";
 import SpinnerLoader from "./SpinnerLoader";
 import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark";
 import { TasksList } from "./TasksList";
 import { EditProjectDataForm } from "./EditProjectDataForm";
-import { deleteProject } from "../firebaseUtils/setFirestoreData";
 import { ProjectData } from "./ProjectData";
-// interface ProjectDetailProps {
 
-// }
+
+
+interface ProjectScreenProps extends RouteComponentProps<any> {
+  firebaseUserActive: any;
+}
 
 interface URLParamsProps {
   id: string;
 }
 
-const ProjectScreen = ({ history }: RouteComponentProps) => {
-  let { id: projectUID } = useParams<URLParamsProps>();
+const ProjectScreen = ({ history, firebaseUserActive }: ProjectScreenProps) => {
+  const { id: projectUID } = useParams<URLParamsProps>();
 
   const [projectData, setProjectData] = useState<any>({});
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [editionMode, setEditionMode] = useState(false);
+  const [tasks, setTasks] = useState([]);
 
   console.log(projectData);
 
@@ -33,6 +38,25 @@ const ProjectScreen = ({ history }: RouteComponentProps) => {
     });
     console.log("render ProjectScreen");
   }, [projectUID]);
+
+  /**REVISAR ESTE PROBLEMA QUE NO TRAE EL USUARIO..... IMPLEMENTAR CONTEXT  */
+  
+  useEffect(() => {
+    
+      const unsubscribe = streamTasksFromProject('martin91pino@gmail.com', projectUID, {
+        next: (querySnapshot: any) => {
+          const updatedTasksItems = querySnapshot.docs.map(
+            (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
+          );
+          setTasks(updatedTasksItems);
+        },
+        error: () => console.log("task-list-item-failed"),
+      });
+      
+      return unsubscribe;
+    
+
+  }, [projectData, projectUID, setTasks]);
 
   return (
     <div>
@@ -112,6 +136,7 @@ const ProjectScreen = ({ history }: RouteComponentProps) => {
                     projectUID={projectUID}
                     projectData={projectData}
                     clientUID={projectData?.userId}
+                    tasks={tasks}
                   />
                 </div>
                 <div className="col-10 col-md-4 text-center">
@@ -130,7 +155,8 @@ const ProjectScreen = ({ history }: RouteComponentProps) => {
                     </>
                   ) : (
                     <ProjectData 
-                    projectData={projectData}/>
+                    projectData={projectData}
+                    tasks={tasks}/>
                   )}
                 </div>
               </div>

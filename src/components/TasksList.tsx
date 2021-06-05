@@ -7,14 +7,15 @@ import { formatDuration } from "date-fns";
 import formatISO from "date-fns/formatISO";
 import { es } from "date-fns/esm/locale";
 
-export const TasksList = ({ projectUID, clientUID, projectData }: TasksListProps) => {
+export const TasksList = ({ projectData, tasks }: TasksListProps) => {
 
   const { amountXHour }:any = projectData;
 
-  const [tasks, setTasks] = useState([]);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [timeToString, setTimeToString] = useState("");
   const [estimatedTotal, setEstimatedTotal] = useState(0);
+  const [isLoaderVisible, setIsLoaderVisible] = useState(true);
+
 
   const getTotalSecondsFromTasks = async (tasks: any) => {
     const totalSeconds = await tasks.reduce(function (
@@ -80,19 +81,19 @@ export const TasksList = ({ projectUID, clientUID, projectData }: TasksListProps
   //   return unsuscribe;
   // }, [clientUID, projectUID]);
 
-  useEffect(() => {
-    const unsubscribe = streamTasksFromProject(clientUID, projectUID, {
-      next: (querySnapshot: any) => {
-        const updatedTasksItems = querySnapshot.docs.map(
-          (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
-        );
-        setTasks(updatedTasksItems);
-      },
-      error: () => console.log("task-list-item-failed"),
-    });
+  // useEffect(() => {
+  //   const unsubscribe = streamTasksFromProject(clientUID, projectUID, {
+  //     next: (querySnapshot: any) => {
+  //       const updatedTasksItems = querySnapshot.docs.map(
+  //         (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
+  //       );
+  //       setTasks(updatedTasksItems);
+  //     },
+  //     error: () => console.log("task-list-item-failed"),
+  //   });
 
-    return unsubscribe;
-  }, [clientUID, projectUID, setTasks, setTotalSeconds]);
+  //   return unsubscribe;
+  // }, [clientUID, projectUID, setTasks, setTotalSeconds]);
 
   useEffect(() => {
     getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
@@ -130,6 +131,7 @@ export const TasksList = ({ projectUID, clientUID, projectData }: TasksListProps
   return (
     <>
       <h3 className="text-center">Tiempos</h3>
+      {}
       <div className="accordion" id="tasksAccordion">
         {tasks.length !== 0 ? (
           tasks.map((item: any) => (

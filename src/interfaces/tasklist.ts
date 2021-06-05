@@ -1,5 +1,6 @@
 export interface TasksListProps {
     projectUID: string;
     clientUID: string;
-    projectData: Object
+    projectData: Object,
+    tasks: Array<Object>,
   }

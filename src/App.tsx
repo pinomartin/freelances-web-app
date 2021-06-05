@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { auth } from "./firebase";
 import Login from "./components/Login";
@@ -8,28 +8,27 @@ import Home from "./components/Home";
 import NewProjectForm from "./components/NewProjectForm";
 import UserProfile from "./components/UserProfile";
 import ProjectScreen from "./components/ProjectScreen";
+import { FreelancesContext } from './context/FreelancesProvider';
 
 function App() {
-  const [firebaseUser, setFirebaseUser] = useState<any | null>(null);
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      user !== null ? setFirebaseUser(user) : setFirebaseUser(null);
-    });
-  }, [firebaseUser]);
+
+  const { authUser } = useContext(FreelancesContext);
 
   return (
     <Router>
-      <NavBar firebaseUserActive={firebaseUser} />
+      <NavBar />
       <div className="container-fluid p-0">
         <Switch>
           <Route path="/" exact>
             <Home />
           </Route>
           <Route path="/login">
-            <Login firebaseUserActive={firebaseUser} />
+            <Login firebaseUserActive={authUser} />
           </Route>
-          <Route path="/projects/:id" children={ProjectScreen} />
+          <Route path="/projects/:id" exact>
+            <ProjectScreen firebaseUserActive={authUser} />
+          </Route>
           <Route path="/projects">
             <ProjectsList />
           </Route>

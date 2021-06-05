@@ -1,26 +1,30 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useContext } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { auth, db, provider } from "../firebase";
+import { FreelancesContext } from '../context/FreelancesProvider';
 import GoogleLoginIcon from "../assets/googleLoginIcon.svg";
 
 interface LoginProps extends RouteComponentProps<any> {
   firebaseUserActive?: object;
 }
 
-const Login = ({ history, firebaseUserActive }: LoginProps) => {
+
+const Login = ({ history }: LoginProps) => {
+  const { authUser } = useContext(FreelancesContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [error, setError] = useState("");
   const [esRegistro, setEsRegistro] = useState(false);
 
-  useEffect(() => {
-    if (firebaseUserActive && auth.currentUser) {
-      history.push("/projects");
-    } else {
-      history.push("/login");
-    }
-  }, [firebaseUserActive, history]);
+  // useEffect(() => {
+  //   if (authUser) {
+  //     history.push("/projects");
+  //   } else {
+  //     history.push("/login");
+  //   }
+  // }, [authUser, history]);
 
   const procesarData = (e: any) => {
     console.log(typeof e);
