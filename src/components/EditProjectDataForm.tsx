@@ -90,6 +90,23 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
             value={onEditProjectData.estimatedTotal}
           />
         </div>
+        <div className="input-group">
+          <span className="input-group-addon p-1 primaryFontColor w-50">
+          Horas x dia
+          </span>
+          <input
+            type="number"
+            className="form-control form-control-sm mb-2 customForm__input currency"
+            min="1"
+            step="1"
+            data-number-to-fixed="2"
+            data-number-stepfactor="100"
+            onChange={(e: any) =>
+              setOnEditProjectData({ ...onEditProjectData, estimatedHoursPerDay: Number(e.target.value) })
+            }
+            value={onEditProjectData.estimatedHoursPerDay}
+          />
+        </div>
       </>
     );
     const procesarData = (e: any) => {

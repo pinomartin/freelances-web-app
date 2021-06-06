@@ -18,13 +18,13 @@ const Login = ({ history }: LoginProps) => {
   const [error, setError] = useState("");
   const [esRegistro, setEsRegistro] = useState(false);
 
-  // useEffect(() => {
-  //   if (authUser) {
-  //     history.push("/projects");
-  //   } else {
-  //     history.push("/login");
-  //   }
-  // }, [authUser, history]);
+  useEffect(() => {
+    if (authUser) {
+      history.push("/projects");
+    } else {
+      history.push("/login");
+    }
+  }, [authUser, history]);
 
   const procesarData = (e: any) => {
     console.log(typeof e);

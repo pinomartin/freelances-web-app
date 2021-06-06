@@ -33,6 +33,7 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
         amountXHour: project.amountXHour,
         estimatedHours: project.estimatedHours,
         estimatedTotal: project.estimatedTotal,
+        estimatedHoursPerDay:project.estimatedHoursPerDay,
         estimatedFinishDate: finishDateProcessorForm(
           `${project.estimatedFinishDate}`
         ),
@@ -59,6 +60,8 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
         seconds: task.seconds,
         projectUID: task.projectUID,
         creationDate: task.creationDate,
+        startTimerDate: task.startTimerDate,
+        stopTimerDate: task.stopTimerDate,
         isDone: task.isActive,
         userUID: task.clientUID,
       });

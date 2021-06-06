@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { auth, provider } from '../firebase';
-import { getProjectsFromUser, getUserFromDB } from "../firebaseUtils/getFirestoreData"; 
+import { getUserFromDB } from "../firebaseUtils/getFirestoreData"; 
 
 export const FreelancesContext = React.createContext<any>({});
 
@@ -10,7 +10,6 @@ export const FreelancesProvider = (props:any) => {
 
     const [userDB, setUserDB] = useState(initialUserData);
     const [authUser, setAuthUser] = useState<any>(null);
-    const [projects, setProjects] = useState<any>(null);
 
     const userDetector = () => {
         auth.onAuthStateChanged(user => {
@@ -22,11 +21,9 @@ export const FreelancesProvider = (props:any) => {
                         uid: user?.uid, displayName: user?.userName, photoURL: user?.profilePhotoURL , email: user?.email
                     })
                 })
-                getProjectsFromUser(user.email).then((projects) => setProjects(projects));
             }else{
                 setUserDB({uid: '', displayName: '', photoURL: '' , email: ''});
                 setAuthUser(null);
-                setProjects(null);
             }
         })
     }
@@ -74,7 +71,7 @@ export const FreelancesProvider = (props:any) => {
 
 
     return (
-            <FreelancesContext.Provider value={{userDB, authUser, userLogin, userSignOut, projects}}>
+            <FreelancesContext.Provider value={{userDB, authUser, userLogin, userSignOut}}>
                 {props.children}
             </FreelancesContext.Provider>
     )

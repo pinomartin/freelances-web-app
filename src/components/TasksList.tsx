@@ -1,67 +1,63 @@
-import { useEffect, useState } from "react";
-import { streamTasksFromProject } from "../firebaseUtils/getFirestoreData";
+// import { useEffect, useState } from "react";
 import { TasksListProps } from "../interfaces/tasklist";
-import { ProjectType } from "../interfaces/project";
 import { TaskListItem } from "./TaskListItem";
-import { formatDuration } from "date-fns";
-import formatISO from "date-fns/formatISO";
-import { es } from "date-fns/esm/locale";
+// import { formatDuration } from "date-fns";
+// import { es } from "date-fns/esm/locale";
 
 export const TasksList = ({ projectData, tasks }: TasksListProps) => {
 
-  const { amountXHour }:any = projectData;
+  // const { amountXHour }:any = projectData;
 
-  const [totalSeconds, setTotalSeconds] = useState(0);
-  const [timeToString, setTimeToString] = useState("");
-  const [estimatedTotal, setEstimatedTotal] = useState(0);
-  const [isLoaderVisible, setIsLoaderVisible] = useState(true);
+  // const [totalSeconds, setTotalSeconds] = useState(0);
+  // const [timeToString, setTimeToString] = useState("");
+  // const [estimatedTotal, setEstimatedTotal] = useState(0);
 
 
-  const getTotalSecondsFromTasks = async (tasks: any) => {
-    const totalSeconds = await tasks.reduce(function (
-      accumulator: number,
-      tasks: any
-    ) {
-      const initialDate = new Date(2021, 5, 29, 0, 0, 0, 0);
-      const finalDate = new Date(
-        2021,
-        5,
-        29,
-        tasks.hours,
-        tasks.minutes,
-        tasks.seconds,
-        0
-      );
-      const seconds = (finalDate.getTime() - initialDate.getTime()) / 1000;
+  // const getTotalSecondsFromTasks = async (tasks: any) => {
+  //   const totalSeconds = await tasks.reduce(function (
+  //     accumulator: number,
+  //     tasks: any
+  //   ) {
+  //     const initialDate = new Date(2021, 5, 29, 0, 0, 0, 0);
+  //     const finalDate = new Date(
+  //       2021,
+  //       5,
+  //       29,
+  //       tasks.hours,
+  //       tasks.minutes,
+  //       tasks.seconds,
+  //       0
+  //     );
+  //     const seconds = (finalDate.getTime() - initialDate.getTime()) / 1000;
 
-      return accumulator + seconds;
-    },
-    0);
+  //     return accumulator + seconds;
+  //   },
+  //   0);
 
-    return totalSeconds;
-  };
+  //   return totalSeconds;
+  // };
 
-  const getTotalTimeperProject = (totalSeconds: number) => {
-    const dateHelper = new Date(new Date().setHours(0, 0, 0, 0));
-    dateHelper.setHours(0, 0, 0, 0);
-    dateHelper.setSeconds(totalSeconds);
-    const totalTimeperProject = formatDuration(
-      {
-        hours: dateHelper.getHours(),
-        minutes: dateHelper.getMinutes(),
-        seconds: dateHelper.getSeconds(),
-      },
-      { zero: true, delimiter: " ", locale: es }
-    );
-    return totalTimeperProject;
-  };
+  // const getTotalTimeperProject = (totalSeconds: number) => {
+  //   const dateHelper = new Date(new Date().setHours(0, 0, 0, 0));
+  //   dateHelper.setHours(0, 0, 0, 0);
+  //   dateHelper.setSeconds(totalSeconds);
+  //   const totalTimeperProject = formatDuration(
+  //     {
+  //       hours: dateHelper.getHours(),
+  //       minutes: dateHelper.getMinutes(),
+  //       seconds: dateHelper.getSeconds(),
+  //     },
+  //     { zero: true, delimiter: " ", locale: es }
+  //   );
+  //   return totalTimeperProject;
+  // };
 
-  const getEstimatedAmount = (seconds: number, amountPerHour: number):number => {
-      const hourPortion = seconds / 3600;
-      const estimatedTotalAmount = Number((hourPortion * amountPerHour).toFixed(2));
+  // const getEstimatedAmount = (seconds: number, amountPerHour: number):number => {
+  //     const hourPortion = seconds / 3600;
+  //     const estimatedTotalAmount = Number((hourPortion * amountPerHour).toFixed(2));
 
-      return estimatedTotalAmount;
-  }
+  //     return estimatedTotalAmount;
+  // }
 
   // useEffect(() => {
   //   const unsuscribe = db
@@ -95,11 +91,11 @@ export const TasksList = ({ projectData, tasks }: TasksListProps) => {
   //   return unsubscribe;
   // }, [clientUID, projectUID, setTasks, setTotalSeconds]);
 
-  useEffect(() => {
-    getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
-    setTimeToString(getTotalTimeperProject(totalSeconds));
-    setEstimatedTotal(getEstimatedAmount(totalSeconds, amountXHour));
-  }, [tasks, totalSeconds]);
+  // useEffect(() => {
+  //   getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
+  //   setTimeToString(getTotalTimeperProject(totalSeconds));
+  //   setEstimatedTotal(getEstimatedAmount(totalSeconds, amountXHour));
+  // }, [tasks, totalSeconds]);
 
   const totalSeconds1 = tasks.reduce(
     (acc: number, seconds: any) => acc + seconds.seconds,
@@ -131,7 +127,7 @@ export const TasksList = ({ projectData, tasks }: TasksListProps) => {
   return (
     <>
       <h3 className="text-center">Tiempos</h3>
-      {}
+     
       <div className="accordion" id="tasksAccordion">
         {tasks.length !== 0 ? (
           tasks.map((item: any) => (
@@ -147,12 +143,12 @@ export const TasksList = ({ projectData, tasks }: TasksListProps) => {
           </>
         )}
       </div>
-      <div className="row justify-content-center">
+      {/* <div className="row justify-content-center">
           {tasks.length !== 0 && (<p>Tiempo total: {timeToString}</p>)}
       </div>
       <div className="row justify-content-center">
           {tasks.length !== 0 && (<p>Monto a cobrar: ${estimatedTotal}</p>)}
-      </div>
+      </div> */}
     </>
   );
 };

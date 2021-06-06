@@ -1,6 +1,4 @@
-import { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { auth } from "./firebase";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import ProjectsList from "./components/ProjectsList";
@@ -8,12 +6,8 @@ import Home from "./components/Home";
 import NewProjectForm from "./components/NewProjectForm";
 import UserProfile from "./components/UserProfile";
 import ProjectScreen from "./components/ProjectScreen";
-import { FreelancesContext } from './context/FreelancesProvider';
 
 function App() {
-
-
-  const { authUser } = useContext(FreelancesContext);
 
   return (
     <Router>
@@ -24,10 +18,10 @@ function App() {
             <Home />
           </Route>
           <Route path="/login">
-            <Login firebaseUserActive={authUser} />
+            <Login />
           </Route>
           <Route path="/projects/:id" exact>
-            <ProjectScreen firebaseUserActive={authUser} />
+            <ProjectScreen />
           </Route>
           <Route path="/projects">
             <ProjectsList />

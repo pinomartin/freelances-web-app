@@ -13,7 +13,7 @@ const NavBar = ({ history }: RouteComponentProps<any>) => {
 
 
   // console.log('ANTERIOR',firebaseUserActive);
-  console.log('Context',authUser);
+  // console.log('Context',authUser);
 
   return (
     <div className="navbar navbar-dark bg-dark sticky-top">

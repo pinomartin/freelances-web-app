@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, withRouter, RouteComponentProps } from "react-router-dom";
 import { getProjectByID } from "../firebaseUtils/getFirestoreData";
 import { streamTasksFromProject } from "../firebaseUtils/getFirestoreData";
@@ -10,20 +10,21 @@ import "@sweetalert2/theme-dark";
 import { TasksList } from "./TasksList";
 import { EditProjectDataForm } from "./EditProjectDataForm";
 import { ProjectData } from "./ProjectData";
+import { FreelancesContext } from "../context/FreelancesProvider";
 
 
 
-interface ProjectScreenProps extends RouteComponentProps<any> {
-  firebaseUserActive: any;
-}
+// interface ProjectScreenProps extends RouteComponentProps<any> {
+//   firebaseUserActive: any;
+// }
 
 interface URLParamsProps {
   id: string;
 }
 
-const ProjectScreen = ({ history, firebaseUserActive }: ProjectScreenProps) => {
+const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
   const { id: projectUID } = useParams<URLParamsProps>();
-
+  const { userDB, authUser } = useContext(FreelancesContext);
   const [projectData, setProjectData] = useState<any>({});
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [editionMode, setEditionMode] = useState(false);
@@ -34,7 +35,6 @@ const ProjectScreen = ({ history, firebaseUserActive }: ProjectScreenProps) => {
   useEffect(() => {
     getProjectByID(projectUID).then((project) => {
       setProjectData(project);
-      setIsLoaderVisible(false);
     });
     console.log("render ProjectScreen");
   }, [projectUID]);
@@ -43,12 +43,14 @@ const ProjectScreen = ({ history, firebaseUserActive }: ProjectScreenProps) => {
   
   useEffect(() => {
     
-      const unsubscribe = streamTasksFromProject('martin91pino@gmail.com', projectUID, {
+      const unsubscribe = streamTasksFromProject(authUser.email, projectUID, {
         next: (querySnapshot: any) => {
           const updatedTasksItems = querySnapshot.docs.map(
             (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
           );
           setTasks(updatedTasksItems);
+          setIsLoaderVisible(false);
+
         },
         error: () => console.log("task-list-item-failed"),
       });
@@ -85,12 +87,7 @@ const ProjectScreen = ({ history, firebaseUserActive }: ProjectScreenProps) => {
             </div>
             <div className="w-100">
               <div className="row m-0 justify-content-center">
-                <div className="col-12">
-                  <h4 className="text-white">
-                    <small>Proyecto</small> {projectData?.name}
-                  </h4>
-                </div>
-                <div className="col-12 mb-3">
+                <div className="col-12 mt-1">
                   <button
                     className="btn btn-danger float-right"
                     onClick={() =>
@@ -129,6 +126,11 @@ const ProjectScreen = ({ history, firebaseUserActive }: ProjectScreenProps) => {
                   <button className="btn btn-success float-right">
                     Finalizar Proyecto
                   </button>
+                </div>
+                <div className="col-12">
+                  <h4 className="text-white">
+                    <small>Proyecto</small> {projectData?.name}
+                  </h4>
                 </div>
 
                 <div className="col-10 col-md-4 p-0">

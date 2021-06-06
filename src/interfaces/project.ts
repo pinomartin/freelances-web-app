@@ -7,5 +7,6 @@ export interface ProjectType {
     estimatedHours: number;
     estimatedTotal: number;
     estimatedFinishDate?: string | number;
+    estimatedHoursPerDay: number;
     creationDate: number;
   }

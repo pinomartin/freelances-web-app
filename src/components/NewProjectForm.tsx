@@ -15,6 +15,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
     amountXHour: 0,
     estimatedHours: 0,
     estimatedTotal: 0,
+    estimatedHoursPerDay: 0,
     estimatedFinishDate: new Date().toISOString().slice(0, 10),
     creationDate: Date.now(),
   });
@@ -57,6 +58,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
       amountXHour: 0,
       estimatedHours: 0,
       estimatedTotal: 0,
+      estimatedHoursPerDay: 0,
       type: event.target.value,
     });
   };
@@ -72,7 +74,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
           <input
             type="number"
             className="form-control form-control-sm mb-2 customForm__input currency"
-            min="0"
+            min="0.01"
             step="0.01"
             data-number-to-fixed="2"
             data-number-stepfactor="100"
@@ -89,7 +91,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
           <input
             type="number"
             className="form-control form-control-sm mb-2 customForm__input currency"
-            min="0"
+            min="1"
             step="1"
             data-number-to-fixed="2"
             data-number-stepfactor="100"
@@ -113,12 +115,12 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
       <>
         <div className="input-group">
           <span className="input-group-addon p-1 primaryFontColor w-50">
-            Presupuesto estimado
+            Presupuesto estimado $
           </span>
           <input
             type="number"
             className="form-control form-control-sm mb-2 customForm__input currency"
-            min="0"
+            min="0.01"
             step="0.01"
             data-number-to-fixed="2"
             data-number-stepfactor="100"
@@ -126,6 +128,23 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
               setProject({ ...project, estimatedTotal: Number(e.target.value) })
             }
             value={project.estimatedTotal}
+          />
+        </div>
+        <div className="input-group">
+          <span className="input-group-addon p-1 primaryFontColor w-50">
+            Horas x dia 
+          </span>
+          <input
+            type="number"
+            className="form-control form-control-sm mb-2 customForm__input currency"
+            min="1"
+            step="1"
+            data-number-to-fixed="2"
+            data-number-stepfactor="100"
+            onChange={(e: any) =>
+              setProject({ ...project, estimatedHoursPerDay: Number(e.target.value) })
+            }
+            value={project.estimatedHoursPerDay}
           />
         </div>
       </>
@@ -162,6 +181,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
         amountXHour: project.amountXHour,
         estimatedHours: project.estimatedHours,
         estimatedTotal: project.estimatedTotal,
+        estimatedHoursPerDay: project.estimatedHoursPerDay,
         estimatedFinishDate: finishDateProcessorForm(
           `${project.estimatedFinishDate}`
         ),
@@ -245,7 +265,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
 
               <div className="input-group">
                 <span className="input-group-addon p-1 primaryFontColor w-25">
-                  Fecha tentativa
+                  Fecha entrega
                 </span>
                 <input
                   type="date"
