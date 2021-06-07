@@ -1,38 +1,59 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, withRouter, RouteComponentProps } from "react-router-dom";
 import { getProjectByID } from "../firebaseUtils/getFirestoreData";
+import { streamTasksFromProject } from "../firebaseUtils/getFirestoreData";
+import { deleteProject } from "../firebaseUtils/setFirestoreData";
 import Stopwatch from "./StopwatchTimer/Stopwatch";
 import SpinnerLoader from "./SpinnerLoader";
 import Swal from "sweetalert2";
 import "@sweetalert2/theme-dark";
 import { TasksList } from "./TasksList";
 import { EditProjectDataForm } from "./EditProjectDataForm";
-import { deleteProject } from "../firebaseUtils/setFirestoreData";
 import { ProjectData } from "./ProjectData";
-// interface ProjectDetailProps {
+import { FreelancesContext } from "../context/FreelancesProvider";
 
+// interface ProjectScreenProps extends RouteComponentProps<any> {
+//   firebaseUserActive: any;
 // }
 
 interface URLParamsProps {
   id: string;
 }
 
-const ProjectScreen = ({ history }: RouteComponentProps) => {
-  let { id: projectUID } = useParams<URLParamsProps>();
-
+const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
+  const { id: projectUID } = useParams<URLParamsProps>();
+  const { authUser } = useContext(FreelancesContext);
   const [projectData, setProjectData] = useState<any>({});
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [editionMode, setEditionMode] = useState(false);
+  const [tasks, setTasks] = useState([]);
 
   console.log(projectData);
 
   useEffect(() => {
     getProjectByID(projectUID).then((project) => {
       setProjectData(project);
-      setIsLoaderVisible(false);
     });
     console.log("render ProjectScreen");
   }, [projectUID]);
+
+  /**REVISAR ESTE PROBLEMA QUE NO TRAE EL USUARIO..... IMPLEMENTAR CONTEXT  */
+
+  useEffect(() => {
+    const unsubscribe = streamTasksFromProject(authUser.email, projectUID, {
+      next: (querySnapshot: any) => {
+        const updatedTasksItems = querySnapshot.docs.map(
+          (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
+        );
+        setTasks(updatedTasksItems);
+        setIsLoaderVisible(false);
+      },
+      error: () => console.log("task-list-item-failed"),
+    });
+
+    return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectData, projectUID, setTasks]);
 
   return (
     <div>
@@ -45,7 +66,7 @@ const ProjectScreen = ({ history }: RouteComponentProps) => {
           <>
             <div className="sidebar-container">
               <div className="menu">
-                <button className="d-block btn-block  p-3 border-0">
+                <button className="d-block btn-block p-3 border-0">
                   <i className="far fa-paper-plane mr-3"></i>
                   Proyecto
                 </button>
@@ -61,12 +82,7 @@ const ProjectScreen = ({ history }: RouteComponentProps) => {
             </div>
             <div className="w-100">
               <div className="row m-0 justify-content-center">
-                <div className="col-12">
-                  <h4 className="text-white">
-                    <small>Proyecto</small> {projectData?.name}
-                  </h4>
-                </div>
-                <div className="col-12 mb-3">
+                <div className="col-12 mt-1">
                   <button
                     className="btn btn-danger float-right"
                     onClick={() =>
@@ -106,12 +122,18 @@ const ProjectScreen = ({ history }: RouteComponentProps) => {
                     Finalizar Proyecto
                   </button>
                 </div>
+                <div className="col-12">
+                  <h4 className="text-white">
+                    <small>Proyecto</small> {projectData?.name}
+                  </h4>
+                </div>
 
                 <div className="col-10 col-md-4 p-0">
                   <TasksList
                     projectUID={projectUID}
                     projectData={projectData}
                     clientUID={projectData?.userId}
+                    tasks={tasks}
                   />
                 </div>
                 <div className="col-10 col-md-4 text-center">
@@ -129,8 +151,7 @@ const ProjectScreen = ({ history }: RouteComponentProps) => {
                       />
                     </>
                   ) : (
-                    <ProjectData 
-                    projectData={projectData}/>
+                    <ProjectData projectData={projectData} tasks={tasks} />
                   )}
                 </div>
               </div>

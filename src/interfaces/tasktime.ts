@@ -5,6 +5,8 @@ export interface TaskTime {
     seconds: number;
     isActive: boolean;
     creationDate: number;
+    startTimerDate: number;
+    stopTimerDate:number;
     projectUID: string;
     clientUID: string;
     id?:string;

@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import FreelancesProvider from './context/FreelancesProvider';
 
 ReactDOM.render(
   <React.StrictMode>
+    <FreelancesProvider>
     <App />
+    </FreelancesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

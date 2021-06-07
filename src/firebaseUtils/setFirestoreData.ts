@@ -1,28 +1,28 @@
 import { db } from "../firebase";
 import { ProjectType } from "../interfaces/project"
 import { TaskTime } from "../interfaces/tasktime"
-import { finishDateProcessorForm } from '../utils/time/finishDateProcessorForm';
+import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorForm';
 
-const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese any
-    try {
-    //   setIsLoaderVisible(true);
-      await db.collection("projects").add({
-        userId: auth.currentUser?.email,
-        name: project.name,
-        client: project.client,
-        description: project.description,
-        amountXHour: project.amountXHour,
-        estimatedHours: project.estimatedHours,
-        estimatedTotal: project.estimatedTotal,
-        estimatedFinishDate: project.estimatedFinishDate,
-        creationDate: Date.now(),
-        isDone: false
-      });
-    //   history.push("/projects");
-    } catch (error) {
-      console.log('No se pudo guardar proyecto en DB');
-    }
-  }
+// const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese any
+//     try {
+//     //   setIsLoaderVisible(true);
+//       await db.collection("projects").add({
+//         userId: auth.currentUser?.email,
+//         name: project.name,
+//         client: project.client,
+//         description: project.description,
+//         amountXHour: project.amountXHour,
+//         estimatedHours: project.estimatedHours,
+//         estimatedTotal: project.estimatedTotal,
+//         estimatedFinishDate: project.estimatedFinishDate,
+//         creationDate: Date.now(),
+//         isDone: false
+//       });
+//     //   history.push("/projects");
+//     } catch (error) {
+//       console.log('No se pudo guardar proyecto en DB');
+//     }
+//   }
 
   const updateProjectDB = async (project: ProjectType, projectUID: string) => {
     try {
@@ -33,12 +33,13 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
         amountXHour: project.amountXHour,
         estimatedHours: project.estimatedHours,
         estimatedTotal: project.estimatedTotal,
+        estimatedHoursPerDay:project.estimatedHoursPerDay,
         estimatedFinishDate: finishDateProcessorForm(
           `${project.estimatedFinishDate}`
         ),
       });
     } catch (error) {
-      console.log("No se pudo actualizar proyecto en DB");
+      console.log(error);
     }
   };
   
@@ -59,6 +60,8 @@ const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese
         seconds: task.seconds,
         projectUID: task.projectUID,
         creationDate: task.creationDate,
+        startTimerDate: task.startTimerDate,
+        stopTimerDate: task.stopTimerDate,
         isDone: task.isActive,
         userUID: task.clientUID,
       });

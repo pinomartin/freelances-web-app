@@ -30,6 +30,8 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
     seconds: 0,
     isActive: true,
     creationDate: 0,
+    startTimerDate: 0,
+    stopTimerDate: 0,
     projectUID: "",
     clientUID: "",
   };
@@ -39,13 +41,14 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
 
   const addNewTaskTime = async () => {
     stop();
-    setTaskTime({
+    setTaskTime({...taskTime,
       description: "",
       hours: currentTimeHour,
       minutes: currentTimeMin,
       seconds: currentTimeSec,
       isActive: true,
-      creationDate: Date.now(),
+      creationDate: 0,
+      stopTimerDate: Date.now(),
       projectUID: projectUID,
       clientUID: clientUID,
     });
@@ -114,6 +117,7 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
       setCurrentTimeSec(currentTimeSec);
       setCurrentTimeMin(currentTimeMin);
       setCurrentTimeHour(currentTimeHour);
+      setTaskTime({...taskTime, startTimerDate: Date.now()});
     }
   };
 
@@ -177,7 +181,7 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
                 className="form-control form-control-sm mb-2 customForm__input"
                 placeholder="Qué hiciste en este tiempo?"
                 onChange={(e) =>
-                  setTaskTime({ ...taskTime, description: e.target.value })
+                  setTaskTime({ ...taskTime, description: e.target.value, creationDate: Date.now() })
                 }
                 value={taskTime.description}
               />

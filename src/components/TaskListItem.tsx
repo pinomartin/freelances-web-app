@@ -6,7 +6,7 @@ interface TaskListItemProps {
   task: any;
 }
 export const TaskListItem = ({ task }: TaskListItemProps) => {
-  const { id, description, creationDate, hours, minutes, seconds } = task;
+  const { id, description, hours, minutes, seconds } = task;
 
   const [taskEditionMode, setTaskEditionMode] = useState(false);
   const [onEditTaskData, setOnEditTaskData] = useState(task);
@@ -62,11 +62,11 @@ export const TaskListItem = ({ task }: TaskListItemProps) => {
                   <i className="far fa-save"></i>
                 </button>
                 <button
-                  className="btn btn-danger float-right ml-2"
+                  className="btn btn-info float-right ml-2"
                   type="button"
                   onClick={() => setTaskEditionMode(false)}
                 >
-                  <i className="far fa-window-close"></i>
+                 <i className="fas fa-arrow-right"></i>
                 </button>
               </div>
             </form>

@@ -8,7 +8,9 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
 
     useEffect(() => {
       estimatedTotalXHourSetter(onEditProjectData.amountXHour, onEditProjectData.estimatedHours)
-    }, [onEditProjectData.amountXHour, onEditProjectData.estimatedHours]);
+    },
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+     [onEditProjectData.amountXHour, onEditProjectData.estimatedHours]);
 
     const estimatedTotalXHourSetter = (amountXHour: number, estimatedHours: number) => {
       if (onEditProjectData.amountXHour !== 0 || onEditProjectData.estimatedHours !== 0) {
@@ -88,6 +90,23 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
                 setOnEditProjectData({ ...onEditProjectData, estimatedTotal: Number(e.target.value) })
             }
             value={onEditProjectData.estimatedTotal}
+          />
+        </div>
+        <div className="input-group">
+          <span className="input-group-addon p-1 primaryFontColor w-50">
+          Horas x dia
+          </span>
+          <input
+            type="number"
+            className="form-control form-control-sm mb-2 customForm__input currency"
+            min="1"
+            step="1"
+            data-number-to-fixed="2"
+            data-number-stepfactor="100"
+            onChange={(e: any) =>
+              setOnEditProjectData({ ...onEditProjectData, estimatedHoursPerDay: Number(e.target.value) })
+            }
+            value={onEditProjectData.estimatedHoursPerDay}
           />
         </div>
       </>
@@ -180,8 +199,8 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
 
               {projectTypeUIHandler}
 
-              <div className="input-group">
-                <span className="input-group-addon p-1 primaryFontColor w-25">
+              <div className="input-group mb-3">
+                <span className="input-group-addon p-1 primaryFontColor w-50">
                   Fecha tentativa
                 </span>
                 <input
