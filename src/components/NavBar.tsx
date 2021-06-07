@@ -1,6 +1,4 @@
 import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
-import { auth } from "../firebase";
-
 import MainLogo from "../assets/mainLogoTransparent.svg";
 import DefaultProfilePhoto from "../assets/defaultProfilePhoto.png";
 import { FreelancesContext } from '../context/FreelancesProvider';

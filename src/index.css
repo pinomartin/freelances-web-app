@@ -26,15 +26,30 @@ body {
   color: white;
 }
 
+html::-webkit-scrollbar,  .accordion__container__scrollbar::-webkit-scrollbar{
+  width: 10px;
+  height: 16px;
+}
+html::-webkit-scrollbar-thumb, .accordion__container__scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--error-color);
+  border-radius: 16px;
+  box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25),inset -2px -2px 2px rgba(0,0,0,.25);
+}
+html::-webkit-scrollbar-track, .accordion__container__scrollbar::-webkit-scrollbar-track {
+  background: linear-gradient(90deg,#434343,#434343 1px,#111 0,#111);
+}
+
+
+
 a:hover {
   text-decoration: none;
 }
 
-textarea:hover, 
-input:hover, 
-textarea:active, 
-input:active, 
-textarea:focus, 
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
 input:focus,
 button:focus,
 button:active,
@@ -163,7 +178,7 @@ label:focus,
 .projectListItem__card:hover{
   /* background-color:var(--card--hover-color); */
   box-shadow: 0  0px 8px 0 var(--secondary-color), 0 0px 8px 0px var(--primary-color);
-  
+
 }
 
 
@@ -205,38 +220,6 @@ label:focus,
   }
 }
 
-/*------USERPROFILE ----------*/
-.userProfileCard__headerContainer{
-  background-color: var(--card--primary-color);
-  border-radius: 15px;
-  -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
-  0 1px 1px 1px rgb(60 64 67 / 15%);
-  box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
-}
-
-.userProfileCard__image{
-  width: 100px;
-  border-radius:50px;
-  border: 7px double var(--primary-color); 
-}
-
-.userProfileCard__userName{
-  font-weight: 800;
-  font-size: larger;
-  letter-spacing: 0px;
-}
-
-.userProfileCard__userEmail{
-  color: var(--disabled-color);
-}
-.userProfileCard__projectsContainer{
-  background-color: #0F1724;
-}
-
-.userProfileCard__projectsNumbers{
-  font-size: 20px;
-  font-weight: bold;
-}
 
 
 .sidebar-container {
@@ -269,11 +252,16 @@ label:focus,
     display: none;
   }
   .stat {
-      border: 0;
+    border: 0;
   }
 }
 
 /*-----------------Time Task Styles-----------------*/
+
+.accordion{
+  height: 50vh;
+}
+
 .card-header{
   background-color: var(--card--primary-color);
 }
@@ -297,20 +285,74 @@ label:focus,
 }
 
 .stopwatch__resetButton{
-position: absolute;
-width: 2.5rem;
-top: 17%;
-right: 18%;
-border-radius: 100%;
-align-self: center;
+  position: absolute;
+  width: 2.5rem;
+  top: 4rem;
+  right: 5.5rem;
+  border-radius: 100%;
+  align-self: center;
 }
 
 
+/*PROJECT SCREEN*/
+
+.projectData__container{
+  background-color: var(--card--primary-color);
+  border-radius: 10px;
+  -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
+  0 1px 1px 1px rgb(60 64 67 / 15%);
+  box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
+  color: var(--font--color);
+}
+
+
+/*------USERPROFILE ----------*/
+.userProfileCard__headerContainer{
+  background-color: var(--card--primary-color);
+  border-radius: 15px;
+  -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
+  0 1px 1px 1px rgb(60 64 67 / 15%);
+  box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
+}
+
+.userProfileCard__image{
+  width: 100px;
+  border-radius:50px;
+  border: 7px double var(--primary-color);
+}
+
+.userProfileCard__userName{
+  font-weight: 800;
+  font-size: larger;
+  letter-spacing: 0px;
+}
+
+.userProfileCard__userEmail{
+  color: var(--disabled-color);
+}
+.userProfileCard__projectsContainer{
+  background-color: #0F1724;
+}
+
+.userProfileCard__projectsNumbers{
+  font-size: 20px;
+  font-weight: bold;
+}
+
 /*Charts Styles - Sizes*/
-
-
 .userProfile-chart{
   max-width: 40%;
   margin: 0 auto;
-  
+}
+
+.userProfile__totalTimer{
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.8rem 0.9rem;
+  background-color: var(--card--hover-color);
+  border-radius: 8px;
+  -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
+  0 1px 1px 1px rgb(60 64 67 / 15%);
+  box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
+  color: var(--primary-color);
 }

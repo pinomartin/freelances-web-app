@@ -97,18 +97,27 @@ export const TasksList = ({ projectData, tasks }: TasksListProps) => {
   //   setEstimatedTotal(getEstimatedAmount(totalSeconds, amountXHour));
   // }, [tasks, totalSeconds]);
 
-  const totalSeconds1 = tasks.reduce(
-    (acc: number, seconds: any) => acc + seconds.seconds,
-    0
-  );
-  const totalMinutes = tasks.reduce(
-    (acc: number, minutes: any) => acc + minutes.minutes,
-    0
-  );
-  const totalHours = tasks.reduce(
-    (acc: number, hours: any) => acc + hours.hours,
-    0
-  );
+
+/** REVISAR ESTO !!!  */
+
+
+
+  // const totalSeconds1 = tasks.reduce(
+  //   (acc: number, seconds: any) => acc + seconds.seconds,
+  //   0
+  // );
+  // const totalMinutes = tasks.reduce(
+  //   (acc: number, minutes: any) => acc + minutes.minutes,
+  //   0
+  // );
+  // const totalHours = tasks.reduce(
+  //   (acc: number, hours: any) => acc + hours.hours,
+  //   0
+  // );
+
+
+
+
 
   // console.log(formatISO(dateHelper, {representation: 'time'}).substr(0,8));
 
@@ -127,7 +136,7 @@ export const TasksList = ({ projectData, tasks }: TasksListProps) => {
   return (
     <>
       <h3 className="text-center">Tiempos</h3>
-     
+      <div className="overflow-auto accordion__container__scrollbar">
       <div className="accordion" id="tasksAccordion">
         {tasks.length !== 0 ? (
           tasks.map((item: any) => (
@@ -135,13 +144,14 @@ export const TasksList = ({ projectData, tasks }: TasksListProps) => {
               <TaskListItem task={item} key={item.id} />
             </>
           ))
-        ) : (
-          <>
+          ) : (
+            <>
             <div className="alert alert-warning">
               Aun no tienes tiempos cargados
             </div>
           </>
         )}
+        </div>
       </div>
       {/* <div className="row justify-content-center">
           {tasks.length !== 0 && (<p>Tiempo total: {timeToString}</p>)}

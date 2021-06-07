@@ -12,8 +12,6 @@ import { EditProjectDataForm } from "./EditProjectDataForm";
 import { ProjectData } from "./ProjectData";
 import { FreelancesContext } from "../context/FreelancesProvider";
 
-
-
 // interface ProjectScreenProps extends RouteComponentProps<any> {
 //   firebaseUserActive: any;
 // }
@@ -24,7 +22,7 @@ interface URLParamsProps {
 
 const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
   const { id: projectUID } = useParams<URLParamsProps>();
-  const { userDB, authUser } = useContext(FreelancesContext);
+  const { authUser } = useContext(FreelancesContext);
   const [projectData, setProjectData] = useState<any>({});
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [editionMode, setEditionMode] = useState(false);
@@ -40,24 +38,21 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
   }, [projectUID]);
 
   /**REVISAR ESTE PROBLEMA QUE NO TRAE EL USUARIO..... IMPLEMENTAR CONTEXT  */
-  
+
   useEffect(() => {
-    
-      const unsubscribe = streamTasksFromProject(authUser.email, projectUID, {
-        next: (querySnapshot: any) => {
-          const updatedTasksItems = querySnapshot.docs.map(
-            (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
-          );
-          setTasks(updatedTasksItems);
-          setIsLoaderVisible(false);
+    const unsubscribe = streamTasksFromProject(authUser.email, projectUID, {
+      next: (querySnapshot: any) => {
+        const updatedTasksItems = querySnapshot.docs.map(
+          (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
+        );
+        setTasks(updatedTasksItems);
+        setIsLoaderVisible(false);
+      },
+      error: () => console.log("task-list-item-failed"),
+    });
 
-        },
-        error: () => console.log("task-list-item-failed"),
-      });
-      
-      return unsubscribe;
-    
-
+    return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectData, projectUID, setTasks]);
 
   return (
@@ -71,7 +66,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
           <>
             <div className="sidebar-container">
               <div className="menu">
-                <button className="d-block btn-block  p-3 border-0">
+                <button className="d-block btn-block p-3 border-0">
                   <i className="far fa-paper-plane mr-3"></i>
                   Proyecto
                 </button>
@@ -156,9 +151,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                       />
                     </>
                   ) : (
-                    <ProjectData 
-                    projectData={projectData}
-                    tasks={tasks}/>
+                    <ProjectData projectData={projectData} tasks={tasks} />
                   )}
                 </div>
               </div>

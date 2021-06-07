@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { finishDateProcessorForm } from '../utils/time/finishDateProcessorForm';
+import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorForm';
 import { db, auth } from "../firebase";
 import SpinnerLoader from "./SpinnerLoader";
 import RadioButton from "./RadioButton";

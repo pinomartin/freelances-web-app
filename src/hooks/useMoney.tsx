@@ -5,6 +5,13 @@ const getEstimatedAmount = (seconds: number, amountPerHour: number):number => {
     return estimatedTotalAmount;
 }
 
+
+const getEstimatedTotalVSCurrentAmount = (estimatedProjectHours:number,estimatedProjectAmountXHour:number ,realTotalAmount:number):number => {
+    const difference = Number(((estimatedProjectHours * estimatedProjectAmountXHour) - realTotalAmount).toFixed(2));
+    return difference;
+}
+
 export {
-    getEstimatedAmount
+    getEstimatedAmount,
+    getEstimatedTotalVSCurrentAmount
 }

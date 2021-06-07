@@ -55,10 +55,25 @@ const streamTasksFromProject = (
     .onSnapshot(observer);
 };
 
+const getAllTasksFromUser = async (userId: string) => {
+  const tasks: any = await db
+    .collection("timetasks")
+    .where("userUID", "==", userId)
+    .get();
+  const userprojectsData = await tasks.docs.map((doc: any) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  return userprojectsData;
+};
+
+
+
 export {
   getUserFromDB,
   getProjectsFromUser,
   getProjectByID,
   getTasksFromProjectUser,
-  streamTasksFromProject
+  streamTasksFromProject,
+  getAllTasksFromUser
 };

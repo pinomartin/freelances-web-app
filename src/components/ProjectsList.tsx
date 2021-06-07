@@ -45,9 +45,8 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
     } else {
       history.push("/login");
     }
-    // } else {
-    //   console.log("No existe Usuario");
-    // }
+ 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUser, history]);
 
   return (
@@ -70,7 +69,7 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
           ) : null}
 
           <br />
-          <div className="row justify-content-center align-items-center bg-transparent">
+          <div className="row justify-content-start align-items-center bg-transparent">
             {
               projects !== null && projects.length > 0 ? (
                 projects.map((item: any, index: number) => (
