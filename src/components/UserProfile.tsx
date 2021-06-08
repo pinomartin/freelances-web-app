@@ -4,6 +4,7 @@ import {
   getUserFromDB,
   getProjectsFromUser,
   getAllTasksFromUser,
+  getTasksFromProjectUser,
 } from "../firebaseUtils/getFirestoreData";
 
 import Tippy from "@tippyjs/react";
@@ -17,19 +18,22 @@ import {
 } from "../hooks/useTime";
 
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
-  const { authUser } = useContext(FreelancesContext);
+  const { authUser, userProjects: projectsFromContext } = useContext(FreelancesContext);
   const [user, setUser] = useState<any>({});
   const [userProjects, setUserProjects] = useState<any>({});
   const [tasks, setTasks] = useState([]);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [timeToString, setTimeToString] = useState("");
+  const [projects, setProjects] = useState<any>({});
+  const [chartData, setChartData] = useState<any>([]);
 
   useEffect(() => {
     if (authUser) {
       getUserFromDB(authUser.email).then((user) => setUser(user));
-      getProjectsFromUser(authUser.email).then((project) =>
-        setUserProjects(getStateOfProjects(project))
-      );
+      getProjectsFromUser(authUser.email).then((projects) => {
+        setUserProjects(getStateOfProjects(projects));
+        setProjects(projects);
+      });
       getAllTasksFromUser(authUser.email).then((tasks) => setTasks(tasks));
     } else {
       history.push("/login");
@@ -39,19 +43,26 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
   useEffect(() => {
     getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
     setTimeToString(getTotalTimeperProject(totalSeconds));
-  }, [tasks, totalSeconds]);
+    
+  }, [tasks, totalSeconds, projects]);
+
+  useEffect(() => {
+    setChartData(getTotalDataperProject(projectsFromContext));
+  }, [projectsFromContext])
+
+
+  console.log(chartData.timesPerProject);
 
   const data = {
-    labels: ["Activos", "Terminados"],
+    labels: chartData.projectsNames,
     datasets: [
       {
         label: "Proyectos",
         // data: [userProjects.numberDoneProjects, userProjects.numberDoneProjects],
-        data: [10, 15],
-        backgroundColor: ["rgba(17, 236, 229, 1)", "rgba(164, 125, 255, 0.5)"],
-        borderColor:["transparent"]
+        data: [1, 2, 3],
+        backgroundColor: ["rgba(17, 236, 229, 1)", "rgba(164, 125, 255, 0.5)", "rgba(255,255,255, 1)"],
+        borderColor: ["transparent"],
       },
-      
     ],
   };
 
@@ -62,7 +73,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
         fontSize: 18,
       },
     },
-    cutoutPercentage: 70, 
+    cutoutPercentage: 70,
   };
 
   const getStateOfProjects = (projects: any) => {
@@ -80,7 +91,28 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
       totalProjects,
     };
   };
-  console.log(tasks);
+//   console.log(tasks);
+
+// console.log(projects);
+  const getTotalDataperProject = (projects:Array<Object>) => {
+    // console.log(projects.forEach(element => console.log(element)));
+    let projectsNames:string[] = [];
+    let timesPerProject:any[] = [];
+      if(projects !== null){
+        projects.forEach( async (project:any) => {
+          projectsNames.push(project.name);
+          const tasks = await getTasksFromProjectUser(project.userId, project.id);
+          const totalSeconds = await getTotalSecondsFromTasks(tasks);
+          timesPerProject.push((totalSeconds / 3600));
+        });
+       
+      }
+
+      return {
+        projectsNames, 
+        timesPerProject
+      }
+  }
 
   // const TooltipContent = ({ color, label, value }: any) => {
   //   return (
