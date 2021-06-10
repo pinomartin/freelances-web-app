@@ -6,6 +6,8 @@ import Home from "./components/Home";
 import NewProjectForm from "./components/NewProjectForm";
 import UserProfile from "./components/UserProfile";
 import ProjectScreen from "./components/ProjectScreen";
+import ProjectReport from "./components/ProjectReport";
+
 
 function App() {
 
@@ -25,6 +27,9 @@ function App() {
           </Route>
           <Route path="/projects">
             <ProjectsList />
+          </Route>
+          <Route path="/projreport">
+            <ProjectReport />
           </Route>
           <Route path="/newproject">
             <NewProjectForm />

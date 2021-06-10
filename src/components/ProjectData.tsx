@@ -46,8 +46,8 @@ export const ProjectData = ({ projectData, tasks }: any) => {
     <>
       <h4>Datos Proyecto</h4>
       <div className="container projectData__container">
-        <br />
-        <div className="row justify-content-end">
+        
+        <div className="row justify-content-end p-3">
           <div className="col-6 text-center">
             <strong className="text-success">{getRemaingHours}</strong>
             <small className="d-block">Horas por quemar</small>
@@ -57,12 +57,12 @@ export const ProjectData = ({ projectData, tasks }: any) => {
             <small className="d-block">para entrega</small>
           </div>
         </div>
-        <br />
+        
 
         {tasks !== null && totalSeconds > 0 ? (
           <>
-            <br />
-            <div className="row justify-content-end">
+            
+            <div className="row justify-content-end align-items-center p-3">
               <div className="col-6 text-center">
                 <strong className="text-success">{tasks.length}</strong>
                 <small className="d-block">Cantidad de Tiempos cargados</small>
@@ -72,21 +72,19 @@ export const ProjectData = ({ projectData, tasks }: any) => {
                 <small className="d-block">Resto a cobrar</small>
               </div>
             </div>
-            <br />
-            <br />
-            <div className="row justify-content-end">
+           
+            <div className="row justify-content-end align-items-center p-3">
               <div className="col-6 text-center">
-                <small className="d-block">Tiempo total</small>
               <span className="text-warning">{timeToString}</span>
+                <small className="d-block">Tiempo total</small>
               </div>
               <div className="col-6 text-center">
               <strong className="text-success">$ {estimatedTotal}</strong>
                 <small className="d-block">A cobrar</small>
               </div>
             </div>
-            <br />
-            <br />
-            <div className="row justify-content-end">
+           
+            <div className="row justify-content-end align-items-center p-3">
               <div className="col-6 text-center">
                 <strong className="text-success">{getFinishPercentage} % </strong>
                 <small className="d-block">Proyecto terminado</small>
@@ -96,14 +94,15 @@ export const ProjectData = ({ projectData, tasks }: any) => {
                 <small className="d-block">Resto a cobrar</small>
               </div>
             </div>
-            <br />
-            <br />
+          
           </>
         ) : (
           <>
-            <small className="text-center d-block">
-              Aun has cargado tiempos
-            </small>
+           <div className="row justify-content-end align-items-center p-3">
+              <div className="col-12 text-center">
+              <p className="badge badge-danger">Aun no tienes Tiempos cargados</p>
+            </div>
+            </div>
           </>
         )}
       </div>

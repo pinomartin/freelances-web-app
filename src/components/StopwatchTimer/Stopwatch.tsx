@@ -137,7 +137,7 @@ const Stopwatch = ({ projectUID, clientUID }: StopwatchProps) => {
 
   return (
     <div>
-      <h2>Contador Tiempos</h2>
+      <h4>Contador Tiempos</h4>
       <StopwatchDisplay
         // currentTimeMs={currentTimeMs}
         currentTimeSec={currentTimeSec}

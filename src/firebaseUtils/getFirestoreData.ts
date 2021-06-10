@@ -28,6 +28,16 @@ const getProjectByID = async (projectID: string | any) => {
   return singleProject;
 };
 
+const streamProject = (
+  projectUID: string,
+  observer: any
+) => {
+  return db
+    .collection("projects")
+    .doc(projectUID)
+    .onSnapshot(observer);
+};
+
 const getTasksFromProjectUser = async (userId: string, projectUID: string) => {
   const tasks: any = await db
     .collection("timetasks")
@@ -73,6 +83,7 @@ export {
   getUserFromDB,
   getProjectsFromUser,
   getProjectByID,
+  streamProject,
   getTasksFromProjectUser,
   streamTasksFromProject,
   getAllTasksFromUser

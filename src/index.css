@@ -258,8 +258,22 @@ label:focus,
 
 /*-----------------Time Task Styles-----------------*/
 
+
+
+
 .accordion{
   height: 50vh;
+  border-radius: 10px;
+}
+
+.taskList__container{
+  background-color: var(--card--hover-color);
+  border-radius: 10px;
+  -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
+  0 1px 1px 1px rgb(60 64 67 / 15%);
+  box-shadow: 0  1px 4px 0 var(--boxShadow--boder-color), 0 1px 4px 1px var(--boxShadow--boder-color);
+  color: var(--font--color);
+  padding: 0.5rem;
 }
 
 .card-header{
@@ -287,12 +301,18 @@ label:focus,
 .stopwatch__resetButton{
   position: absolute;
   width: 2.5rem;
-  top: 4rem;
-  right: 5.5rem;
+  top: 3.5rem;
+  right: 3rem;
   border-radius: 100%;
   align-self: center;
 }
 
+@media only screen and (min-width: 768px) {
+.stopwatch__resetButton{
+  top: 3.5rem;
+  right: 5.5rem;
+}
+}
 
 /*PROJECT SCREEN*/
 
@@ -341,7 +361,7 @@ label:focus,
 
 /*Charts Styles - Sizes*/
 .userProfile-chart{
-  max-width: 40%;
+  max-width: 50%;
   margin: 0 auto;
 }
 

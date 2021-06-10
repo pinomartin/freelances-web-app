@@ -5,13 +5,11 @@ import { TaskListItem } from "./TaskListItem";
 // import { es } from "date-fns/esm/locale";
 
 export const TasksList = ({ projectData, tasks }: TasksListProps) => {
-
   // const { amountXHour }:any = projectData;
 
   // const [totalSeconds, setTotalSeconds] = useState(0);
   // const [timeToString, setTimeToString] = useState("");
   // const [estimatedTotal, setEstimatedTotal] = useState(0);
-
 
   // const getTotalSecondsFromTasks = async (tasks: any) => {
   //   const totalSeconds = await tasks.reduce(function (
@@ -97,10 +95,7 @@ export const TasksList = ({ projectData, tasks }: TasksListProps) => {
   //   setEstimatedTotal(getEstimatedAmount(totalSeconds, amountXHour));
   // }, [tasks, totalSeconds]);
 
-
-/** REVISAR ESTO !!!  */
-
-
+  /** REVISAR ESTO !!!  */
 
   // const totalSeconds1 = tasks.reduce(
   //   (acc: number, seconds: any) => acc + seconds.seconds,
@@ -114,10 +109,6 @@ export const TasksList = ({ projectData, tasks }: TasksListProps) => {
   //   (acc: number, hours: any) => acc + hours.hours,
   //   0
   // );
-
-
-
-
 
   // console.log(formatISO(dateHelper, {representation: 'time'}).substr(0,8));
 
@@ -133,32 +124,36 @@ export const TasksList = ({ projectData, tasks }: TasksListProps) => {
   // console.log(getMapFromArray(tasks));
   // console.log(totalHours, totalMinutes, totalSeconds1);
 
-  return (
+  return tasks.length !== 0 ? (
     <>
-      <h3 className="text-center">Tiempos</h3>
-      <div className="overflow-auto accordion__container__scrollbar">
-      <div className="accordion" id="tasksAccordion">
-        {tasks.length !== 0 ? (
-          tasks.map((item: any) => (
-            <>
-              <TaskListItem task={item} key={item.id} />
-            </>
-          ))
-          ) : (
-            <>
-            <div className="alert alert-warning">
-              Aun no tienes tiempos cargados
-            </div>
-          </>
-        )}
+      <h4>Tiempos de Proyecto</h4>
+      <div className="container taskList__container">
+        <div className="overflow-auto accordion__container__scrollbar">
+          <div className="accordion" id="tasksAccordion">
+            {tasks.length !== 0
+              ? tasks.map((item: any) => (
+                  <>
+                    <TaskListItem task={item} key={item.id} />
+                  </>
+                ))
+              : null}
+          </div>
         </div>
-      </div>
-      {/* <div className="row justify-content-center">
+        {/* <div className="row justify-content-center">
           {tasks.length !== 0 && (<p>Tiempo total: {timeToString}</p>)}
       </div>
       <div className="row justify-content-center">
           {tasks.length !== 0 && (<p>Monto a cobrar: ${estimatedTotal}</p>)}
       </div> */}
+      </div>
+    </>
+  ) : (
+    <>
+      <div className="row justify-content-center align-items-center h-100">
+        <div className="col-12 text-center">
+          <p className="badge badge-info p-3">Carga tiempos para ver tu progreso ! </p>
+        </div>
+      </div>
     </>
   );
 };

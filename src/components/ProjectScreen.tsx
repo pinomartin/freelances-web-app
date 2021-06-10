@@ -1,7 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, withRouter, RouteComponentProps } from "react-router-dom";
+import {
+  useParams,
+  withRouter,
+  RouteComponentProps,
+  Link,
+} from "react-router-dom";
 import { getProjectByID } from "../firebaseUtils/getFirestoreData";
-import { streamTasksFromProject } from "../firebaseUtils/getFirestoreData";
+import {
+  streamTasksFromProject,
+  streamProject,
+} from "../firebaseUtils/getFirestoreData";
 import { deleteProject } from "../firebaseUtils/setFirestoreData";
 import Stopwatch from "./StopwatchTimer/Stopwatch";
 import SpinnerLoader from "./SpinnerLoader";
@@ -36,6 +44,22 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
     });
     console.log("render ProjectScreen");
   }, [projectUID]);
+
+  // useEffect(() => {
+  //   const unsubscribe = streamProject(projectUID, {
+  //     next: (querySnapshot: any) => {
+  //       const updatedProjectData = querySnapshot.docs.map(
+  //         (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
+  //       );
+  //       setProjectData(updatedProjectData);
+  //       setIsLoaderVisible(false);
+  //     },
+  //     error: () => console.log("task-list-item-failed"),
+  //   });
+
+  //   return unsubscribe;
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [projectUID, setProjectData]);
 
   /**REVISAR ESTE PROBLEMA QUE NO TRAE EL USUARIO..... IMPLEMENTAR CONTEXT  */
 
@@ -118,9 +142,20 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                   >
                     Editar Proyecto
                   </button>
-                  <button className="btn btn-success float-right">
-                    Finalizar Proyecto
-                  </button>
+                  <Link
+                    to={{
+                      pathname: "/projreport",
+                      state: {
+                        tasks: tasks,
+                        projectData: projectData,
+                        projectUID: projectUID
+                      },
+                    }}
+                  >
+                    <button className="btn btn-success float-right">
+                      Finalizar Proyecto
+                    </button>
+                  </Link>
                 </div>
                 <div className="col-12">
                   <h4 className="text-white">
