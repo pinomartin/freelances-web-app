@@ -8,7 +8,7 @@ import {
 import { getProjectByID } from "../firebaseUtils/getFirestoreData";
 import {
   streamTasksFromProject,
-  streamProject,
+  // streamProject,
 } from "../firebaseUtils/getFirestoreData";
 import { deleteProject } from "../firebaseUtils/setFirestoreData";
 import Stopwatch from "./StopwatchTimer/Stopwatch";
