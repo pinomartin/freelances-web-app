@@ -1,10 +1,8 @@
-// import { useEffect, useState } from "react";
 import { TasksListProps } from "../interfaces/tasklist";
 import { TaskListItem } from "./TaskListItem";
-// import { formatDuration } from "date-fns";
-// import { es } from "date-fns/esm/locale";
 
-export const TasksList = ({ projectData, tasks }: TasksListProps) => {
+
+export const TasksList = ({ projectData, tasks, title }: TasksListProps) => {
   // const { amountXHour }:any = projectData;
 
   // const [totalSeconds, setTotalSeconds] = useState(0);
@@ -126,7 +124,7 @@ export const TasksList = ({ projectData, tasks }: TasksListProps) => {
 
   return tasks.length !== 0 ? (
     <>
-      <h4>Tiempos de Proyecto</h4>
+      <h4>{title}</h4>
       <div className="container taskList__container">
         <div className="overflow-auto accordion__container__scrollbar">
           <div className="accordion" id="tasksAccordion">

@@ -1,9 +1,5 @@
-export interface TasksListProps {
-    title: string;
-    projectUID: string;
-    clientUID?: string;
-    projectData:{
-      data:{
+export interface ProjectDataProps {
+    data: {
         name: string;
         client: string;
         description: string;
@@ -14,7 +10,5 @@ export interface TasksListProps {
         estimatedFinishDate?: string | number;
         estimatedHoursPerDay: number;
         creationDate: number;
-      }  
-    } 
-    tasks: Array<Object>,
-  }
+    }
+}

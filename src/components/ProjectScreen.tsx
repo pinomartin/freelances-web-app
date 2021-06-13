@@ -165,6 +165,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
 
                 <div className="col-10 col-md-4 p-0">
                   <TasksList
+                    title={'Tiempos & Tareas'}
                     projectUID={projectUID}
                     projectData={projectData}
                     clientUID={projectData?.userId}
