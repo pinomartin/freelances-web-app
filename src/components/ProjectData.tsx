@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import formatDistanceStrict from "date-fns/formatDistanceStrict";
+import differenceInBusinessDays from 'date-fns/differenceInBusinessDays';
+
 // import formatDistance from "date-fns/formatDistance";
 import { es } from "date-fns/esm/locale";
 import {
@@ -39,6 +41,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
   const getFinishPercentage = 
     Math.round(((totalSeconds / 3600) / projectData.estimatedHours)*100);
   
+  const getLaboralDaysFromTotalProject = differenceInBusinessDays(projectData.estimatedFinishDate, projectData.creationDate);
 
 
 
@@ -49,11 +52,28 @@ export const ProjectData = ({ projectData, tasks }: any) => {
         
         <div className="row justify-content-end p-3">
           <div className="col-6 text-center">
-            <strong className="text-success">{getRemaingHours}</strong>
+            {
+              projectData.type === 'hour' ? (
+                <strong className="text-success">{getRemaingHours}</strong>
+
+              ) : (
+                <strong className="text-success">{getRemaingHours}</strong>
+
+              )
+            }
             <small className="d-block">Horas por quemar</small>
           </div>
           <div className="col-6 text-center">
-            <strong>{getDaysRemaining}</strong>
+          {
+              projectData.type === 'hour' ? (
+                <strong>{getDaysRemaining}</strong>
+
+              ) : (
+                <strong>{getLaboralDaysFromTotalProject} dias</strong>
+
+              )
+            }
+            
             <small className="d-block">para entrega</small>
           </div>
         </div>

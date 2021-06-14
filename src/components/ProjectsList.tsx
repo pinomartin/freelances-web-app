@@ -69,7 +69,9 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
           ) : null}
 
           <br />
-          <div className="row justify-content-start align-items-center bg-transparent">
+          {/* <div className="row justify-content-start align-items-center bg-transparent"> */}
+            <div className="card-deck">
+
             {
               projects !== null && projects.length > 0 ? (
                 projects.map((item: any, index: number) => (
@@ -77,13 +79,14 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
                     <ProjectCard data={item} key={index} />
                   </>
                 ))
-              ) : (
-                <WelcomeNewUser />
-              )
-            }
+                ) : (
+                  <WelcomeNewUser />
+                  )
+                }
+              </div>
 
             <AddProjectButton />
-          </div>
+          {/* </div> */}
         </>
       )}
     </div>

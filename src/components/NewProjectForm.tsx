@@ -5,6 +5,8 @@ import { db, auth } from "../firebase";
 import SpinnerLoader from "./SpinnerLoader";
 import RadioButton from "./RadioButton";
 import { ProjectType } from "../interfaces/project";
+import differenceInBusinessDays from 'date-fns/differenceInBusinessDays';
+
 
 const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
   const [project, setProject] = useState({
@@ -30,8 +32,11 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
       history.push("/login");
     }
     estimatedTotalXHourSetter(project.amountXHour, project.estimatedHours);
+    if(project.type === 'total'){
+      getHoursAndAmountXHourOnFromTotalProject(finishDateProcessorForm(project.estimatedFinishDate), project.creationDate);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history,project.amountXHour, project.estimatedHours]);
+  }, [history,project.amountXHour, project.estimatedHours, project.creationDate, project.estimatedFinishDate, project.estimatedHoursPerDay]);
 
   const estimatedTotalXHourSetter = (amountXHour: number, estimatedHours: number) => {
     if (project.amountXHour !== 0 && project.estimatedHours !== 0) {
@@ -43,6 +48,17 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
         estimatedTotal: estimatedTotalXHour,
       });
     }
+  };
+
+  const getHoursAndAmountXHourOnFromTotalProject = (estimatedFinishDate:number, creationDate:number) => {
+    const days =  differenceInBusinessDays(estimatedFinishDate, creationDate);
+    const workHours = days * project.estimatedHoursPerDay;
+    const amountXHour = Math.round(project.estimatedTotal / workHours);
+    setProject({
+      ...project,
+      amountXHour: amountXHour,
+      estimatedHours: workHours
+    })
   };
 
  
@@ -279,6 +295,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
                     setProject({
                       ...project,
                       estimatedFinishDate: e.target.value,
+                      
                     })
                   }
                   value={project.estimatedFinishDate}

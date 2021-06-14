@@ -1,16 +1,22 @@
+import { differenceInBusinessDays } from "date-fns";
 import { useState, useEffect } from "react";
 import { updateProjectDB } from '../firebaseUtils/setFirestoreData'; 
 import { ProjectType } from '../interfaces/project';
+import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorForm';
+
 
 export const EditProjectDataForm = ({projectData, projectUID }:any) => {
     const [error, setError] = useState('');
     const [onEditProjectData, setOnEditProjectData] = useState<ProjectType>({...projectData, estimatedFinishDate: new Date().toISOString().slice(0, 10)});
 
     useEffect(() => {
-      estimatedTotalXHourSetter(onEditProjectData.amountXHour, onEditProjectData.estimatedHours)
+      estimatedTotalXHourSetter(onEditProjectData.amountXHour, onEditProjectData.estimatedHours);
+      if(projectData.type === 'total'){
+        getHoursAndAmountXHourOnFromTotalProject(finishDateProcessorForm(`${onEditProjectData.estimatedFinishDate}`), onEditProjectData.creationDate);
+      }
     },
      // eslint-disable-next-line react-hooks/exhaustive-deps
-     [onEditProjectData.amountXHour, onEditProjectData.estimatedHours]);
+     [onEditProjectData.amountXHour, onEditProjectData.estimatedHours, onEditProjectData.estimatedFinishDate, onEditProjectData.creationDate, onEditProjectData.estimatedTotal, onEditProjectData.estimatedHoursPerDay]);
 
     const estimatedTotalXHourSetter = (amountXHour: number, estimatedHours: number) => {
       if (onEditProjectData.amountXHour !== 0 || onEditProjectData.estimatedHours !== 0) {
@@ -22,6 +28,17 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
           estimatedTotal: estimatedTotalXHour,
         });
       }
+    };
+
+    const getHoursAndAmountXHourOnFromTotalProject = (estimatedFinishDate:number, creationDate:number) => {
+      const days =  differenceInBusinessDays(estimatedFinishDate, creationDate);
+      const workHours = days * onEditProjectData.estimatedHoursPerDay;
+      const amountXHour = Math.round(onEditProjectData.estimatedTotal / workHours);
+      setOnEditProjectData({
+        ...onEditProjectData,
+        amountXHour: amountXHour,
+        estimatedHours: workHours
+      })
     };
   
     console.log(onEditProjectData);
