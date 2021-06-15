@@ -1,4 +1,5 @@
 import MainLogo from "../assets/mainLogoTransparent.svg";
+import Footer from "./Footer";
 
 
 
@@ -12,6 +13,7 @@ const Home = () => {
         {"Bienvenido a una nueva forma de trabajo Freelance"}
       </h3>      
     </div>
+    <Footer />
     </>
   );
 };

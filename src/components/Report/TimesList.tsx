@@ -1,7 +1,12 @@
 import { TasksListProps } from "../../interfaces/tasklist";
 import { TimeListItem } from "./TimeListItem";
 
-const TimesList = ({ tasks, projectData, projectUID, title }: TasksListProps) => {
+const TimesList = ({
+  tasks,
+  projectData,
+  projectUID,
+  title,
+}: TasksListProps) => {
   return tasks.length !== 0 ? (
     <>
       <h4 className="text-dark text-center">{title}</h4>
@@ -21,24 +26,6 @@ const TimesList = ({ tasks, projectData, projectUID, title }: TasksListProps) =>
               : null}
           </tbody>
         </table>
-
-        {/* <div className="overflow-auto accordion__container__scrollbar">
-              <div className="accordion" id="tasksAccordion">
-                {tasks.length !== 0
-                  ? tasks.map((item: any) => (
-                      <>
-                        <TaskListItem task={item} key={item.id} />
-                      </>
-                    ))
-                  : null}
-              </div>
-            </div> */}
-        {/* <div className="row justify-content-center">
-              {tasks.length !== 0 && (<p>Tiempo total: {timeToString}</p>)}
-          </div>
-          <div className="row justify-content-center">
-              {tasks.length !== 0 && (<p>Monto a cobrar: ${estimatedTotal}</p>)}
-          </div> */}
       </div>
     </>
   ) : (

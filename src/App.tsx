@@ -7,6 +7,7 @@ import NewProjectForm from "./components/NewProjectForm";
 import UserProfile from "./components/UserProfile";
 import ProjectScreen from "./components/ProjectScreen";
 import ProjectReport from "./components/ProjectReport";
+import TermsConditions from "./components/TermsConditions";
 
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route path="/profile" exact>
             <UserProfile />
+          </Route>
+          <Route path="/terms" exact>
+            <TermsConditions />
           </Route>
         </Switch>
       </div>

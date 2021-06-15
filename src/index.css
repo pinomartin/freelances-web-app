@@ -27,12 +27,13 @@ body {
 }
 
 html::-webkit-scrollbar,
-.accordion__container__scrollbar::-webkit-scrollbar {
+.accordion__container__scrollbar::-webkit-scrollbar
+{
   width: 10px;
   height: 16px;
 }
 html::-webkit-scrollbar-thumb,
-.accordion__container__scrollbar::-webkit-scrollbar-thumb {
+.accordion__container__scrollbar::-webkit-scrollbar-thumb{
   background-color: var(--error-color);
   border-radius: 16px;
   box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, 0.25),
@@ -414,4 +415,19 @@ label:focus,
   box-shadow: 0 1px 4px 0 var(--boxShadow--boder-color),
     0 1px 4px 1px var(--boxShadow--boder-color);
   color: var(--primary-color);
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+.termsx {
+  margin: 0 auto;
+  overflow-y: scroll;
+  height: 60vh;
+  width: 70%;
+  border: 1px solid var(--button--hover-color);
+  padding: 10px;
 }
