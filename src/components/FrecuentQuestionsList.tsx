@@ -1,7 +1,23 @@
-const FrecuentQuestions = () => {
+import data from '../data/questions.json';
+import FrecuentQuestionListItem from './FrecuentQuestionListItem';
+
+const FrecuentQuestionsList = () => {
   return (
     <>
-      <div className="overflow-auto accordion__container__scrollbar border-0">
+    <div className="container taskList__container">
+        <div className="overflow-auto accordion__container__scrollbar">
+          <div className="accordion" id="questionAccordion">
+            {data.length !== 0
+              ? data.map((item: any) => (
+                  <>
+                    <FrecuentQuestionListItem question={item} key={item.id} />
+                  </>
+                ))
+              : null}
+          </div>
+        </div>
+        </div>
+      {/* <div className="container overflow-auto accordion__container__scrollbar border-0">
         <div className="accordion" id="accordionExample">
           <div className="card border-0">
             <div className="card-header" id="headingOne">
@@ -90,9 +106,9 @@ const FrecuentQuestions = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
 
-export default FrecuentQuestions;
+export default FrecuentQuestionsList;

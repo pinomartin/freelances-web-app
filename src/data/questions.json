@@ -1,0 +1,37 @@
+[
+    {
+        "id": "1",
+        "question": "Como creo un proyecto ? ",
+        "answer": "Cuando crees tu cuenta solo tienes que pulsar sobre el boton + en el margen inferior de la pantalla y comenzar a definir los datos iniciales del proyecto."
+    },
+    {
+        "id": "2",
+        "question": "Tiene un costo el uso del servicio? ",
+        "answer": "El servicio es gratuito y lo será siempre !"
+    },
+    {
+        "id": "3",
+        "question": "Que diferencia hay entre proyecto por Hora y proyecto por Presupuesto Total?",
+        "answer": "En proyecto por Hora se definen las horas estimadas y el precio por hora estimado, automáticamente se calculará el total estimado a cobrar. En presupuesto total se ingresa el valor estimado total, las horas que dedicarás por dia y la fecha de entrega, en este caso se hace un cálculo de diferencia entre los dias hábiles que existen entre fecha de creación y fecha de entrega multiplicados por horas por dia."
+    },
+    {
+        "id": "4",
+        "question": "Como agregar tiempos?",
+        "answer": "Se pueden agregar tiempos de 2 maneras. Con el contador de tiempos o con el ingreso manual de tiempo desde la pantalla de Administracion de Proyecto."
+    },
+    {
+        "id": "5",
+        "question": "Como editar descripcion de un tiempo ?",
+        "answer": "Una vez cargado un tiempo, en el dashboard 'Tiempos & Tareas', hacer click sobre el boton i, y luego en el boton Editar. "
+    },
+    {
+        "id": "6",
+        "question": "Como imprimir reporte de proyecto en PDF? ",
+        "answer": "Desde la pantalla de 'Administración de Proyectos, pulsar sobre boton 'Finalizar Proyecto'. Una vez dentro de la pantalla de 'Reporte de Proyecto' pulsar sobre boton 'Guardar en PDF'."
+    },
+    {
+        "id": "7",
+        "question": "Como editar datos del proyecto?",
+        "answer": "Desde la pantalla de 'Administración de Proyectos, pulsar sobre boton 'Editar Proyecto'."
+    }
+]

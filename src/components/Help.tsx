@@ -2,7 +2,7 @@ import { useState } from "react";
 import { addQuestionHelpToDB } from "../firebaseUtils/setFirestoreData";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FrecuentQuestions from "./FrecuentQuestions";
+import FrecuentQuestions from "./FrecuentQuestionsList";
 
 toast.configure();
 
@@ -62,7 +62,7 @@ const Help = () => {
             brevedad.
           </p>
           <div className="row no-gutters justify-content-center">
-            <div className="col-8">
+            <div className="col-12">
               {error && <div className="alert alert-warning">{error}</div>}
               <form onSubmit={(e) => procesarData(e)}>
                 <div className="input-group mt-1 mt-md-3">

@@ -14,7 +14,7 @@ const ProjectReport = () => {
     <Header />
     <ProjectSection data={projectData}/>
       <div className="row">
-        <div className="col-6">
+        <div className="col-7">
           <TimesList tasks={tasks} title={'Detalle'} projectData={projectData} projectUID={projectUID}/>
           {/* <TasksList
             title={"Detalle"}
@@ -23,6 +23,9 @@ const ProjectReport = () => {
             clientUID={projectData?.userId}
             tasks={tasks}
           /> */}
+        </div>
+        <div className="col-5">
+          
         </div>
       </div>
       <PrintPDFButton />

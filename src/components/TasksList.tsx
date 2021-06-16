@@ -137,14 +137,14 @@ export const TasksList = ({ projectData, tasks, title }: TasksListProps) => {
               : null}
           </div>
         </div>
+        </div>
         {/* <div className="row justify-content-center">
           {tasks.length !== 0 && (<p>Tiempo total: {timeToString}</p>)}
-      </div>
-      <div className="row justify-content-center">
+          </div>
+          <div className="row justify-content-center">
           {tasks.length !== 0 && (<p>Monto a cobrar: ${estimatedTotal}</p>)}
-      </div> */}
-      </div>
-    </>
+        </div> */}
+        </>
   ) : (
     <>
       <div className="row justify-content-center align-items-center h-100">

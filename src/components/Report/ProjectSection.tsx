@@ -9,7 +9,7 @@ interface ProjectDataProps {
     amountXHour: number;
     estimatedHours: number;
     estimatedTotal: number;
-    estimatedFinishDate?: string | number;
+    estimatedFinishDate: number;
     estimatedHoursPerDay: number;
     creationDate: number;
   };
@@ -53,7 +53,7 @@ const ProjectSection = ({ data }: ProjectDataProps) => {
         <p>{estimatedHours}</p>
         <p>{estimatedHoursPerDay}</p>
         <p>{estimatedTotal}</p>
-        <p>{estimatedFinishDate}</p>
+        <p>{format(estimatedFinishDate, "dd/MM/yyyy")}</p>
       </div>
     </div>
   );
