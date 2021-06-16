@@ -1,6 +1,7 @@
 import { db } from "../firebase";
 import { ProjectType } from "../interfaces/project"
 import { TaskTime } from "../interfaces/tasktime"
+import { HelpMessageProps } from '../interfaces/helpMessage';
 import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorForm';
 
 // const addNewProjectToDB = async (project:ProjectType, auth : any) => { //ver ese any
@@ -92,7 +93,20 @@ import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorF
   }
 
 
+  const addQuestionHelpToDB = async (question:HelpMessageProps):Promise<any> => {
+    try {
+      await db.collection("questions").add({
+        name: question.name,
+        email: question.email,
+        question: question.question
+      });
+    } catch (error) {
+        console.log('No se puede guardar tarea en DB');
+    }
+  }
 
-  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB, updateTask}
+
+
+  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB, updateTask, addQuestionHelpToDB }
 
 

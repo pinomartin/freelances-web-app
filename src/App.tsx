@@ -8,6 +8,7 @@ import UserProfile from "./components/UserProfile";
 import ProjectScreen from "./components/ProjectScreen";
 import ProjectReport from "./components/ProjectReport";
 import TermsConditions from "./components/TermsConditions";
+import Help from "./components/Help";
 
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route path="/terms" exact>
             <TermsConditions />
+          </Route>
+          <Route path="/help" exact>
+            <Help />
           </Route>
         </Switch>
       </div>

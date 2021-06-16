@@ -43,6 +43,9 @@ const NavBar = ({ history }: RouteComponentProps<any>) => {
                   <NavLink className="dropdown-item bg-dark text-white" to="/profile">
                   👥 Mi Perfil
                   </NavLink>
+                  <NavLink className="dropdown-item bg-dark text-white" to="/help">
+                  🙇‍♂️ Necesito Ayuda!
+                  </NavLink>
                   <button
                     className="dropdown-item text-white bg-dark"
                     onClick={() => userSignOut().then(history.push('/login'))}
