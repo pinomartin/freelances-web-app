@@ -168,7 +168,8 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                       state: {
                         tasks: tasks,
                         projectData: projectData,
-                        projectUID: projectUID
+                        projectUID: projectUID,
+                        expenses: expenses
                       },
                     }}
                   >

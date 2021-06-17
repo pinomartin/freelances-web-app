@@ -442,3 +442,10 @@ label:focus,
   border: 1px solid var(--button--hover-color);
   padding: 10px;
 }
+
+
+@media print { 
+  .table td, .table th { 
+      background-color: var(--boxShadow--boder-color) !important; 
+  } 
+}
