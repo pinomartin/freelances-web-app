@@ -8,6 +8,7 @@ import {
 import { getProjectByID } from "../firebaseUtils/getFirestoreData";
 import {
   streamTasksFromProject,
+  streamExpensesFromProject
   // streamProject,
 } from "../firebaseUtils/getFirestoreData";
 import { deleteProject } from "../firebaseUtils/setFirestoreData";
@@ -19,6 +20,8 @@ import { TasksList } from "./TasksList";
 import { EditProjectDataForm } from "./EditProjectDataForm";
 import { ProjectData } from "./ProjectData";
 import { FreelancesContext } from "../context/FreelancesProvider";
+import ExpensesForm from "./ExpensesForm";
+import ExpensesList from "./ExpensesList";
 
 // interface ProjectScreenProps extends RouteComponentProps<any> {
 //   firebaseUserActive: any;
@@ -35,6 +38,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [editionMode, setEditionMode] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [expenses, setExpenses] = useState([]);
 
   console.log(projectData);
 
@@ -70,7 +74,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
           (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
         );
         setTasks(updatedTasksItems);
-        setIsLoaderVisible(false);
+        // setIsLoaderVisible(false);
       },
       error: () => console.log("task-list-item-failed"),
     });
@@ -78,6 +82,22 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
     return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectData, projectUID, setTasks]);
+
+  useEffect(() => {
+    const unsubscribe = streamExpensesFromProject(authUser.email, projectUID, {
+      next: (querySnapshot: any) => {
+        const updatedExpensesItems = querySnapshot.docs.map(
+          (docSnapshot: any) => ({ uid: docSnapshot.id, ...docSnapshot.data() })
+        );
+        setExpenses(updatedExpensesItems);
+        setIsLoaderVisible(false);
+      },
+      error: () => console.log("expenses-list-item-failed"),
+    });
+
+    return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectData, projectUID, setExpenses]);
 
   return (
     <div>
@@ -171,9 +191,16 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                     clientUID={projectData?.userId}
                     tasks={tasks}
                   />
+                  <ExpensesList expenses={expenses}/>
                 </div>
                 <div className="col-10 col-md-4 text-center">
                   <Stopwatch
+                    projectUID={projectUID}
+                    clientUID={projectData?.userId}
+                  />
+                  <br />
+                  <br />
+                  <ExpensesForm 
                     projectUID={projectUID}
                     clientUID={projectData?.userId}
                   />

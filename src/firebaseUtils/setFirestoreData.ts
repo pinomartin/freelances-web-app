@@ -1,6 +1,7 @@
 import { db } from "../firebase";
 import { ProjectType } from "../interfaces/project"
 import { TaskTime } from "../interfaces/tasktime"
+import { Expense } from "../interfaces/expense"
 import { HelpMessageProps } from '../interfaces/helpMessage';
 import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorForm';
 
@@ -71,6 +72,19 @@ import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorF
     }
   }
 
+  const addExpenseToDB = async (expense:Expense):Promise<any> => {
+    try {
+      await db.collection("expenses").add({
+        description: expense.description,
+        amount: expense.amount,
+        projectUID: expense.projectUID,
+        userUID: expense.clientUID,
+      });
+    } catch (error) {
+        console.log('No se puede guardar gasto en DB');
+    }
+  }
+
   const updateTask = async (task:TaskTime, taskUID:string) => {
       try {
         await db.collection("timetasks").doc(taskUID).update({
@@ -107,6 +121,6 @@ import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorF
 
 
 
-  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB, updateTask, addQuestionHelpToDB }
+  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB, updateTask, addQuestionHelpToDB, addExpenseToDB }
 
 

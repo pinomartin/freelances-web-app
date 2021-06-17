@@ -313,6 +313,17 @@ label:focus,
   padding: 0.5rem;
 }
 
+
+/*------------- Expenses List Styles------*/
+.accordion__expenses__height{
+  height: 15vh;
+}
+
+.expenses__listItem{
+  background-color: var(--card--hover-color);
+}
+
+
 .card-header {
   background-color: var(--card--primary-color);
 }

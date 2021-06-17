@@ -77,6 +77,18 @@ const getAllTasksFromUser = async (userId: string) => {
   return userprojectsData;
 };
 
+const streamExpensesFromProject = (
+  userId: string,
+  projectUID: string,
+  observer: any
+) => {
+  return db
+    .collection("expenses")
+    .where("userUID", "==", userId)
+    .where("projectUID", "==", projectUID)
+    .onSnapshot(observer);
+};
+
 
 
 export {
@@ -86,5 +98,6 @@ export {
   streamProject,
   getTasksFromProjectUser,
   streamTasksFromProject,
-  getAllTasksFromUser
+  getAllTasksFromUser,
+  streamExpensesFromProject
 };
