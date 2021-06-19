@@ -38,6 +38,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [editionMode, setEditionMode] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [showExpenseForm, setShowExpenseForm] = useState(false);
   const [expenses, setExpenses] = useState([]);
 
   console.log(projectData);
@@ -201,10 +202,15 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                   />
                   <br />
                   <br />
-                  <ExpensesForm 
-                    projectUID={projectUID}
-                    clientUID={projectData?.userId}
-                  />
+                  {
+                    showExpenseForm ? (
+                      <ExpensesForm 
+                      projectUID={projectUID}
+                      clientUID={projectData?.userId}
+                      />  
+                      ): null
+                    }
+                    <button className="btn btn-info mt-2" onClick={() => setShowExpenseForm(!showExpenseForm)}>{showExpenseForm ? "Cerrar" : "Cargar gastos Extras"}</button>
                 </div>
                 <div className="col-10 col-md-4">
                   {editionMode ? (

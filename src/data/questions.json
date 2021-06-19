@@ -33,5 +33,10 @@
         "id": "7",
         "question": "Como editar datos del proyecto?",
         "answer": "Desde la pantalla de 'Administración de Proyectos, pulsar sobre boton 'Editar Proyecto'."
+    },
+    {
+        "id": "8",
+        "question": "Como agregar gastos extras al proyecto?",
+        "answer": "Desde la pantalla de 'Administración de Proyectos, pulsar sobre boton 'Cargar gastos Extras' y se hará visible un pequeño formulario. Allí podrás ingresar el monto y el motivo del gasto extra."
     }
 ]

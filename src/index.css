@@ -295,6 +295,10 @@ label:focus,
   transform: scale(1.1);
 }
 
+.report__ProjectSection{
+  background-color: #3E444A;
+}
+
 /*-----------------Time Task Styles-----------------*/
 
 .accordion {
@@ -316,11 +320,11 @@ label:focus,
 
 /*------------- Expenses List Styles------*/
 .accordion__expenses__height{
-  height: 15vh;
+  height: auto;
 }
 
 .expenses__listItem{
-  background-color: var(--card--hover-color);
+  /* background-color: var(--disabled-color); */
 }
 
 
@@ -445,9 +449,20 @@ label:focus,
 
 
 @media print { 
+  /* .table-dark {
+    color: #fff;
+    background-color: #343a40!important;
+} */
+tr:nth-child(odd) td {
+  background-color: #343a40 !important;
+}
+tr:nth-child(even) td {
+    background-color: #3E444A !important;
+    -webkit-print-color-adjust: exact; 
+}
   .table tr{ 
       /* border: 1px solid rgb(194, 194, 194); */
-      color: var(--boxShadow--boder-color);
+      /* color: var(--boxShadow--boder-color); */
       /* background-color: var(--disabled-color) !important;  */
   } 
 }

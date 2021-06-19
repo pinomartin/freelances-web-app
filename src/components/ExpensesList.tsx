@@ -12,7 +12,7 @@ const ExpensesList = ({expenses}:any) => {
                 {expenses.length !== 0
                   ? expenses.map((item: any, index:number) => (
                       <>
-                        <ExpensesListItem description={item.description} amount={item.amount} key={item.id} uid={index}/>
+                        <ExpensesListItem description={item.description} amount={item.amount} key={item.id} uid={item.uid}/>
                       </>
                     ))
                   : null}
@@ -28,9 +28,9 @@ const ExpensesList = ({expenses}:any) => {
             </>
       ) : (
         <>
-          <div className="row justify-content-center align-items-center h-100">
+          <div className="row justify-content-center align-items-center mt-3">
             <div className="col-12 text-center">
-              <p className="badge badge-info p-3">Carga tiempos para ver tu progreso ! </p>
+              <p className="badge badge-info p-3"> Aún no tienes gastos extras! </p>
             </div>
           </div>
         </>

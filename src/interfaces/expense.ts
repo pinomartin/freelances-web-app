@@ -1,5 +1,5 @@
 export interface Expense{
-    uid?:string|number;
+    uid:string;
     description:string;
     amount:number;
     clientUID?:string;

@@ -35,25 +35,31 @@ const ProjectSection = ({ data }: ProjectDataProps) => {
     description,
     amountXHour,
     estimatedHours,
-    estimatedHoursPerDay,
     estimatedTotal,
     estimatedFinishDate,
   } = data;
   return (
-    <div className="row bg-danger">
-      <div className="col-12">
+    <div className="row report__ProjectSection">
+      <div className="col-12 text-center">
         <h1>{name}</h1>
-        <h4>Cliente: {client}</h4>
+        <div className="row">
+          <div className="col-6">
+
+        <p>Cliente: {client}</p>
         <p>Tipo: {projectTypeFormatter(type)}</p>
         <p>
           Fecha creación <br /> {format(creationDate, "dd/MM/yyyy")}
         </p>
         <p>Descripción: {description}</p>
-        <p>Precio x Hora: ${amountXHour}</p>
-        <p>{estimatedHours}</p>
-        <p>{estimatedHoursPerDay}</p>
-        <p>{estimatedTotal}</p>
-        <p>{format(estimatedFinishDate, "dd/MM/yyyy")}</p>
+          </div>
+          <div className="col-6">
+        <p>Precio x Hora: ${amountXHour.toFixed(2)}</p>
+        <p>Horas Totales Estimadas: {estimatedHours}hs</p>
+        <p>Presupuesto total Estimado: $ {estimatedTotal.toFixed(2)}</p>
+        <p>Fecha estimada de Entrega: {format(estimatedFinishDate, "dd/MM/yyyy")}</p>
+
+          </div>
+        </div>
       </div>
     </div>
   );

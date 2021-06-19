@@ -9,7 +9,7 @@ const TimesList = ({
 }: TasksListProps) => {
   return tasks.length !== 0 ? (
     <>
-      <h4 className="text-dark text-center">{title}</h4>
+      <h4 className="text-center primaryFontColor">{title}</h4>
       <div className="">
         <table className="table table-striped table-borderless table-dark rounded ">
           <tbody>
