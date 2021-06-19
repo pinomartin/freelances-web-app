@@ -1,3 +1,4 @@
+
 const getEstimatedAmount = (seconds: number, amountPerHour: number):number => {
     const hourPortion = seconds / 3600;
     const estimatedTotalAmount = Number((hourPortion * amountPerHour).toFixed(2));
@@ -11,7 +12,23 @@ const getEstimatedTotalVSCurrentAmount = (estimatedProjectHours:number,estimated
     return difference;
 }
 
+const getTotalExpensesAmount =  (expenses:any) => {
+    const totalAmount = expenses.reduce(function (
+        accumulator: number,
+        expense: any
+      ) {
+        
+        const amount = expense.amount;
+    
+        return accumulator + amount;
+      },
+      0);
+    
+      return totalAmount;
+}
+
 export {
     getEstimatedAmount,
-    getEstimatedTotalVSCurrentAmount
+    getEstimatedTotalVSCurrentAmount,
+    getTotalExpensesAmount
 }

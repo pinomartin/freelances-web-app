@@ -445,7 +445,9 @@ label:focus,
 
 
 @media print { 
-  .table td, .table th { 
-      background-color: var(--boxShadow--boder-color) !important; 
+  .table tr{ 
+      /* border: 1px solid rgb(194, 194, 194); */
+      color: var(--boxShadow--boder-color);
+      /* background-color: var(--disabled-color) !important;  */
   } 
 }

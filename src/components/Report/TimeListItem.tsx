@@ -32,7 +32,7 @@ export const TimeListItem = ({ task, projectData }: TaskListItemProps) => {
     <>
       <tr>
         {/* <th scope="row">1</th> */}
-        <td className="text-warning">
+        <td className="text-info">
           {renderHours(hours)} {renderMinutes(minutes)} {renderSeconds(seconds)}
         </td>
         <td>{description}</td>

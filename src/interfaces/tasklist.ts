@@ -1,9 +1,9 @@
 export interface TasksListProps {
-    title: string;
-    projectUID: string;
+    title?: string;
+    projectUID?: string;
     clientUID?: string;
     projectData:{
-      data:{
+      
         name: string;
         client: string;
         description: string;
@@ -14,7 +14,11 @@ export interface TasksListProps {
         estimatedFinishDate?: string | number;
         estimatedHoursPerDay: number;
         creationDate: number;
-      }  
+      
     } 
     tasks: Array<Object>,
+    expenses?: {
+      amount: number;
+      description: string;
+    }
   }
