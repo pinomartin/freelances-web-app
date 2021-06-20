@@ -4,7 +4,6 @@ import Tippy from "@tippyjs/react";
 const PrintPDFButton = (props:any )=> {
   const {handlePrint} = props;
 
-  console.log(props);
     return (
         <>
           <Tippy content="Guardar como PDF">

@@ -1,4 +1,4 @@
-import { TasksListProps } from "../../interfaces/tasklist";
+import { ReportTimeList } from "../../interfaces/reportTimeList";
 import { TimeListItem } from "./TimeListItem";
 
 const TimesList = ({
@@ -6,7 +6,10 @@ const TimesList = ({
   projectData,
   projectUID,
   title,
-}: TasksListProps) => {
+  isClientMode
+}: ReportTimeList) => {
+
+  console.log(isClientMode);
   return tasks.length !== 0 ? (
     <>
       <h4 className="text-center primaryFontColor">{title}</h4>
@@ -20,6 +23,7 @@ const TimesList = ({
                       task={item}
                       key={item.id}
                       projectData={projectData}
+                      isClientMode={isClientMode}
                     />
                   </>
                 ))

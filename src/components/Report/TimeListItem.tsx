@@ -6,8 +6,13 @@ import { getTotalSecondsFromSingleTask } from "../../hooks/useTime";
 interface TaskListItemProps {
   task: any;
   projectData: any;
+  isClientMode: boolean;
 }
-export const TimeListItem = ({ task, projectData }: TaskListItemProps) => {
+export const TimeListItem = ({
+  task,
+  projectData,
+  isClientMode,
+}: TaskListItemProps) => {
   const { description, hours, minutes, seconds } = task;
   const { amountXHour } = projectData;
 
@@ -36,9 +41,11 @@ export const TimeListItem = ({ task, projectData }: TaskListItemProps) => {
           {renderHours(hours)} {renderMinutes(minutes)} {renderSeconds(seconds)}
         </td>
         <td>{description}</td>
-        <td className="text-success">
-          <strong>$ {getEstimatedAmount(totalSeconds, amountXHour)}</strong>
-        </td>
+        {isClientMode ? null : (
+          <td className="text-success">
+            <strong>$ {getEstimatedAmount(totalSeconds, amountXHour)}</strong>
+          </td>
+        )}
       </tr>
     </>
   );

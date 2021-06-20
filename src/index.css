@@ -61,7 +61,6 @@ label:focus,
 .btn:active,
 .btn.active {
   outline: 0px !important;
-  -webkit-appearance: none;
   box-shadow: none !important;
 }
 
@@ -79,6 +78,19 @@ label:focus,
 .btn-primary:focus {
   background-color: var(--button--hover-color);
 }
+
+.btn-info{
+  font-weight: bold;
+  border: none;
+}
+
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary:focus {
+  background-color: var(--primary-color-down);
+  
+}
+
 
 .btn-success {
   background-color: var(--success-color);
@@ -272,6 +284,13 @@ label:focus,
 }
 
 /*Project Report Styles*/
+
+.report__mainContainerPrintable{
+  height: 95vh;
+}
+
+
+
 .reportButton {
   background-color: var(--button--hover-color);
   border: 1px solid transparent;
@@ -297,6 +316,36 @@ label:focus,
 
 .report__ProjectSection{
   background-color: #3E444A;
+}
+
+.report__checkboxInput:hover, .report__checkboxInput:checked{
+  opacity: 1!important;
+}
+
+@media print { 
+  /* @page { size: inherit;
+  overflow: hidden;
+height: 0; } */
+@page{
+  size: 100%;
+  /* background-color: #343a40; */
+}
+  /* .table-dark {
+    color: #fff;
+    background-color: #343a40!important;
+} */
+tr:nth-child(odd) td {
+  background-color: #343a40 !important;
+}
+tr:nth-child(even) td {
+    background-color: #3E444A !important;
+    -webkit-print-color-adjust: exact; 
+}
+  .table tr{ 
+      /* border: 1px solid rgb(194, 194, 194); */
+      /* color: var(--boxShadow--boder-color); */
+      /* background-color: var(--disabled-color) !important;  */
+  } 
 }
 
 /*-----------------Time Task Styles-----------------*/
@@ -448,21 +497,6 @@ label:focus,
 }
 
 
-@media print { 
-  /* .table-dark {
-    color: #fff;
-    background-color: #343a40!important;
-} */
-tr:nth-child(odd) td {
-  background-color: #343a40 !important;
-}
-tr:nth-child(even) td {
-    background-color: #3E444A !important;
-    -webkit-print-color-adjust: exact; 
-}
-  .table tr{ 
-      /* border: 1px solid rgb(194, 194, 194); */
-      /* color: var(--boxShadow--boder-color); */
-      /* background-color: var(--disabled-color) !important;  */
-  } 
-}
+
+
+
