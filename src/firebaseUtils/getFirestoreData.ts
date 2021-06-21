@@ -89,7 +89,14 @@ const streamExpensesFromProject = (
     .onSnapshot(observer);
 };
 
-
+const getLastFastBurnDate = async (projectUID: string) => {
+  const lastDateFromDB: any = await db
+    .collection("fastburnhours")
+    .doc(projectUID)
+    .get();
+  const lastBurnDate = await lastDateFromDB.data();
+  return lastBurnDate;
+};
 
 export {
   getUserFromDB,
@@ -99,5 +106,6 @@ export {
   getTasksFromProjectUser,
   streamTasksFromProject,
   getAllTasksFromUser,
-  streamExpensesFromProject
+  streamExpensesFromProject,
+  getLastFastBurnDate
 };

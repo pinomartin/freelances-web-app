@@ -3,4 +3,5 @@ export interface StopwatchProps {
     clientUID: string;
     projectType:string;
     projectHoursPerDay:number;
+    isAvaibleFastBurn:boolean;
   }

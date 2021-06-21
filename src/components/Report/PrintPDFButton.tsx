@@ -8,7 +8,7 @@ const PrintPDFButton = (props:any )=> {
         <>
           <Tippy content="Guardar como PDF">
             <button
-              className="reportButton"
+              className="reportButton__PDF"
               onClick={handlePrint}
             >
               <i className="fas fa-save reportButton__icon"></i>

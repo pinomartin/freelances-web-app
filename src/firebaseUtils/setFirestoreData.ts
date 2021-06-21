@@ -51,7 +51,29 @@ import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorF
     catch(error){
       console.log(error);
     }
-  }
+  };
+
+  const finishProjectDB = async (projectUID: string, finishDate:number) => {
+    try {
+      await db.collection("projects").doc(projectUID).update({
+        // name: project.name,
+        // client: project.client,
+        // description: project.description,
+        // amountXHour: project.amountXHour,
+        // estimatedHours: project.estimatedHours,
+        // estimatedTotal: project.estimatedTotal,
+        // estimatedHoursPerDay:project.estimatedHoursPerDay,
+        // estimatedFinishDate: finishDateProcessorForm(
+        //   `${project.estimatedFinishDate}`
+        // ),
+        isDone: true,
+        realFinishDate: finishDate,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const addNewTaskTimeToDB = async (task:TaskTime):Promise<any> => {
     try {
       await db.collection("timetasks").add({
@@ -92,6 +114,17 @@ import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorF
         console.log(error);
       }
     }
+
+    const addFastBurnHourToDB = async(projectUID:string, creationDate:string) => {
+      try {
+        await db.collection('fastburnhours').doc(projectUID).set({
+          creationDate: creationDate
+        })
+      } catch (error) {
+        console.log('No se pudo guardar hora rapida en DB')
+      }
+    }
+
     
     const addExpenseToDB = async (expense:any):Promise<any> => {
       try {
@@ -129,6 +162,6 @@ import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorF
 
 
 
-  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB, updateTask, addQuestionHelpToDB, addExpenseToDB, deleteExpense }
+  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB, finishProjectDB, updateTask, addFastBurnHourToDB, addQuestionHelpToDB, addExpenseToDB, deleteExpense }
 
 

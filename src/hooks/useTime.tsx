@@ -1,5 +1,12 @@
-import { formatDuration } from "date-fns";
+import { formatDuration, format } from "date-fns";
 import { es } from "date-fns/esm/locale";
+
+const getTodayDateToString = () => {
+  const date = new Date();
+  const todayDate =  format(date, "dd/MM/yyyy");
+  return todayDate;
+}
+
 
 const getTotalSecondsFromTasks = async (tasks: any) => {
   const totalSeconds = await tasks.reduce(function (
@@ -55,4 +62,4 @@ const getTotalTimeperProject = (totalSeconds: number) => {
   return totalTimeperProject;
 };
 
-export { getTotalSecondsFromTasks, getTotalTimeperProject, getTotalSecondsFromSingleTask };
+export { getTotalSecondsFromTasks, getTotalTimeperProject, getTotalSecondsFromSingleTask, getTodayDateToString };

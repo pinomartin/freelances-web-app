@@ -33,7 +33,7 @@ const ExpensesListItem = ({ amount, description, uid }:Expense) => {
                   }).then((result) => {
                     if (result.isConfirmed) {
                       Swal.fire({
-                        title: "Tiempo Borrado !",
+                        title: "Gasto Borrado !",
                         icon: "success",
                         backdrop: `rgba(50,82,136,0.3)`,
                       }).then(() => deleteExpense(uid));

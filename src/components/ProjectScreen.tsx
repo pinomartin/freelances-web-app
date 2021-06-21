@@ -8,7 +8,8 @@ import {
 import { getProjectByID } from "../firebaseUtils/getFirestoreData";
 import {
   streamTasksFromProject,
-  streamExpensesFromProject
+  streamExpensesFromProject,
+  getLastFastBurnDate
   // streamProject,
 } from "../firebaseUtils/getFirestoreData";
 import { deleteProject } from "../firebaseUtils/setFirestoreData";
@@ -22,10 +23,9 @@ import { ProjectData } from "./ProjectData";
 import { FreelancesContext } from "../context/FreelancesProvider";
 import ExpensesForm from "./ExpensesForm";
 import ExpensesList from "./ExpensesList";
+import { getTodayDateToString } from "../hooks/useTime";
 
-// interface ProjectScreenProps extends RouteComponentProps<any> {
-//   firebaseUserActive: any;
-// }
+
 
 interface URLParamsProps {
   id: string;
@@ -40,6 +40,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
   const [tasks, setTasks] = useState([]);
   const [showExpenseForm, setShowExpenseForm] = useState(false);
   const [expenses, setExpenses] = useState([]);
+  const [lastFastBurnFromDB, setLastFastBurnFromDB] = useState('01/01/1990');
 
   console.log(projectData);
 
@@ -48,8 +49,13 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
     getProjectByID(projectUID).then((project) => {
       setProjectData(project);
     });
+    
     console.log("render ProjectScreen");
   }, [projectUID]);
+
+  useEffect(() => {
+    getLastFastBurnDate(projectUID).then((item) => setLastFastBurnFromDB(item.creationDate)).catch(e => console.log(e));
+  }, [projectUID])
 
   // useEffect(() => {
   //   const unsubscribe = streamProject(projectUID, {
@@ -68,6 +74,19 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
   // }, [projectUID, setProjectData]);
 
   /**REVISAR ESTE PROBLEMA QUE NO TRAE EL USUARIO..... IMPLEMENTAR CONTEXT  */
+
+
+
+  const fastBurnHoursUIHandler = (todayDate:string, lastFastBurnDate:string):boolean => {
+    if (todayDate !== lastFastBurnDate){
+      return true;
+    }else{
+      return false;
+    }
+  };
+
+  
+
 
   useEffect(() => {
     const unsubscribe = streamTasksFromProject(authUser.email, projectUID, {
@@ -100,6 +119,8 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
     return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectData, projectUID, setExpenses]);
+
+  
 
   return (
     <div>
@@ -202,6 +223,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                     clientUID={projectData?.userId}
                     projectType={projectData?.type}
                     projectHoursPerDay={projectData?.estimatedHoursPerDay}
+                    isAvaibleFastBurn={fastBurnHoursUIHandler(getTodayDateToString(), lastFastBurnFromDB)}
                   />
                   <br />
                   <br />

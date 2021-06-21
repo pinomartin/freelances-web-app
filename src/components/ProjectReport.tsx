@@ -8,6 +8,7 @@ import TimesList from "./Report/TimesList";
 import { useReactToPrint } from "react-to-print";
 import AmountsResume from "./Report/AmountsResume";
 import Footer from "./Report/Footer";
+import FinishProjectButton from "./Report/FinishProjectButton";
 
 const ProjectReport = () => {
   const location = useLocation();
@@ -151,6 +152,7 @@ const ProjectReport = () => {
           </div>
         </div>
       </div>
+      <FinishProjectButton projectUID={projectUID}/>
       <PrintPDFButton handlePrint={handlePrint} />
     </div>
   );

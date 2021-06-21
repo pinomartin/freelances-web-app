@@ -13,6 +13,10 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
   const [projects, setProjects] = useState<any>([]);
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
 
+  //VER ESTO !!!!! 
+  // const [activeProjects, setActiveProjects] = useState<any>([]);
+  // const [finishedProjects, setFinishedProjects] = useState<any>([]);
+
   // const getUserFromDB = async (uid: string | any) => {
   //   const dbUser = await db.collection("users").doc(uid).get();
   //   setUsuario(dbUser.data());

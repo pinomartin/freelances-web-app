@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { addNewTaskTimeToDB } from "../../firebaseUtils/setFirestoreData";
+import { addFastBurnHourToDB, addNewTaskTimeToDB } from "../../firebaseUtils/setFirestoreData";
 import useInterval from "../../hooks/useInterval";
+import { getTodayDateToString } from '../../hooks/useTime';
 import { StopwatchProps } from "../../interfaces/stopwatch";
 import { TaskTime } from "../../interfaces/tasktime";
 import StopwatchDisplay from "./StopwatchDisplay";
@@ -14,6 +15,7 @@ const Stopwatch = ({
   clientUID,
   projectType,
   projectHoursPerDay,
+  isAvaibleFastBurn
 }: StopwatchProps) => {
 
   const initialStateTask = {
@@ -45,7 +47,7 @@ const Stopwatch = ({
 
   const [isFastBurnButtonPressed, setIsFastBurnButtonPressed] = useState(false);
 
-  console.log(isFastBurnButtonPressed);
+  console.log(isAvaibleFastBurn);
 
   const fastBurningHoursPerDay = (hours: number) => {
     setTaskTime({
@@ -103,6 +105,9 @@ const Stopwatch = ({
       backdrop: `rgba(50,82,136,0.3)`,
     });
     addNewTaskTimeToDB(taskTime).then(() => setTaskTime(initialStateTask)).catch(e => console.log(e));
+    isFastBurnButtonPressed && addFastBurnHourToDB(projectUID, getTodayDateToString()).then(()=> {
+      setIsFastBurnButtonPressed(false);
+    })
     reset();
     setisVisible(false);
   };
@@ -203,7 +208,7 @@ const Stopwatch = ({
       {projectType === "total" && (
         <>
         <p >QUEMAR HORAS DEL DIA </p>
-          <button className="btn btn-warning w-25" onClick={() => fastBurningHoursPerDay(projectHoursPerDay)}>
+          <button disabled={!isAvaibleFastBurn} className="btn btn-warning w-25" onClick={() => fastBurningHoursPerDay(projectHoursPerDay)}>
           {projectHoursPerDay}
         </button>
         </>
