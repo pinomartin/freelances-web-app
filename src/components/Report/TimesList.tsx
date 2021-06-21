@@ -6,7 +6,9 @@ const TimesList = ({
   projectData,
   projectUID,
   title,
-  isClientMode
+  isClientMode,
+  isShowPriceTimes,
+  isShowTimes
 }: ReportTimeList) => {
 
   console.log(isClientMode);
@@ -14,7 +16,7 @@ const TimesList = ({
     <>
       <h4 className="text-center primaryFontColor">{title}</h4>
       <div className="">
-        <table className="table table-striped table-borderless table-dark rounded ">
+        <table className="table table-striped table-borderless table-dark rounded">
           <tbody>
             {tasks.length !== 0
               ? tasks.map((item: any) => (
@@ -23,7 +25,8 @@ const TimesList = ({
                       task={item}
                       key={item.id}
                       projectData={projectData}
-                      isClientMode={isClientMode}
+                      isShowPriceTimes={isShowPriceTimes}
+                      isShowTimes={isShowTimes}
                     />
                   </>
                 ))

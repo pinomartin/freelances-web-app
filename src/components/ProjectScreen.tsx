@@ -43,6 +43,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
 
   console.log(projectData);
 
+
   useEffect(() => {
     getProjectByID(projectUID).then((project) => {
       setProjectData(project);
@@ -199,6 +200,8 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                   <Stopwatch
                     projectUID={projectUID}
                     clientUID={projectData?.userId}
+                    projectType={projectData?.type}
+                    projectHoursPerDay={projectData?.estimatedHoursPerDay}
                   />
                   <br />
                   <br />

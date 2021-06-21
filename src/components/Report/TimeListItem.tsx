@@ -6,12 +6,14 @@ import { getTotalSecondsFromSingleTask } from "../../hooks/useTime";
 interface TaskListItemProps {
   task: any;
   projectData: any;
-  isClientMode: boolean;
+  isShowPriceTimes: boolean;
+  isShowTimes: boolean;
 }
 export const TimeListItem = ({
   task,
   projectData,
-  isClientMode,
+  isShowPriceTimes,
+  isShowTimes
 }: TaskListItemProps) => {
   const { description, hours, minutes, seconds } = task;
   const { amountXHour } = projectData;
@@ -23,29 +25,34 @@ export const TimeListItem = ({
   }, [task]);
 
   const renderHours = (hours: number) => {
-    if (hours > 0) return <span>{hours} hs </span>;
+    if (hours > 0) return <span>{hours}hs </span>;
   };
 
   const renderMinutes = (minutes: number) => {
-    if (minutes > 0) return <span>{minutes} min </span>;
+    if (minutes > 0) return <span>{minutes}min </span>;
   };
   const renderSeconds = (seconds: number) => {
-    if (seconds > 0) return <span>{seconds} sec </span>;
+    if (seconds > 0) return <span>{seconds}seg </span>;
   };
 
   return (
     <>
       <tr>
         {/* <th scope="row">1</th> */}
+        {
+          isShowTimes? (
         <td className="text-info">
           {renderHours(hours)} {renderMinutes(minutes)} {renderSeconds(seconds)}
         </td>
+
+          ) : null
+        }
         <td>{description}</td>
-        {isClientMode ? null : (
+        {isShowPriceTimes ? (
           <td className="text-success">
             <strong>$ {getEstimatedAmount(totalSeconds, amountXHour)}</strong>
           </td>
-        )}
+        ) : null}
       </tr>
     </>
   );

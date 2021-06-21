@@ -14,16 +14,19 @@ const ProjectReport = () => {
   const { tasks, expenses, projectData, projectUID }: any = location.state;
   const printRef = useRef<HTMLDivElement>(null);
   const [clientMode, setClientMode] = useState(false);
-  const [isCheckedSwowEstimatedTotal, setIsCheckedSwowEstimatedTotal] =
-    useState(false);
+
+  const [isShowRealTotal, setIsShowRealTotal] = useState(false);
+  const [isShowTimes, setIsShowTimes] = useState(true);
+  const [isShowPriceTimes, setisShowPriceTimes] = useState(true);
+
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
-    pageStyle:`
+    pageStyle: `
     @media all {
       .pagebreak{
         display: none;
       }
-    }`
+    }`,
   });
 
   // const handleChangeEstimatedTotal = () => {
@@ -32,19 +35,21 @@ const ProjectReport = () => {
 
   return (
     <div className="container bg-dark mt-4 mb-4">
-      
       <div className="row  justify-content-between align-items-center">
-        <div className="col-6">
+        <div className="col-6 p-md-0">
           <button
             className="btn btn-block btn-primary"
             onClick={() => {
               setClientMode(false);
+              setIsShowTimes(true);
+              setisShowPriceTimes(true);
+              setIsShowRealTotal(false);
             }}
           >
             Modo Personal
           </button>
         </div>
-        <div className="col-6">
+        <div className="col-6 bg-transparent p-md-0">
           <button
             className="btn btn-block btn-info"
             onClick={() => setClientMode(true)}
@@ -54,11 +59,46 @@ const ProjectReport = () => {
         </div>
       </div>
       {clientMode ? (
-        <div className="row">
-          <div className="col-12 bg-dark">
+        <div className="row justify-content-between">
+          <div className="col-4 bg-dark text-center">
             <label>
-              <input type="checkbox" className="report__checkboxInput" checked={isCheckedSwowEstimatedTotal} onChange={(e:any)=> setIsCheckedSwowEstimatedTotal(e.target.checked)}/>
-              Total Real
+              <input
+                type="checkbox"
+                className="report__checkboxInput"
+                checked={isShowPriceTimes}
+                onChange={(e: any) =>
+                  setisShowPriceTimes(e.target.checked)
+                }
+              />
+              Precio de Tareas
+            </label>
+          </div>
+          <div className="col-4 bg-dark text-center">
+            <label>
+              <input
+                type="checkbox"
+                className="report__checkboxInput"
+                checked={isShowRealTotal}
+                onChange={(e: any) =>
+                  setIsShowRealTotal(e.target.checked)
+                }
+              />
+              Cobrar estimado
+            </label>
+          </div>
+
+          <div className="col-4 bg-dark text-center">
+
+            <label>
+              <input
+                type="checkbox"
+                className="report__checkboxInput"
+                checked={isShowTimes}
+                onChange={(e: any) =>
+                  setIsShowTimes(e.target.checked)
+                }
+              />
+              Tiempos de Tareas
             </label>
           </div>
         </div>
@@ -68,21 +108,25 @@ const ProjectReport = () => {
         </div>
       )}
       <br />
-      
+
       <div className="report__mainContainerPrintable bg-dark" ref={printRef}>
         <Header />
+       
         <ProjectSection data={projectData} />
-        <div className="row align-items-center justify-content-end bg-dark">
-          <div className="col-7 col-md-7">
+        <br />
+        <div className="row align-items-start justify-content-end bg-dark">
+          <div className="col-7 col-md-7 mt-2">
             <TimesList
               tasks={tasks}
-              title={"Tiempos"}
+              title={"Tareas"}
               projectData={projectData}
               projectUID={projectUID}
-              isClientMode={clientMode}
+              isShowPriceTimes={isShowPriceTimes}
+              isShowTimes={isShowTimes}
+              isShowRealTotal={isShowRealTotal}
             />
           </div>
-          <div className="col-5 col-md-5 pl-1 pr-1">
+          <div className="col-5 col-md-5 mt-5">
             <ExpensesReportList expenses={expenses} />
           </div>
         </div>
@@ -92,6 +136,10 @@ const ProjectReport = () => {
               projectData={projectData}
               tasks={tasks}
               expenses={expenses}
+              isClientMode={clientMode}
+              isShowPriceTimes={isShowPriceTimes}
+              isShowTimes={isShowTimes}
+              isShowRealTotal={isShowRealTotal}
             />
           </div>
         </div>

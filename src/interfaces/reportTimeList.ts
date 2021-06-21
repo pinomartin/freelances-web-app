@@ -21,5 +21,8 @@ export interface ReportTimeList {
       amount: number;
       description: string;
     }
-    isClientMode:boolean
+    isClientMode?:boolean;
+    isShowRealTotal: boolean;
+    isShowTimes:boolean;
+    isShowPriceTimes:boolean;
   }
