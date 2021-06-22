@@ -14,7 +14,8 @@ import SpinnerLoader from "./SpinnerLoader";
 import { FreelancesContext } from "../context/FreelancesProvider";
 import {
   getTotalSecondsFromTasks,
-  getTotalTimeperProject,
+  // getTotalTimeperProject,
+  getTotalTimeperProjectWithDays,
 } from "../hooks/useTime";
 import DoughtChart from './Charts/DoughtChart';
 
@@ -52,7 +53,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
 
   useEffect(() => {
     getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
-    setTimeToString(getTotalTimeperProject(totalSeconds));
+    setTimeToString(getTotalTimeperProjectWithDays(totalSeconds));
   }, [tasks, totalSeconds, projects]);
   
   

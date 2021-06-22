@@ -62,4 +62,21 @@ const getTotalTimeperProject = (totalSeconds: number) => {
   return totalTimeperProject;
 };
 
-export { getTotalSecondsFromTasks, getTotalTimeperProject, getTotalSecondsFromSingleTask, getTodayDateToString };
+const getTotalTimeperProjectWithDays = (totalSeconds: number) => {
+  const dateHelper = new Date(new Date().setHours(0, 0, 0, 0));
+  dateHelper.setDate(-1);
+  dateHelper.setHours(0, 0, 0, 0);
+  dateHelper.setSeconds(totalSeconds);
+  const totalTimeperProject = formatDuration(
+    {
+      days: dateHelper.getDay(),
+      hours: dateHelper.getHours(),
+      minutes: dateHelper.getMinutes(),
+      seconds: dateHelper.getSeconds(),
+    },
+    { zero: true, delimiter: " ", locale: es }
+  );
+  return totalTimeperProject;
+};
+
+export { getTotalSecondsFromTasks, getTotalTimeperProject, getTotalTimeperProjectWithDays, getTotalSecondsFromSingleTask, getTodayDateToString };
