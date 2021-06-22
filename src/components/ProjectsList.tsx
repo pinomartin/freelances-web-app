@@ -12,10 +12,10 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
   const { userDB, authUser } = useContext(FreelancesContext);
   const [projects, setProjects] = useState<any>([]);
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
-
+  const [isActiveVisible, setIsActiveVisible] = useState(true);
   //VER ESTO !!!!! 
-  // const [activeProjects, setActiveProjects] = useState<any>([]);
-  // const [finishedProjects, setFinishedProjects] = useState<any>([]);
+  const [activeProjects, setActiveProjects] = useState<any>([]);
+  const [finishedProjects, setFinishedProjects] = useState<any>([]);
 
   // const getUserFromDB = async (uid: string | any) => {
   //   const dbUser = await db.collection("users").doc(uid).get();
@@ -36,6 +36,10 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
   //   setIsLoaderVisible(false);
   //   setProjects(userprojectsData);
   // };
+  
+
+
+
 
   useEffect(() => {
     if (authUser) {
@@ -53,6 +57,15 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUser, history]);
 
+
+  useEffect(() => {
+     const actives = projects.filter((project:any) => project.isDone === false);
+     const finalized = projects.filter((project:any) => project.isDone === true);
+    setActiveProjects(actives);
+    setFinishedProjects(finalized);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projects]);
+
   return (
     <div className="container">
       {isLoaderVisible ? (
@@ -67,8 +80,8 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
           </div>
           {projects !== null && projects.length > 0 ? (
             <div className="row justify-content-center d-block text-center mt-3">
-              <button className="btn btn-primary ">Activos</button>
-              <button className="btn btn-secondary m-0 ">Terminados</button>
+              <button className="btn btn-primary" onClick={() => setIsActiveVisible(true)}>Activos</button>
+              <button className="btn btn-secondary" onClick={() => setIsActiveVisible(false)}>Terminados</button>
             </div>
           ) : null}
 
@@ -78,7 +91,13 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
 
             {
               projects !== null && projects.length > 0 ? (
-                projects.map((item: any, index: number) => (
+                isActiveVisible ? 
+                activeProjects.map((item: any, index: number) => (
+                  <>
+                    <ProjectCard data={item} key={index} />
+                  </>
+                )) : 
+                finishedProjects.map((item: any, index: number) => (
                   <>
                     <ProjectCard data={item} key={index} />
                   </>
