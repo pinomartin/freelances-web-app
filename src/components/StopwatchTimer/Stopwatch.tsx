@@ -46,6 +46,7 @@ const Stopwatch = ({
   const [isVisible, setisVisible] = useState<boolean>(false);
 
   const [isFastBurnButtonPressed, setIsFastBurnButtonPressed] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(!isAvaibleFastBurn);
 
   console.log(isAvaibleFastBurn);
 
@@ -107,6 +108,7 @@ const Stopwatch = ({
     addNewTaskTimeToDB(taskTime).then(() => setTaskTime(initialStateTask)).catch(e => console.log(e));
     isFastBurnButtonPressed && addFastBurnHourToDB(projectUID, getTodayDateToString()).then(()=> {
       setIsFastBurnButtonPressed(false);
+      setIsDisabled(true);
     })
     reset();
     setisVisible(false);
@@ -207,8 +209,8 @@ const Stopwatch = ({
       <br />
       {projectType === "total" && (
         <>
-        <p >QUEMAR HORAS DEL DIA </p>
-          <button disabled={!isAvaibleFastBurn} className="btn btn-warning w-25" onClick={() => fastBurningHoursPerDay(projectHoursPerDay)}>
+        <p>QUEMAR HORAS DEL DIA </p>
+          <button disabled={isDisabled} className="btn btn-warning w-25" onClick={() => fastBurningHoursPerDay(projectHoursPerDay)}>
           {projectHoursPerDay}
         </button>
         </>

@@ -1,4 +1,4 @@
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
 import { ProjectType } from "../interfaces/project"
 import { TaskTime } from "../interfaces/tasktime"
 import { HelpMessageProps } from '../interfaces/helpMessage';
@@ -158,10 +158,43 @@ import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorF
     } catch (error) {
         console.log('No se puede guardar tarea en DB');
     }
+  };
+
+  const updateUserProfilePhoto = async (userEmail:string, updatedImage:any) => {
+
+    try {
+        const imgRef = await storage.ref().child(userEmail).child('Profile Photo');
+        await imgRef.put(updatedImage);
+        const imgURL = await imgRef.getDownloadURL(); 
+
+        console.log(imgURL)
+
+        await db.collection("users").doc(userEmail).update({
+          profilePhotoURL: imgURL
+        });
+        return imgURL;
+
+    } catch (error) {
+        console.log(error, "No se pudo guardar nueva foto de perfil")
+    }
+
+};
+
+  const updateUserName = async (name:string, userEmail:string) => {
+    try {
+      await db.collection("users").doc(userEmail).update({
+        userName: name
+      });
+
+      return name;
+      
+    } catch (error) {
+        console.log(error, "No se pudo actualizar el nombre de Usuario");
+    }
   }
 
 
 
-  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB, finishProjectDB, updateTask, addFastBurnHourToDB, addQuestionHelpToDB, addExpenseToDB, deleteExpense }
+  export { addNewTaskTimeToDB, deleteProject, deleteTask, updateProjectDB, finishProjectDB, updateTask, addFastBurnHourToDB, addQuestionHelpToDB, addExpenseToDB, deleteExpense, updateUserProfilePhoto, updateUserName }
 
 

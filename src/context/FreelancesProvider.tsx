@@ -6,7 +6,7 @@ export const FreelancesContext = React.createContext<any>({});
 
 export const FreelancesProvider = (props:any) => {
 
-    const initialUserData = {uid: '', displayName: '', photoURL: '' , email: ''} //Initial Data
+    const initialUserData = {uid: '', displayName: '', profilePhotoURL: '' , email: ''} //Initial Data
 
     const [userDB, setUserDB] = useState(initialUserData);
     const [authUser, setAuthUser] = useState<any>(null);
@@ -20,12 +20,12 @@ export const FreelancesProvider = (props:any) => {
                 // setUser({uid: user.uid, email: user.email, displayName: user.displayName , state: true})
                 getUserFromDB(user.email).then(user => {
                     setUserDB({
-                        uid: user?.uid, displayName: user?.userName, photoURL: user?.profilePhotoURL , email: user?.email
+                        uid: user?.uid, displayName: user?.userName, profilePhotoURL: user?.profilePhotoURL , email: user?.email
                     })
                 })
                 getProjectsFromUser(user.email).then(projects => setUserProjects(projects));
             }else{
-                setUserDB({uid: '', displayName: '', photoURL: '' , email: ''});
+                setUserDB({uid: '', displayName: '', profilePhotoURL: '' , email: ''});
                 setAuthUser(null);
             }
         })
