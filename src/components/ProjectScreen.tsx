@@ -207,7 +207,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                   </h4>
                 </div>
 
-                <div className="col-10 col-md-4 p-0">
+                <div className="col-10 col-md-5 p-0">
                   <TasksList
                     title={'Tiempos & Tareas'}
                     projectUID={projectUID}
@@ -217,7 +217,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                   />
                   <ExpensesList expenses={expenses}/>
                 </div>
-                <div className="col-10 col-md-4 text-center">
+                <div className="col-10 col-md-3 text-center">
                   <Stopwatch
                     projectUID={projectUID}
                     clientUID={projectData?.userId}

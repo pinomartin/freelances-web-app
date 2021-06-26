@@ -7,7 +7,7 @@ const ExpensesReportItem = ({amount, description}:Expense) => {
         <td className="text-warning">
           {description}
         </td>
-        <td className="text-success">
+        <td className="text-success text-right">
           <strong>$ {amount}</strong>
         </td>
       </tr>

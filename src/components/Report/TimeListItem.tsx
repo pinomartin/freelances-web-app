@@ -32,13 +32,15 @@ export const TimeListItem = ({
     if (minutes > 0) return <span>{minutes}min </span>;
   };
   const renderSeconds = (seconds: number) => {
+    if(seconds > 0 && minutes === 0 && hours === 0) {
+      return <span>{'< 1min'}</span>
+    }
     if (seconds > 0) return <span>{seconds}seg </span>;
   };
 
   return (
     <>
       <tr>
-        {/* <th scope="row">1</th> */}
         {
           isShowTimes? (
         <td className="text-info">
@@ -49,8 +51,8 @@ export const TimeListItem = ({
         }
         <td>{description}</td>
         {isShowPriceTimes ? (
-          <td className="text-success">
-            <strong>$ {getEstimatedAmount(totalSeconds, amountXHour)}</strong>
+          <td className="text-success text-right">
+            <strong>$ {getEstimatedAmount(totalSeconds, amountXHour).toFixed(2)}</strong>
           </td>
         ) : null}
       </tr>

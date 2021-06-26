@@ -143,7 +143,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     <div className="row justify-content-center align-content-center mt-5 p-0 m-0">
       <div className="col-10 col-md-6 col-lg-4 userProfileCard__headerContainer">
         <div className="row justify-content-center m-2 p-0 align-items-center">
-          <div className="col-4 text-center">
+          <div className="col-9 col-sm-6 col-md-4 col-xl-3 text-center">
             {imgError ? (<p className="alert alert-warning">Tipos compatibles .PNG, .JPG, .JPEG</p>) : null}
             <img
               src={user.profilePhotoURL}
@@ -206,10 +206,10 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
                 {user.userName}
               </p>
               <button
-                className="btn btn-secondary pt-0 pb-0"
+                className="btn bg-transparent p-0 m-0 text-white"
                 onClick={() => setIsEditModeActive(true)}
               >
-                <i className="far fa-edit"></i>
+                <i className="fas fa-pencil-alt"></i>
               </button>
             </>
           )}
