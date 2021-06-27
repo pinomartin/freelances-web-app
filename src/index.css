@@ -133,7 +133,10 @@ label:focus,
 /*-----Home **************/
 .jumbotron{
   min-height: 90vh;
-  /* background-image: url('./assets/'); */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)), url('./assets/backgroundHeader.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 0;
 }
 
 .footer {
@@ -141,14 +144,31 @@ label:focus,
   bottom: 0;
   width: 100%;
   text-align: center;
+  
 }
 .termsx {
   margin: 0 auto;
   overflow-y: scroll;
-  height: 10vh;
+  height: 70vh;
   width: 70%;
-  border: 1px solid var(--button--hover-color);
-  padding: 10px;
+  border: 5px solid var(--card--hover-color);
+  padding: 30px 40px;
+  border-radius: 10px;
+}
+
+.termsx::-webkit-scrollbar
+{
+  width: 10px;
+  height: 16px;
+}
+.termsx::-webkit-scrollbar-thumb{
+  background-color: var(--error-color);
+  border-radius: 16px;
+  box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, 0.25),
+    inset -2px -2px 2px rgba(0, 0, 0, 0.25);
+}
+.termsx::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #434343, #434343 1px, #111 0, #111);
 }
 
 
@@ -493,6 +513,10 @@ tr:nth-child(even) td {
     0 1px 1px 1px rgb(60 64 67 / 15%);
   box-shadow: 0 1px 4px 0 var(--boxShadow--boder-color),
     0 1px 4px 1px var(--boxShadow--boder-color);
+}
+
+.userProfile__imageContainer{
+  width: 120px;
 }
 
 .userProfileCard__image {

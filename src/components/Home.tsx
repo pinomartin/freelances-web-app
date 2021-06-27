@@ -4,7 +4,7 @@ import Footer from "./Footer";
 const Home = () => {
   return (
     <>
-      <div className="jumbotron jumbotron-fluid">
+      <div className="jumbotron jumbotron-fluid bg-dark">
         <div className="container">
           <div className="mt-5 text-center">
             <img src={MainLogo} alt="" className="img-fluid" />
@@ -14,8 +14,8 @@ const Home = () => {
             </h3>
           </div>
         </div>
-      </div>
       <Footer />
+      </div>
     </>
   );
 };

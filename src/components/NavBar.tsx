@@ -7,7 +7,7 @@ import { useContext } from "react";
 
 const NavBar = ({ history }: RouteComponentProps<any>) => {
 
-  const { authUser, userSignOut } = useContext(FreelancesContext);
+  const { authUser, userSignOut, userDB } = useContext(FreelancesContext);
 
 
   // console.log('ANTERIOR',firebaseUserActive);
@@ -30,8 +30,8 @@ const NavBar = ({ history }: RouteComponentProps<any>) => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  {authUser.displayName ? (<small className="m-2 primaryFontColor"><strong>{authUser.displayName}</strong></small>) : null}
-                  {authUser.photoURL ? (<img src={authUser.photoURL} className="img-rounded" alt="userProfilePhoto" width="25px"></img>) : <img src={DefaultProfilePhoto} className="img-rounded" alt="userProfilePhoto" width="25px"></img>}
+                  {userDB.userName ? (<small className="m-2 primaryFontColor"><strong>{userDB.userName}</strong></small>) : null}
+                  {userDB.profilePhotoURL ? (<img src={userDB.profilePhotoURL} className="img-fluid" alt="userProfilePhoto" width="25px"></img>) : <img src={DefaultProfilePhoto} className="img-rounded" alt="userProfilePhoto" width="25px"></img>}
                 </button>
                 <div
                   className="dropdown-menu dropdown-menu-right bg-dark"

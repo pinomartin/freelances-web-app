@@ -75,7 +75,7 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
           <div className="row">
             <div className="col-12 text-center mt-2">
               <h2>Mis Proyectos</h2>
-              {userDB && <h4>Bienvenido {userDB.displayName} !! </h4>}
+              {userDB && <h4>Bienvenido {userDB.userName} !! </h4>}
             </div>
           </div>
           {projects !== null && projects.length > 0 ? (

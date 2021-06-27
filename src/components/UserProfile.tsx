@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import {
-  getUserFromDB,
+  // getUserFromDB,
   getProjectsFromUser,
   getAllTasksFromUser,
   getTasksFromProjectUser,
@@ -24,7 +24,7 @@ import {
 } from "../firebaseUtils/setFirestoreData";
 
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
-  const { authUser, userProjects: projectsFromContext } =
+  const { authUser, userProjects: projectsFromContext, updateContextUser, userDB } =
     useContext(FreelancesContext);
   const [user, setUser] = useState<any>({});
   const [userProjects, setUserProjects] = useState<any>({});
@@ -44,7 +44,8 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
 
   useEffect(() => {
     if (authUser) {
-      getUserFromDB(authUser.email).then((user) => setUser(user));
+      // getUserFromDB(authUser.email).then((user) => setUser(user));
+      setUser(userDB);
       getProjectsFromUser(authUser.email).then((projects) => {
         setUserProjects(getStateOfProjects(projects));
         setProjects(projects);
@@ -54,7 +55,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     } else {
       history.push("/login");
     }
-  }, [history, authUser, projectsFromContext]);
+  }, [history, authUser, projectsFromContext, userDB]);
 
   // useEffect(() => {
   //   setChartData(getTotalDataperProject(projectsFromContext));
@@ -80,6 +81,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     ) {
       updateUserProfilePhoto(user.email, newImgData).then((imgURL) => {
         setImgError(false);
+        updateContextUser({...user, profilePhotoURL: imgURL});
         setUser({ ...user, profilePhotoURL: imgURL });
       });
 
@@ -99,6 +101,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
 
     // setError("");
     updateUserName(user.userName, user.email).then((newName) => {
+      updateContextUser({ ...user, userName: newName });
       setUser({ ...user, userName: newName });
       setIsEditModeActive(false);
     });
@@ -143,7 +146,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     <div className="row justify-content-center align-content-center mt-5 p-0 m-0">
       <div className="col-10 col-md-6 col-lg-4 userProfileCard__headerContainer">
         <div className="row justify-content-center m-2 p-0 align-items-center">
-          <div className="col-9 col-sm-6 col-md-4 col-xl-3 text-center">
+          <div className="userProfile__imageContainer text-center">
             {imgError ? (<p className="alert alert-warning">Tipos compatibles .PNG, .JPG, .JPEG</p>) : null}
             <img
               src={user.profilePhotoURL}
