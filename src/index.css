@@ -129,6 +129,29 @@ label:focus,
 .NavBar__navBarBrand:hover {
   filter: brightness(1.2);
 }
+
+/*-----Home **************/
+.jumbotron{
+  min-height: 90vh;
+  /* background-image: url('./assets/'); */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+.termsx {
+  margin: 0 auto;
+  overflow-y: scroll;
+  height: 10vh;
+  width: 70%;
+  border: 1px solid var(--button--hover-color);
+  padding: 10px;
+}
+
+
 /*-----Spinner Loader*/
 .spinnerLoader__container {
   display: flex;
@@ -517,20 +540,7 @@ tr:nth-child(even) td {
   color: var(--primary-color);
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-}
-.termsx {
-  margin: 0 auto;
-  overflow-y: scroll;
-  height: 60vh;
-  width: 70%;
-  border: 1px solid var(--button--hover-color);
-  padding: 10px;
-}
+
 
 
 
