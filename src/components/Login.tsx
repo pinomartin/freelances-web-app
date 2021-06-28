@@ -1,7 +1,9 @@
 import { useCallback, useState, useEffect, useContext } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps, NavLink } from "react-router-dom";
 import { auth, db, provider } from "../firebase";
 import { FreelancesContext } from '../context/FreelancesProvider';
+import FreelancesTextLogo from "../assets/freelancesTextLogo.svg";
+import PaperPlaneLogo from "../assets/paperPlaneLogo.svg";
 import GoogleLoginIcon from "../assets/googleLoginIcon.svg";
 
 interface LoginProps extends RouteComponentProps<any> {
@@ -130,6 +132,18 @@ const Login = ({ history }: LoginProps) => {
   }, [email, password, userName, history]); //es necesario insertar los campos que van como parametros en la funcion
 
   return (
+    <>
+    <div className="navbar navbar-dark bg-dark sticky-top">
+      <NavLink className="navbar-brand NavBar__navBarBrand" to="/" exact>
+        <img src={FreelancesTextLogo} alt="MainAppLogo" width="100" />
+        <img src={PaperPlaneLogo} alt="MainAppLogo" width="30" />
+      </NavLink>
+      </div>
+    <div className="container-fluid">
+    
+      <hr />
+      <hr />
+      <hr />
     <div className="mt-5">
       <h3 className="text-center">
         {esRegistro ? "Registro de Usuarios" : "Inicio de Sesion"}
@@ -187,6 +201,9 @@ const Login = ({ history }: LoginProps) => {
         </div>
       </div>
     </div>
+    </div>
+    
+    </>
   );
 };
 

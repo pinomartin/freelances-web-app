@@ -10,24 +10,22 @@ import ProjectReport from "./components/ProjectReport";
 import TermsConditions from "./components/TermsConditions";
 import Help from "./components/Help";
 
-
 function App() {
-
   return (
     <Router>
-      <NavBar />
-      <div className="container-fluid p-0">
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <div className="container-fluid p-0">
+          <NavBar />
           <Route path="/projects/:id" exact>
             <ProjectScreen />
           </Route>
-          <Route path="/projects">
+          <Route path="/projects" exact>
             <ProjectsList />
           </Route>
           <Route path="/projreport">
@@ -45,8 +43,8 @@ function App() {
           <Route path="/help" exact>
             <Help />
           </Route>
-        </Switch>
-      </div>
+        </div>
+      </Switch>
     </Router>
   );
 }

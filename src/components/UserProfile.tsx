@@ -55,7 +55,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     } else {
       history.push("/login");
     }
-  }, [history, authUser, projectsFromContext, userDB]);
+  }, [history, authUser, projectsFromContext, userDB]); //Cuidado con ese userDB
 
   // useEffect(() => {
   //   setChartData(getTotalDataperProject(projectsFromContext));
