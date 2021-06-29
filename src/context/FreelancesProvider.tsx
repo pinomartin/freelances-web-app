@@ -16,12 +16,27 @@ export const FreelancesProvider = (props:any) => {
     const userDetector = () => {
         auth.onAuthStateChanged(user => {
             if(user){
+                console.log('Entra a context');
                 setAuthUser(user);
+                console.log(authUser);
                 // setUser({uid: user.uid, email: user.email, displayName: user.displayName , state: true})
                 getUserFromDB(user.email).then(user => {
+                   if(user){
+                       console.log('entro a IF');
                     setUserDB({
                         uid: user?.uid, userName: user?.userName, profilePhotoURL: user?.profilePhotoURL , email: user?.email
                     })
+                   }
+                //    else {
+                //        console.log('Entro a Else');
+                //        console.log('authUser', authUser);
+                //     setUserDB({uid: authUser.uid, userName: authUser.displayName, profilePhotoURL: authUser.profilePhotoURL , email: authUser.email })
+
+                //    }
+                    // console.log('user context', user)
+                   
+                     
+                    // console.log('Usuario de auth', authUser);
                 })
                 getProjectsFromUser(user.email).then(projects => setUserProjects(projects));
             }else{

@@ -1,7 +1,8 @@
 import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
-import MainLogo from "../assets/mainLogoTransparent.svg";
 import DefaultProfilePhoto from "../assets/defaultProfilePhoto.png";
 import { FreelancesContext } from '../context/FreelancesProvider';
+import FreelancesTextLogo from "../assets/freelancesTextLogo.svg";
+import PaperPlaneLogo from "../assets/paperPlaneLogo.svg";
 import { useContext } from "react";
 
 
@@ -16,7 +17,8 @@ const NavBar = ({ history }: RouteComponentProps<any>) => {
   return (
     <div className="navbar navbar-dark bg-dark sticky-top">
       <NavLink className="navbar-brand NavBar__navBarBrand" to="/" exact>
-        <img src={MainLogo} alt="MainAppLogo" width="120" />
+        <img src={FreelancesTextLogo} alt="MainAppLogo" width="100" />
+        <img src={PaperPlaneLogo} alt="MainAppLogo" width="30"/>
       </NavLink>
         <div className="d-flex">
           {authUser !== null ? (

@@ -12,7 +12,7 @@ interface LoginProps extends RouteComponentProps<any> {
 
 
 const Login = ({ history }: LoginProps) => {
-  const { authUser } = useContext(FreelancesContext);
+  const { authUser, updateContextUser } = useContext(FreelancesContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -90,7 +90,7 @@ const Login = ({ history }: LoginProps) => {
           email: resp.user.email,
           uid: resp.user.uid,
           profilePhotoURL: resp.user.photoURL,
-        });
+        }).then(() => updateContextUser({uid: resp.user.uid, userName: resp.user.displayName, profilePhotoURL: resp.user.photoURL , email: resp.user.email}));
       }
       history.push("/projects");
     } catch (error) {
@@ -208,3 +208,5 @@ const Login = ({ history }: LoginProps) => {
 };
 
 export default withRouter(Login);
+
+

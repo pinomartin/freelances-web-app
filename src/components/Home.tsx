@@ -38,7 +38,7 @@ const Home = () => {
 
         <div className="section-title">
           <h2>Funcionalidades</h2>
-          <p>En Freelances podrás concentrarte más en tu trabajo ya que te ayudará a estimar los tiempos y costos de tus proyectos.</p>
+          <p>En Freelances App podrás concentrarte más en tu trabajo ya que te ayudará a estimar los tiempos y costos de tus proyectos.</p>
         </div>
 
         <div className="row">

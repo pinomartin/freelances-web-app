@@ -24,8 +24,12 @@ import {
 } from "../firebaseUtils/setFirestoreData";
 
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
-  const { authUser, userProjects: projectsFromContext, updateContextUser, userDB } =
-    useContext(FreelancesContext);
+  const {
+    authUser,
+    userProjects: projectsFromContext,
+    updateContextUser,
+    userDB,
+  } = useContext(FreelancesContext);
   const [user, setUser] = useState<any>({});
   const [userProjects, setUserProjects] = useState<any>({});
   const [tasks, setTasks] = useState([]);
@@ -69,7 +73,6 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
   const selectPhotoArchive = (newImg: any) => {
     console.log(newImg.target.files[0]);
     const newImgData = newImg.target.files[0];
-    setLoading(true);
     if (newImgData === undefined) {
       console.log("Image file not Selected!!");
       return;
@@ -79,13 +82,13 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
       newImgData.type === "image/jpg" ||
       newImgData.type === "image/jpeg"
     ) {
+      setLoading(true);
       updateUserProfilePhoto(user.email, newImgData).then((imgURL) => {
         setImgError(false);
-        updateContextUser({...user, profilePhotoURL: imgURL});
+        updateContextUser({ ...user, profilePhotoURL: imgURL });
         setUser({ ...user, profilePhotoURL: imgURL });
+        setLoading(false);
       });
-
-      setLoading(false);
     } else {
       setImgError(true);
       setLoading(false);
@@ -147,35 +150,52 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
       <div className="col-10 col-md-6 col-lg-4 userProfileCard__headerContainer">
         <div className="row justify-content-center m-2 p-0 align-items-center">
           <div className="userProfile__imageContainer text-center">
-            {imgError ? (<p className="alert alert-warning">Tipos compatibles .PNG, .JPG, .JPEG</p>) : null}
-            <img
-              src={user.profilePhotoURL}
-              alt="Foto de Perfil de usuario"
-              className="userProfileCard__image"
-            />
-            <input
-              type="file"
-              className="custom-file-input"
-              id="inputGroupFile01"
-              aria-describedby="inputGroupFileAddon01"
-              style={{ display: "none" }}
-              onChange={(e) => selectPhotoArchive(e)}
-              disabled={loading}
-            />
-            <Tippy content="Cambiar foto" placement="right-start" arrow={true}>
-              <label
-                className={
-                  loading
-                    ? "btn btn-primary mt-2 disabled"
-                    : "btn btn-primary mt-2"
-                }
-                htmlFor="inputGroupFile01"
-              >
-                <i className="fas fa-sync-alt"></i>
-                &nbsp;
-                <i className="far fa-file-image"></i>
-              </label>
-            </Tippy>
+            {imgError ? (
+              <p className="alert alert-warning">
+                Tipos compatibles .PNG, .JPG, .JPEG
+              </p>
+            ) : null}
+            {loading ? (
+              <div className="spinner-border text-primary" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            ) : (
+              <>
+                <img
+                  src={user.profilePhotoURL}
+                  alt="Foto de Perfil de usuario"
+                  className="userProfileCard__image"
+                />
+                <input
+                  type="file"
+                  className="custom-file-input"
+                  id="inputGroupFile01"
+                  aria-describedby="inputGroupFileAddon01"
+                  style={{ display: "none" }}
+                  onChange={(e) => selectPhotoArchive(e)}
+                  disabled={loading}
+                />
+                <Tippy
+                  content="Cambiar foto"
+                  placement="right-start"
+                  arrow={true}
+                >
+                  <label
+                    className={
+                      loading
+                        ? "btn btn-primary mt-2 disabled"
+                        : "btn btn-primary mt-2"
+                    }
+                    htmlFor="inputGroupFile01"
+                  >
+                    <i className="fas fa-sync-alt"></i>
+                    &nbsp;
+                    <i className="far fa-file-image"></i>
+                  </label>
+                </Tippy>
+              </>
+            )}
+
             {/* </div> */}
           </div>
         </div>
@@ -183,24 +203,26 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
           {isEditModeActive ? (
             <>
               <form onSubmit={(e) => procesarData(e)} className="d-inline p-0">
-              <div className="input-group">
-              <input
-                type="text"
-                className="form-control form-control-sm mb-2 customForm__input w-50"
-                onChange={(e) => setUser({ ...user, userName: e.target.value })}
-                value={user.userName}
-              />
-              <button type="submit" className="btn btn-success float-right">
-                <i className="far fa-check-square"></i>
-              </button>
-              <button
-                type="button"
-                className="btn btn-danger  float-right"
-                onClick={() => setIsEditModeActive(false)}
-              >
-                <i className="far fa-window-close"></i>
-              </button>
-              </div>
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control form-control-sm mb-2 customForm__input w-50"
+                    onChange={(e) =>
+                      setUser({ ...user, userName: e.target.value })
+                    }
+                    value={user.userName}
+                  />
+                  <button type="submit" className="btn btn-success float-right">
+                    <i className="far fa-check-square"></i>
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger  float-right"
+                    onClick={() => setIsEditModeActive(false)}
+                  >
+                    <i className="far fa-window-close"></i>
+                  </button>
+                </div>
               </form>
             </>
           ) : (
