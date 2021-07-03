@@ -1,12 +1,14 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { updateTask, deleteTask } from "../firebaseUtils/setFirestoreData";
+import { format } from "date-fns";
+
 
 interface TaskListItemProps {
   task: any;
 }
 export const TaskListItem = ({ task }: TaskListItemProps) => {
-  const { id, description, hours, minutes, seconds } = task;
+  const { id, description, hours, minutes, seconds, creationDate } = task;
 
   const [taskEditionMode, setTaskEditionMode] = useState(false);
   const [onEditTaskData, setOnEditTaskData] = useState(task);
@@ -16,13 +18,16 @@ export const TaskListItem = ({ task }: TaskListItemProps) => {
     updateTask(onEditTaskData, task.id);
     setTaskEditionMode(false);
   };
+
   console.log(task);
 
   return (
     <div className="card bg-dark">
       <div className="card-header" id="headingOne">
-        <p className="p-0 m-0 d-inline primaryFontColor">
-          <span>{hours}hs </span>
+          <strong className="badge rounded-pill bg-dark secondaryFontColor">{format(creationDate, "dd/MM/yyyy")}</strong>
+          
+        <p className="p-0 m-0 d-inline text-center primaryFontColor">
+          <span>       {hours}hs </span>
           <span>{minutes}min </span>
           <span>{seconds}sec </span>
         </p>

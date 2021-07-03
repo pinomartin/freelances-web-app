@@ -1,8 +1,8 @@
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { format } from "date-fns";
 import Tippy from "@tippyjs/react";
-import totalAvatar from '../assets/total.svg';
-import hourAvatar from '../assets/hour.svg';
+import totalAvatar from "../assets/total.svg";
+import hourAvatar from "../assets/hour.svg";
 
 interface Props extends RouteComponentProps<any> {
   data: any;
@@ -20,6 +20,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
     estimatedTotal,
     estimatedFinishDate,
     creationDate,
+    // isDone,
   } = projectData;
 
   console.log(projectData);
@@ -29,21 +30,20 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
       <div className="col-12 col-sm-6 col-lg-4 mb-3 mt-3">
         <div className="card projectListItem__card">
           {/* <div className="card-header no-bordered"> */}
-        <div className="card-custom-avatar">
-            {
-              type === 'hour' ? (
-                <Tippy content="Presupuesto x hora">
-
-                  <img className="img-fluid" src={hourAvatar} alt="Avatar" />
-                </Tippy>
-
-              ) : (
-                <Tippy content="Presupuesto Total">
-                  <img className="img-fluid" src={totalAvatar} alt="Avatar total" />
-                </Tippy>
-                
-              ) 
-            }
+          <div className="card-custom-avatar">
+            {type === "hour" ? (
+              <Tippy content="Presupuesto x hora">
+                <img className="img-fluid" src={hourAvatar} alt="Avatar" />
+              </Tippy>
+            ) : (
+              <Tippy content="Presupuesto Total">
+                <img
+                  className="img-fluid"
+                  src={totalAvatar}
+                  alt="Avatar total"
+                />
+              </Tippy>
+            )}
           </div>
 
           {/* </div> */}
@@ -51,20 +51,42 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
           <div className="card-body">
             <h5 className="card-title primaryFontColor">{name}</h5>
             {/* <h6 className="card-subtitle mb-2 secondaryFontColor">{format(creationDate, 'dd/MM/yyyy')}</h6> */}
-            <p className="card-text">{description}</p>
-            <small>Cliente: {client}</small>
+            <p className="card-text text-right"><strong>Cliente </strong> {client}</p>
+            <p className="m-0">
+               {description}
+            </p>
             <br />
-            <small>
-              Horas Estimadas:{" "}
-              <span className="text-warning">{estimatedHours} hs.</span>
-            </small>
+            <div className="container projectListItem__card__numbersContainer">
+              <div className="row no-gutters rounded justify-content-between text-center">
+                <div className="col-4 col-md-4">
+                  <small>Horas Estimadas</small>
+                  {/* <p className="text-warning">{estimatedHours} hs</p> */}
+                </div>
+                <div className="col-4 col-md-4">
+                  <small>Monto por Hora</small>
+                  {/* <p>$ {amountXHour}</p> */}
+                </div>
+                <div className="col-4 col-md-4">
+                  <small>Estimado Total </small>
+                  {/* <p className="successFontColor">$ {estimatedTotal}</p> */}
+                </div>
+              </div>
+              <div className="row no-gutters rounded justify-content-between text-center">
+                <div className="col-4 col-md-4">
+                  <p className="text-warning">{estimatedHours} hs</p>
+                </div>
+                <div className="col-4 col-md-4">
+                  <p>$ {amountXHour}</p>
+                </div>
+                <div className="col-4 col-md-4">
+                  <p className="successFontColor">$ {estimatedTotal}</p>
+                </div>
+              </div>
+            </div>
             <br />
-            <small>Monto por Hora: $ {amountXHour}</small>
+
             <br />
-            <small>
-              Estimado Total:{" "}
-              <span className="successFontColor">$ {estimatedTotal}</span>
-            </small>
+
             <br />
             <small>
               Fecha Entrega:{" "}
@@ -80,15 +102,14 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
               </span>
             </small>
             <div className="card-body">
-            <small>
-              <Link
-                to={`/projects/${id}`}
-                className="btn btn-primary float-right"
-              >
-                <i className="fas fa-plus m-0 p-0"></i>
-              </Link>
-            </small>
-
+              <small>
+                <Link
+                  to={`/projects/${id}`}
+                  className="btn btn-primary btn-lg float-right"
+                >
+                  <i className="far fa-eye"></i>
+                </Link>
+              </small>
             </div>
           </div>
         </div>

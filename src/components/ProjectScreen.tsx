@@ -27,6 +27,7 @@ import { getTodayDateToString } from "../hooks/useTime";
 
 
 
+
 interface URLParamsProps {
   id: string;
 }
@@ -89,6 +90,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
 
 
   useEffect(() => {
+    if(authUser){
     const unsubscribe = streamTasksFromProject(authUser.email, projectUID, {
       next: (querySnapshot: any) => {
         const updatedTasksItems = querySnapshot.docs.map(
@@ -101,10 +103,14 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
     });
 
     return unsubscribe;
+  }else {
+    history.push("/projects");
+  }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectData, projectUID, setTasks]);
 
   useEffect(() => {
+    if(authUser){
     const unsubscribe = streamExpensesFromProject(authUser.email, projectUID, {
       next: (querySnapshot: any) => {
         const updatedExpensesItems = querySnapshot.docs.map(
@@ -117,6 +123,9 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
     });
 
     return unsubscribe;
+  }else {
+    history.push("/projects");
+  }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectData, projectUID, setExpenses]);
 

@@ -29,6 +29,7 @@ const ProjectReport = () => {
       }
     }`,
   });
+  console.log(projectData);
 
   // const handleChangeEstimatedTotal = () => {
   //   setIsCheckedSwowEstimatedTotal(!isCheckedSwowEstimatedTotal);
@@ -152,7 +153,7 @@ const ProjectReport = () => {
           </div>
         </div>
       </div>
-      <FinishProjectButton projectUID={projectUID}/>
+      {projectData.isDone === false &&  <FinishProjectButton projectUID={projectUID}/>}
       <PrintPDFButton handlePrint={handlePrint} />
     </div>
   );

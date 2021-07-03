@@ -9,6 +9,7 @@
   --font--color: #f5f6f7;
   --card--primary-color: #2b3566;
   --card--hover-color: #50306e;
+  --card--secondary-hover-color: #374279;
   --boxShadow--boder-color: #000000;
   --success-color: #5ae277;
   --error-color: #e91e63;
@@ -494,7 +495,7 @@ section {
   box-shadow: 0 1px 4px 0 var(--boxShadow--boder-color),
     0 1px 4px 1px var(--boxShadow--boder-color);
   color: var(--font--color);
-  transition: all 50ms ease-in-out;
+  transition: all 0.3s ease-in-out;
   border-radius: 15px;
   cursor: pointer;
   min-height: 450px;
@@ -502,7 +503,13 @@ section {
 
 .projectListItem__card:hover {
   /* background-color:var(--card--hover-color); */
-  transform: scale(102%);
+  transform: scale(1.02);
+  background-color: var(--card--secondary-hover-color);
+}
+
+.projectListItem__card__numbersContainer{
+  border-radius: 20px;
+  border: 2px solid var(--button--hover-color);
 }
 
 .card-custom-avatar img {
