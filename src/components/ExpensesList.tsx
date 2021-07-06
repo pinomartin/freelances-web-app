@@ -5,7 +5,7 @@ const ExpensesList = ({expenses}:any) => {
     console.log(expenses);
     return expenses.length !== 0 ? (
         <>
-          <h4>{'Gastos Extras'}</h4>
+          <h4 className="text-center">{'Gastos Extras'}</h4>
           <div className="container taskList__container">
             <div className="overflow-auto accordion__container__scrollbar">
               <div className="accordion accordion__expenses__height" id="expensesAccordion">

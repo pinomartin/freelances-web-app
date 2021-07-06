@@ -55,16 +55,20 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
             <p className="m-0">
                {description}
             </p>
+            </div>
+
+
             <br />
-            <div className="container projectListItem__card__numbersContainer">
+           
+          <div className="container projectListItem__card__numbersContainer">
               <div className="row no-gutters rounded justify-content-between text-center">
-                <div className="col-4 col-md-4">
-                  <small>Horas Estimadas</small>
-                  {/* <p className="text-warning">{estimatedHours} hs</p> */}
-                </div>
                 <div className="col-4 col-md-4">
                   <small>Monto por Hora</small>
                   {/* <p>$ {amountXHour}</p> */}
+                </div>
+                <div className="col-4 col-md-4">
+                  <small>Horas Estimadas</small>
+                  {/* <p className="text-warning">{estimatedHours} hs</p> */}
                 </div>
                 <div className="col-4 col-md-4">
                   <small>Estimado Total </small>
@@ -73,21 +77,18 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
               </div>
               <div className="row no-gutters rounded justify-content-between text-center">
                 <div className="col-4 col-md-4">
-                  <p className="text-warning">{estimatedHours} hs</p>
+                  <p><strong>$ {amountXHour}</strong></p>
                 </div>
                 <div className="col-4 col-md-4">
-                  <p>$ {amountXHour}</p>
+                  <p className="text-warning"><strong>{estimatedHours} hs</strong></p>
                 </div>
                 <div className="col-4 col-md-4">
-                  <p className="successFontColor">$ {estimatedTotal}</p>
+                  <p className="successFontColor"><strong>$ {estimatedTotal.toFixed(2)}</strong></p>
                 </div>
               </div>
             </div>
-            <br />
-
-            <br />
-
-            <br />
+            
+            <div className="card-body">
             <small>
               Fecha Entrega:{" "}
               <span className="successFontColor">
@@ -101,7 +102,6 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
                 {format(creationDate, "dd/MM/yyyy")}
               </span>
             </small>
-            <div className="card-body">
               <small>
                 <Link
                   to={`/projects/${id}`}
@@ -111,7 +111,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
                 </Link>
               </small>
             </div>
-          </div>
+          
         </div>
       </div>
     </>

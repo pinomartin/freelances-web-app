@@ -219,7 +219,7 @@ label:focus,
     text-align: center;
   }
   #hero .hero-img img {
-    width: 50%;
+    width: 20%;
   }
 }
 
@@ -233,7 +233,7 @@ label:focus,
     line-height: 24px;
   }
   #hero .hero-img img {
-    width: 60%;
+    width: 15%;
   }
 }
 
@@ -489,7 +489,8 @@ section {
 /*-----*/
 /*----- PROJECT CARDS*/
 .projectListItem__card {
-  background-color: var(--card--primary-color);
+  /* background-color: var(--card--primary-color); */
+  background-image: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
   -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
     0 1px 1px 1px rgb(60 64 67 / 15%);
   box-shadow: 0 1px 4px 0 var(--boxShadow--boder-color),
@@ -510,6 +511,8 @@ section {
 .projectListItem__card__numbersContainer{
   border-radius: 20px;
   border: 2px solid var(--button--hover-color);
+  padding-top: 0.7rem;
+  font-size: 1.05rem;
 }
 
 .card-custom-avatar img {

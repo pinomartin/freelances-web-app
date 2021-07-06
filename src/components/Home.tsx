@@ -13,7 +13,7 @@ const Home = () => {
             <div className="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
               <h1>Bienvenido a la nueva forma de trabajo Freelance</h1>
               <h2>
-                Un gusto poder ayudarte en tu camino profesional
+                Un placer poder ayudarte en tu camino profesional
               </h2>
               <div>
                 <Link to="/login" className="btn-primary btn-get-started scrollto">
@@ -45,23 +45,23 @@ const Home = () => {
           <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column align-items-lg-center">
             <div className="icon-box mt-5 mt-lg-0">
             <i className="fas fa-suitcase home__featuresIcon"></i>
-              <h4>Creacion y administracion de Proyectos</h4>
+              <h4>Creación y administración de Proyectos</h4>
               <p>Crea, estima por tiempo o presupuesto total y comienza a desarrollar tus proyectos.</p>
             </div>
             <div className="icon-box mt-5" >
             <i className="far fa-clock home__featuresIcon"></i>
-              <h4>Controla tiempos en tus tareas</h4>
-              <p>Con el contador de tiempos podras tener el control de todas tus actividades.</p>
+              <h4>Controla tiempos de tus tareas</h4>
+              <p>Con el contador de tiempos podrás tener el control de todas tus actividades.</p>
             </div>
             <div className="icon-box mt-5">
             <i className="fas fa-file-invoice-dollar home__featuresIcon"></i>
               <h4>Informes completos y detallados</h4>
-              <p>Obten reportes que te serviran para evaluar tu desempeno en proyectos. Asi como tambien para enviar a tus clientes y poder cobrar por tus trabajos.</p>
+              <p>Obtén reportes que te servirán para evaluar tu desempeño en proyectos. Asi como también para enviar a tus clientes y poder cobrar por tus trabajos.</p>
             </div>
             <div className="icon-box mt-5">
             <i className="fas fa-key home__featuresIcon"></i>
               <h4>Seguridad y privacidad garantizada</h4>
-              <p>Tu cuenta y tus datos son privados y nadie mas puede acceder excepto tu.</p>
+              <p>Tu cuenta y tus datos son privados y nadie más puede acceder excepto tú.</p>
             </div>
           </div>
           <div className="image col-lg-6 order-1 order-lg-2 ">

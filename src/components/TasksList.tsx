@@ -124,7 +124,7 @@ export const TasksList = ({ projectData, tasks, title }: TasksListProps) => {
 
   return tasks.length !== 0 ? (
     <>
-      <h4>{title}</h4>
+      <h4 className="text-center">{title}</h4>
       <div className="container taskList__container">
         <div className="overflow-auto accordion__container__scrollbar">
           <div className="accordion" id="tasksAccordion">

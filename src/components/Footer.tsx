@@ -7,13 +7,7 @@ import TextLogo from "../assets/freelancesTextLogo.png";
   
 const Footer = () => {
     return (
-        // <footer className="bg-dark footer">
-        //     <div className="row no-gutters">
-        //         <div className="col-12">
-        //           <Link to='/terms' className='link'>Terminos y Condiciones</Link>  
-        //         </div>
-        //     </div>
-        // </footer>
+        
   <footer id="footer">
 
     <div className="footer-top">
@@ -35,7 +29,7 @@ const Footer = () => {
           <div className="col-lg-6 col-md-6 text-center">
             <p>Consulta la sección de  <Link to="/terms">Términos y condiciones</Link> </p>
             
-            <p className="p-0 m-0">Tienes algun problema ?</p>
+            <p className="p-0 m-0">Tienes algún problema ?</p>
             <Link to="/help" className="btn btn-primary">Necesito ayuda!</Link>
             <br />
             <br />
