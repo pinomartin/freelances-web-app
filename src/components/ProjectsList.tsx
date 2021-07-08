@@ -13,7 +13,7 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
   const [projects, setProjects] = useState<any>([]);
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [isActiveVisible, setIsActiveVisible] = useState(true);
-  //VER ESTO !!!!! 
+  //VER ESTO !!!!!
   const [activeProjects, setActiveProjects] = useState<any>([]);
   const [finishedProjects, setFinishedProjects] = useState<any>([]);
 
@@ -36,10 +36,6 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
   //   setIsLoaderVisible(false);
   //   setProjects(userprojectsData);
   // };
-  
-
-
-
 
   useEffect(() => {
     if (authUser) {
@@ -53,14 +49,15 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
     } else {
       history.push("/login");
     }
- 
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUser, history]);
 
-
   useEffect(() => {
-     const actives = projects.filter((project:any) => project.isDone === false);
-     const finalized = projects.filter((project:any) => project.isDone === true);
+    const actives = projects.filter((project: any) => project.isDone === false);
+    const finalized = projects.filter(
+      (project: any) => project.isDone === true
+    );
     setActiveProjects(actives);
     setFinishedProjects(finalized);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,35 +77,46 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
           </div>
           {projects !== null && projects.length > 0 ? (
             <div className="row justify-content-center d-block text-center mt-3">
-              <button className="btn btn-primary" onClick={() => setIsActiveVisible(true)}>Activos</button>
-              <button className="btn btn-secondary" onClick={() => setIsActiveVisible(false)}>Terminados</button>
+              <button
+                className="btn btn-primary"
+                onClick={() => setIsActiveVisible(true)}
+              >
+                Activos
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => setIsActiveVisible(false)}
+              >
+                Terminados
+              </button>
             </div>
           ) : null}
 
           <br />
           {/* <div className="row justify-content-start align-items-center bg-transparent"> */}
-            <div className="card-deck">
-
-            {
-              projects !== null && projects.length > 0 ? (
-                isActiveVisible ? 
+          <div className="card-deck">
+            {projects !== null && projects.length > 0 ? (
+              isActiveVisible ? (
                 activeProjects.map((item: any, index: number) => (
                   <>
-                    <ProjectCard data={item} key={index} />
-                  </>
-                )) : 
-                finishedProjects.map((item: any, index: number) => (
-                  <>
-                    <ProjectCard data={item} key={index} />
+                    <div className="col-12 col-sm-8 col-md-4">
+                      <ProjectCard data={item} key={index} />
+                    </div>
                   </>
                 ))
-                ) : (
-                  <WelcomeNewUser />
-                  )
-                }
-              </div>
+              ) : (
+                finishedProjects.map((item: any, index: number) => (
+                  <div className="col-12 col-sm-8 col-md-4">
+                    <ProjectCard data={item} key={index} />
+                  </div>
+                ))
+              )
+            ) : (
+              <WelcomeNewUser />
+            )}
+          </div>
 
-            <AddProjectButton />
+          <AddProjectButton />
           {/* </div> */}
         </>
       )}

@@ -20,6 +20,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
     estimatedTotal,
     estimatedFinishDate,
     creationDate,
+    isNewProject = false,
     // isDone,
   } = projectData;
 
@@ -27,7 +28,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
 
   return (
     <>
-      <div className="col-12 col-sm-6 col-lg-4 mb-3 mt-3">
+      {/* <div className="col-12 col-sm-6 col-lg-4 mb-3 mt-3"> */}
         <div className="card projectListItem__card">
           {/* <div className="card-header no-bordered"> */}
           <div className="card-custom-avatar">
@@ -48,17 +49,18 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
 
           {/* </div> */}
           <br />
+          <br />
           <div className="card-body">
-            <h5 className="card-title primaryFontColor">{name}</h5>
+            <h5 className="card-title primaryFontColor">{name? name: null}</h5>
             {/* <h6 className="card-subtitle mb-2 secondaryFontColor">{format(creationDate, 'dd/MM/yyyy')}</h6> */}
-            <p className="card-text text-right"><strong>Cliente </strong> {client}</p>
+            <p className="card-text text-right">{client ? (<><strong>Cliente </strong> <p>{client}</p></>) :null}</p>
             <p className="m-0">
                {description}
             </p>
             </div>
 
 
-            <br />
+         
            
           <div className="container projectListItem__card__numbersContainer">
               <div className="row no-gutters rounded justify-content-between text-center">
@@ -87,19 +89,20 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
                 </div>
               </div>
             </div>
-            
+            {isNewProject ? null : (
+
             <div className="card-body">
             <small>
               Fecha Entrega:{" "}
               <span className="successFontColor">
-                {format(estimatedFinishDate, "dd/MM/yyyy")}
+                {estimatedFinishDate ? format(estimatedFinishDate, "dd/MM/yyyy"): null}
               </span>
             </small>
             <br />
             <small>
               Fecha Inicio:{" "}
               <span className="secondaryFontColor">
-                {format(creationDate, "dd/MM/yyyy")}
+                {creationDate? format(creationDate, "dd/MM/yyyy") :null}
               </span>
             </small>
               <small>
@@ -111,9 +114,10 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
                 </Link>
               </small>
             </div>
+            )}
           
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 };

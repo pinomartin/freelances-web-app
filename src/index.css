@@ -510,9 +510,10 @@ section {
 
 .projectListItem__card__numbersContainer{
   border-radius: 20px;
-  border: 2px solid var(--button--hover-color);
+  /* border: 2px solid var(--button--hover-color); */
   padding-top: 0.7rem;
   font-size: 1.05rem;
+  background-color: var(--card--primary-color);
 }
 
 .card-custom-avatar img {

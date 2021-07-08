@@ -6,6 +6,7 @@ import SpinnerLoader from "./SpinnerLoader";
 import RadioButton from "./RadioButton";
 import { ProjectType } from "../interfaces/project";
 import differenceInBusinessDays from 'date-fns/differenceInBusinessDays';
+import ProjectCard from "./ProjectCard";
 
 
 const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
@@ -213,12 +214,12 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
   return !isLoaderVisible ? (
     <>
       <div className="mt-5">
-        <h3 className="text-center">Proyecto</h3>
-        <span className="primaryFontColor text-center d-block m-0 mb-2 p-0">
+        <h3 className="text-center mb-5">Nuevo Proyecto</h3>
+        {/* <span className="primaryFontColor text-center d-block m-0 mb-2 p-0">
           {project.name}
-        </span>
+        </span> */}
         <div className="row justify-content-center m-0 p-0">
-          <div className="col-10 col-sm-8 col-md-6 col-xl-3">
+          <div className="col-10 col-sm-8 col-md-6 col-xl-3 mb-5">
             <form onSubmit={(e) => procesarData(e)}>
               {error && <div className="alert alert-danger">{error}</div>}
 
@@ -305,6 +306,9 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
                 Comenzar !
               </button>
             </form>
+          </div>
+          <div className="col-10 col-sm-8 col-md-6 col-xl-3 mb-4">
+            <ProjectCard data={{...project, isNewProject: true}} key={project.name}/>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@
     {
         "id": "4",
         "question": "Como agregar tiempos?",
-        "answer": "Se pueden agregar tiempos de 2 maneras. Con el contador de tiempos o con el ingreso manual de tiempo desde la pantalla de Administracion de Proyecto."
+        "answer": "Se pueden agregar tiempos de 2 maneras. Con el contador de tiempos o con el ingreso manual de tiempo desde la pantalla de 'Administración de Proyectos'."
     },
     {
         "id": "5",
@@ -27,16 +27,16 @@
     {
         "id": "6",
         "question": "Como imprimir reporte de proyecto en PDF? ",
-        "answer": "Desde la pantalla de 'Administración de Proyectos, pulsar sobre boton 'Finalizar Proyecto'. Una vez dentro de la pantalla de 'Reporte de Proyecto' pulsar sobre boton 'Guardar en PDF'."
+        "answer": "Desde la pantalla de 'Administración de Proyectos', pulsar sobre boton 'Finalizar Proyecto'. Una vez dentro de la pantalla de 'Reporte de Proyecto' pulsar sobre boton 'Guardar en PDF'."
     },
     {
         "id": "7",
         "question": "Como editar datos del proyecto?",
-        "answer": "Desde la pantalla de 'Administración de Proyectos, pulsar sobre boton 'Editar Proyecto'."
+        "answer": "Desde la pantalla de 'Administración de Proyectos', pulsar sobre boton 'Editar Proyecto'."
     },
     {
         "id": "8",
         "question": "Como agregar gastos extras al proyecto?",
-        "answer": "Desde la pantalla de 'Administración de Proyectos, pulsar sobre boton 'Cargar gastos Extras' y se hará visible un pequeño formulario. Allí podrás ingresar el monto y el motivo del gasto extra."
+        "answer": "Desde la pantalla de 'Administración de Proyectos', pulsar sobre boton 'Cargar gastos Extras' y se habilitará un simple formulario en el cual podrás ingresar el monto y el motivo del gasto extra."
     }
 ]
