@@ -9,9 +9,7 @@ const randomColorPicker = () => {
   return randomNumber;
 }
 
-
-
-console.log(randomColorPicker());;
+console.log(randomColorPicker());
 
 const DoughtChart = ({ labels, data  }) => {
   const chartRef = useRef(null);

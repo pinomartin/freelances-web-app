@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import {
   // getUserFromDB,
   getProjectsFromUser,
@@ -10,7 +10,6 @@ import {
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import SpinnerLoader from "./SpinnerLoader";
-// import { Doughnut } from "react-chartjs-2";
 import { FreelancesContext } from "../context/FreelancesProvider";
 import {
   getTotalSecondsFromTasks,
@@ -22,7 +21,6 @@ import {
   updateUserName,
   updateUserProfilePhoto,
 } from "../firebaseUtils/setFirestoreData";
-import useGetTasksPerMonth from "../hooks/useGetTasksPerMonth";
 
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
   const {
@@ -71,16 +69,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     setTimeToString(getTotalTimeperProjectWithDays(totalSeconds));
   }, [tasks, totalSeconds, projects]);
 
-
-
- //// CONTINUAR CON ESTO !!!!!!!!!!!!!!!!!!!!
-  console.log(useGetTasksPerMonth(tasks, 6));
-  
-
-
-
-
-
+ 
 
   const selectPhotoArchive = (newImg: any) => {
     console.log(newImg.target.files[0]);
@@ -276,6 +265,22 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
               )}
             </div>
           </div>
+
+          <Link
+            to={{
+              pathname: "/userSpecs",
+              state: {
+                tasks: tasks,
+                // projectData: projectData,
+                // projectUID: projectUID,
+                // expenses: expenses,
+              },
+            }}
+          >
+          
+              <button className="btn btn-success float-right">Mis estadísticas</button>
+            
+          </Link>
         </div>
         <hr />
         <div className="row justify-content-center mt-2 ">

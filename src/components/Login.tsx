@@ -1,7 +1,12 @@
 import { useCallback, useState, useEffect, useContext } from "react";
-import { withRouter, RouteComponentProps, NavLink } from "react-router-dom";
+import {
+  withRouter,
+  RouteComponentProps,
+  NavLink,
+  Link,
+} from "react-router-dom";
 import { auth, db, provider } from "../firebase";
-import { FreelancesContext } from '../context/FreelancesProvider';
+import { FreelancesContext } from "../context/FreelancesProvider";
 import FreelancesTextLogo from "../assets/freelancesTextLogo.svg";
 import PaperPlaneLogo from "../assets/paperPlaneLogo.svg";
 import GoogleLoginIcon from "../assets/googleLoginIcon.svg";
@@ -9,7 +14,6 @@ import GoogleLoginIcon from "../assets/googleLoginIcon.svg";
 interface LoginProps extends RouteComponentProps<any> {
   firebaseUserActive?: object;
 }
-
 
 const Login = ({ history }: LoginProps) => {
   const { authUser, updateContextUser } = useContext(FreelancesContext);
@@ -29,7 +33,6 @@ const Login = ({ history }: LoginProps) => {
   }, [authUser, history]);
 
   const procesarData = (e: any) => {
-    console.log(typeof e);
     e.preventDefault();
     if (!email.trim()) {
       setError("Ingrese Email");
@@ -43,7 +46,6 @@ const Login = ({ history }: LoginProps) => {
       setError("Debe Ingresar una Contraseña con 8 caracteres o más...");
       return;
     }
-    console.log("Paso todas las pruebas");
     setError("");
 
     if (esRegistro) {
@@ -85,12 +87,23 @@ const Login = ({ history }: LoginProps) => {
       if (dbUser.exists) {
         console.log("Data Usuario desde DB", dbUser.data());
       } else {
-        await db.collection("users").doc(resp.user.email).set({
-          userName: resp.user.displayName,
-          email: resp.user.email,
-          uid: resp.user.uid,
-          profilePhotoURL: resp.user.photoURL,
-        }).then(() => updateContextUser({uid: resp.user.uid, userName: resp.user.displayName, profilePhotoURL: resp.user.photoURL , email: resp.user.email}));
+        await db
+          .collection("users")
+          .doc(resp.user.email)
+          .set({
+            userName: resp.user.displayName,
+            email: resp.user.email,
+            uid: resp.user.uid,
+            profilePhotoURL: resp.user.photoURL,
+          })
+          .then(() =>
+            updateContextUser({
+              uid: resp.user.uid,
+              userName: resp.user.displayName,
+              profilePhotoURL: resp.user.photoURL,
+              email: resp.user.email,
+            })
+          );
       }
       history.push("/projects");
     } catch (error) {
@@ -110,7 +123,8 @@ const Login = ({ history }: LoginProps) => {
         userName: userName,
         email: response.user.email,
         uid: response.user.uid,
-        profilePhotoURL: "https://firebasestorage.googleapis.com/v0/b/freelances-app.appspot.com/o/defaultProfilePhoto.png?alt=media&token=e99ffccf-b9bd-41c8-b55a-92e2a0103dea",
+        profilePhotoURL:
+          "https://firebasestorage.googleapis.com/v0/b/freelances-app.appspot.com/o/defaultProfilePhoto.png?alt=media&token=e99ffccf-b9bd-41c8-b55a-92e2a0103dea",
       });
       //Reset de los campos del formulario
       setEmail("");
@@ -133,80 +147,91 @@ const Login = ({ history }: LoginProps) => {
 
   return (
     <>
-    <div className="navbar navbar-dark bg-dark sticky-top">
-      <NavLink className="navbar-brand NavBar__navBarBrand" to="/" exact>
-        <img src={FreelancesTextLogo} alt="MainAppLogo" width="100" />
-        <img src={PaperPlaneLogo} alt="MainAppLogo" width="30" />
-      </NavLink>
+      <div className="navbar navbar-dark bg-dark sticky-top">
+        <NavLink className="navbar-brand NavBar__navBarBrand" to="/" exact>
+          <img src={FreelancesTextLogo} alt="MainAppLogo" width="100" />
+          <img src={PaperPlaneLogo} alt="MainAppLogo" width="30" />
+        </NavLink>
       </div>
-    <div className="container-fluid">
-    
-      <hr />
-      <hr />
-      <hr />
-    <div className="mt-5">
-      <h3 className="text-center">
-        {esRegistro ? "Registro de Usuarios" : "Inicio de Sesion"}
-      </h3>
-      <hr />
-      <div className="row justify-content-center m-0">
-        <div className="col-9 col-sm-8 col-md-6 col-xl-3">
-          <form onSubmit={procesarData}>
-            {error && <div className="alert alert-danger">{error}</div>}
-            {esRegistro ? (
-              <input
-                type="text"
-                className="form-control form-control-sm mb-2 customForm__input"
-                placeholder="Nombre de Usuario"
-                onChange={(e) => setUserName(e.target.value)}
-                value={userName}
-              />
-            ) : null}
+      <div className="container-fluid">
+        <hr />
+        <hr />
+        <hr />
+        <div className="mt-5">
+          <h3 className="text-center">
+            {esRegistro ? "Viví la experiencia Freelances" : "Inicio de Sesión"}
+          </h3>
+          <hr />
+          <div className="row justify-content-center m-0">
+            <div className="col-9 col-sm-8 col-md-6 col-xl-3">
+              <form onSubmit={procesarData}>
+                {error && (
+                  <div className="alert alert-info text-center pt-2 pb-2">
+                    {error}
+                  </div>
+                )}
+                {esRegistro ? (
+                  <input
+                    type="text"
+                    className="form-control form-control-sm mb-2 customForm__input"
+                    placeholder="Nombre de Usuario"
+                    onChange={(e) => setUserName(e.target.value)}
+                    value={userName}
+                  />
+                ) : null}
 
-            <input
-              type="email"
-              className="form-control form-control-sm mb-2 customForm__input"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />
+                <input
+                  type="email"
+                  className="form-control form-control-sm mb-2 customForm__input"
+                  placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                />
 
-            <input
-              type="password"
-              className="form-control form-control-sm mb-3 customForm__input"
-              placeholder="Contraseña"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
+                <input
+                  type="password"
+                  className="form-control form-control-sm mb-3 customForm__input"
+                  placeholder="Contraseña"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                />
 
-            <button className="btn btn-primary btn-lg btn-block" type="submit">
-              {esRegistro ? "Registrarse" : "Acceder"}
-            </button>
+                <button
+                  className="btn btn-primary btn-lg btn-block"
+                  type="submit"
+                >
+                  {esRegistro ? "Registrarse" : "Acceder"}
+                </button>
+                {!esRegistro && (
+                  <Link
+                    className="text-center small d-block pt-3 secondaryFontColor mb-3"
+                    to="/resetPassword"
+                  >
+                    Olvidaste tu contraseña?
+                  </Link>
+                )}
 
-            <button
-              className="btn btn-info btn-sm btn-block mb-2"
-              type="button"
-              onClick={() => setEsRegistro(!esRegistro)}
-            >
-              {esRegistro ? "¿Ya tienes Cuenta?" : "¿No estas Registrado?"}
-            </button>
-          </form>
-          <button
-            className="btn btn-outline-light btn-sm btn-block mt-5"
-            onClick={loginWithGoogleAccount}
-          >
-            <img src={GoogleLoginIcon} alt="" />
-            Login with Google
-          </button>
+                <button
+                  className="btn btn-info btn-sm btn-block mb-2"
+                  type="button"
+                  onClick={() => setEsRegistro(!esRegistro)}
+                >
+                  {esRegistro ? "¿Ya tienes Cuenta?" : "¿No estás Registrado?"}
+                </button>
+              </form>
+              <button
+                className="btn btn-outline-light btn-sm btn-block mt-5"
+                onClick={loginWithGoogleAccount}
+              >
+                <img src={GoogleLoginIcon} alt="googleIcon" />
+                Ingresar con Google
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    </div>
-    
     </>
   );
 };
 
 export default withRouter(Login);
-
-

@@ -69,6 +69,8 @@ export const FreelancesProvider = (props:any) => {
         setUserDB({uid:user?.uid, userName: user?.userName, profilePhotoURL: user?.profilePhotoURL , email: user?.email});
     }
 
+  
+
     // const loadMessagesFromDB = () => {
     //     db.collection('chat').orderBy('date')
     //     .onSnapshot(query => {

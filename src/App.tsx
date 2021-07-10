@@ -9,6 +9,8 @@ import ProjectScreen from "./components/ProjectScreen";
 import ProjectReport from "./components/ProjectReport";
 import TermsConditions from "./components/TermsConditions";
 import Help from "./components/Help";
+import ResetPassword from "./components/ResetPassword";
+import UserSpecs from "./components/UserSpecs";
 
 function App() {
   return (
@@ -19,6 +21,9 @@ function App() {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/resetPassword">
+          <ResetPassword />
         </Route>
         <div className="container-fluid p-0">
           <NavBar />
@@ -33,6 +38,9 @@ function App() {
           </Route>
           <Route path="/newproject">
             <NewProjectForm />
+          </Route>
+          <Route path="/userSpecs" exact>
+            <UserSpecs />
           </Route>
           <Route path="/profile" exact>
             <UserProfile />

@@ -3,7 +3,9 @@ import {
   format,
   startOfMonth,
   endOfMonth,
+  lastDayOfMonth,
   getUnixTime,
+  getDate
 } from "date-fns";
 import { es } from "date-fns/esm/locale";
 
@@ -28,6 +30,17 @@ const getEndOfMonth = (month?: number) => {
   
   return getUnixTime(endOfMonth(new Date()));
 };
+
+const getTotalDaysOfMonth = (month:number) => {
+  var arr = []
+
+for (let i = 1; i <= getDate(lastDayOfMonth(month)); i++) {
+    arr.push(i);
+}
+return arr;
+}
+
+
 
 const getTotalSecondsFromTasks = async (tasks: any) => {
   const totalSeconds = await tasks.reduce(function (
@@ -108,4 +121,5 @@ export {
   getTodayDateToString,
   getStartOfMonth,
   getEndOfMonth,
+  getTotalDaysOfMonth,
 };
