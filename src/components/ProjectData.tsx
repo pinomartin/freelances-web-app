@@ -45,6 +45,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
     projectData.estimatedFinishDate,
     { unit: "day", addSuffix: false, locale: es }
   );
+  
   const getRemaingHours = Math.round(
     projectData.estimatedHours - totalSeconds / 3600
   );
@@ -60,7 +61,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
 
   return (
     <>
-      <h4>Datos Proyecto</h4>
+      <h4 className="text-center">Tu progreso</h4>
       <div className="container projectData__container">
         <div className="row justify-content-end p-3">
           <div className="col-6 text-center">

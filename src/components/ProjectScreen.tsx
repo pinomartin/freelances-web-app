@@ -228,7 +228,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                       }}
                     >
                       <Tippy
-                        content="Informe y Finalizar"
+                        content={projectData.isDone ? "Ver Informe" : "Informe y Finalizar"}
                         placement="bottom"
                         arrow={true}
                       >

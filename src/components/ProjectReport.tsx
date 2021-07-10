@@ -36,9 +36,9 @@ const ProjectReport = () => {
   // };
 
   return (
-    <div className="container bg-dark mt-4 mb-4">
-      <div className="row  justify-content-between align-items-center">
-        <div className="col-6 p-md-0">
+    <>
+      <div className="row justify-content-center align-items-center bg-transparent no-gutters mt-2">
+        <div className="col-5 col-sm-2 p-md-0">
           <button
             className="btn btn-block btn-primary"
             onClick={() => {
@@ -51,15 +51,16 @@ const ProjectReport = () => {
             Modo Personal
           </button>
         </div>
-        <div className="col-6 bg-transparent p-md-0">
+        <div className="col-5 col-sm-2 bg-transparent p-md-0">
           <button
-            className="btn btn-block btn-info"
+            className="btn btn-block btn-secondary"
             onClick={() => setClientMode(true)}
           >
             Modo Cliente
           </button>
         </div>
       </div>
+    <div className="container bg-dark mt-4 mb-4">
       {clientMode ? (
         <div className="row justify-content-between">
           <div className="col-4 bg-dark text-center">
@@ -156,6 +157,7 @@ const ProjectReport = () => {
       {projectData.isDone === false &&  <FinishProjectButton projectUID={projectUID}/>}
       <PrintPDFButton handlePrint={handlePrint} />
     </div>
+    </>
   );
 };
 

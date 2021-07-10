@@ -76,19 +76,23 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
             </div>
           </div>
           {projects !== null && projects.length > 0 ? (
-            <div className="row justify-content-center d-block text-center mt-3">
+            <div className="row justify-content-center text-center mt-3">
+              <div className="col-6 col-md-2">
               <button
                 className="btn btn-primary"
                 onClick={() => setIsActiveVisible(true)}
               >
                 Activos
               </button>
+              </div>
+              <div className="col-6 col-md-2">
               <button
                 className="btn btn-secondary"
                 onClick={() => setIsActiveVisible(false)}
               >
                 Terminados
               </button>
+              </div>
             </div>
           ) : null}
 

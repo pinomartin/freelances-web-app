@@ -22,6 +22,7 @@ import {
   updateUserName,
   updateUserProfilePhoto,
 } from "../firebaseUtils/setFirestoreData";
+import useGetTasksPerMonth from "../hooks/useGetTasksPerMonth";
 
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
   const {
@@ -69,6 +70,17 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
     setTimeToString(getTotalTimeperProjectWithDays(totalSeconds));
   }, [tasks, totalSeconds, projects]);
+
+
+
+ //// CONTINUAR CON ESTO !!!!!!!!!!!!!!!!!!!!
+  console.log(useGetTasksPerMonth(tasks, 6));
+  
+
+
+
+
+
 
   const selectPhotoArchive = (newImg: any) => {
     console.log(newImg.target.files[0]);

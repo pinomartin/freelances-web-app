@@ -1,12 +1,33 @@
-import { formatDuration, format } from "date-fns";
+import {
+  formatDuration,
+  format,
+  startOfMonth,
+  endOfMonth,
+  getUnixTime,
+} from "date-fns";
 import { es } from "date-fns/esm/locale";
 
 const getTodayDateToString = () => {
   const date = new Date();
-  const todayDate =  format(date, "dd/MM/yyyy");
+  const todayDate = format(date, "dd/MM/yyyy");
   return todayDate;
-}
+};
 
+const getStartOfMonth = (month?: number) => {
+  if (month) {
+    return getUnixTime(startOfMonth(new Date().setMonth(month)));
+  }
+
+  return getUnixTime(endOfMonth(new Date()));
+};
+
+const getEndOfMonth = (month?: number) => {
+  if (month) {
+    return getUnixTime(endOfMonth(new Date().setMonth(month)));
+  }
+  
+  return getUnixTime(endOfMonth(new Date()));
+};
 
 const getTotalSecondsFromTasks = async (tasks: any) => {
   const totalSeconds = await tasks.reduce(function (
@@ -79,4 +100,12 @@ const getTotalTimeperProjectWithDays = (totalSeconds: number) => {
   return totalTimeperProject;
 };
 
-export { getTotalSecondsFromTasks, getTotalTimeperProject, getTotalTimeperProjectWithDays, getTotalSecondsFromSingleTask, getTodayDateToString };
+export {
+  getTotalSecondsFromTasks,
+  getTotalTimeperProject,
+  getTotalTimeperProjectWithDays,
+  getTotalSecondsFromSingleTask,
+  getTodayDateToString,
+  getStartOfMonth,
+  getEndOfMonth,
+};

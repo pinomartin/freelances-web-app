@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { addFastBurnHourToDB, addNewTaskTimeToDB } from "../../firebaseUtils/setFirestoreData";
+import {
+  addFastBurnHourToDB,
+  addNewTaskTimeToDB,
+} from "../../firebaseUtils/setFirestoreData";
 import useInterval from "../../hooks/useInterval";
-import { getTodayDateToString } from '../../hooks/useTime';
+import { getTodayDateToString } from "../../hooks/useTime";
 import { StopwatchProps } from "../../interfaces/stopwatch";
 import { TaskTime } from "../../interfaces/tasktime";
 import StopwatchDisplay from "./StopwatchDisplay";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Tippy from "@tippyjs/react";
 
 const MySwal = withReactContent(Swal);
 
@@ -15,9 +19,8 @@ const Stopwatch = ({
   clientUID,
   projectType,
   projectHoursPerDay,
-  isAvaibleFastBurn
+  isAvaibleFastBurn,
 }: StopwatchProps) => {
-
   const initialStateTask = {
     description: "",
     hours: 0,
@@ -64,8 +67,6 @@ const Stopwatch = ({
     setIsFastBurnButtonPressed(true);
   };
 
-
-
   const addNewTaskTime = async () => {
     stop();
     setTaskTime({
@@ -105,11 +106,14 @@ const Stopwatch = ({
       timer: 2000,
       backdrop: `rgba(50,82,136,0.3)`,
     });
-    addNewTaskTimeToDB(taskTime).then(() => setTaskTime(initialStateTask)).catch(e => console.log(e));
-    isFastBurnButtonPressed && addFastBurnHourToDB(projectUID, getTodayDateToString()).then(()=> {
-      setIsFastBurnButtonPressed(false);
-      setIsDisabled(true);
-    })
+    addNewTaskTimeToDB(taskTime)
+      .then(() => setTaskTime(initialStateTask))
+      .catch((e) => console.log(e));
+    isFastBurnButtonPressed &&
+      addFastBurnHourToDB(projectUID, getTodayDateToString()).then(() => {
+        setIsFastBurnButtonPressed(false);
+        setIsDisabled(true);
+      });
     reset();
     setisVisible(false);
   };
@@ -184,8 +188,7 @@ const Stopwatch = ({
             <i className="far fa-play-circle"></i>
           </button>
         )}
-        
-        
+
         {isRunning === true && (
           <button className="btn btn-danger w-25" onClick={() => stop()}>
             <i className="far fa-pause-circle"></i>
@@ -209,12 +212,18 @@ const Stopwatch = ({
       <br />
       {projectType === "total" && (
         <>
-        <p>QUEMAR HORAS DEL DIA </p>
-          <button disabled={isDisabled} className="btn btn-warning w-25" onClick={() => fastBurningHoursPerDay(projectHoursPerDay)}>
-          {projectHoursPerDay}
-        </button>
+          <p> </p>
+          <Tippy content="Sólo podrás utilizarlo 1 vez por día" className="">
+            <button
+              disabled={isDisabled}
+              className="btn btn-secondary "
+              onClick={() => fastBurningHoursPerDay(projectHoursPerDay)}
+            >
+              {isDisabled ? 'Cargaste las horas del dia' : `Carga Rápida (${projectHoursPerDay} hs)`}
+            </button>
+          </Tippy>
         </>
-        )}
+      )}
       {isVisible && (
         <form onSubmit={(e) => handleSubmitTaskDescription(e)}>
           <div className="input-group mt-4">

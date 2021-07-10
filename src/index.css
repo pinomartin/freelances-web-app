@@ -5,6 +5,7 @@
   --primary-color: #11ece5;
   --primary-color-down: #13c7c1;
   --primary-color-hover: #7bf0ec;
+  --primary-color-soft: #2f7277;
   --secondary-color: #a47dff;
   --font--color: #f5f6f7;
   --card--primary-color: #2b3566;
@@ -82,6 +83,7 @@ label:focus,
 .btn-primary:active,
 .btn-primary:focus {
   background-color: var(--button--hover-color);
+  box-shadow: 2px 1px 8px var(--secondary-color)!important;
 }
 
 .btn-info {
@@ -89,10 +91,18 @@ label:focus,
   border: none;
 }
 
+.btn-secondary{
+  background-color: var(--primary-color-soft);
+  font-weight: bold;
+}
+
 .btn-secondary:hover,
 .btn-secondary:active,
 .btn-secondary:focus {
   background-color: var(--primary-color-down);
+  color: var(--font--color);
+  border: 1px solid var(--primary-color-down);
+  box-shadow: 1px 1px 8px var(--primary-color)!important;
 }
 
 .btn-success {

@@ -24,7 +24,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
     // isDone,
   } = projectData;
 
-  console.log(projectData);
+  
 
   return (
     <>

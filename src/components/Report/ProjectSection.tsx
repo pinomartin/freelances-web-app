@@ -60,10 +60,10 @@ const ProjectSection = ({ data }: ProjectDataProps) => {
           </div>
           <div className="col-12 col-md-6 text-right">
             <p>
-              <strong>PRECIO X HORA:</strong> ${amountXHour.toFixed(2)}
+              <strong>PRECIO X HORA:</strong> ${" "}{amountXHour.toFixed(2)}
             </p>
             <p>
-              <strong>HORAS ESTIMADAS:</strong> {estimatedHours}hs
+              <strong>HORAS ESTIMADAS:</strong> {estimatedHours}hs.
             </p>
             <p>
               <strong>PRESUPUESTO ESTIMADO:</strong> ${" "}
