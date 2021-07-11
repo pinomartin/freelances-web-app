@@ -277,8 +277,9 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
               },
             }}
           >
+              
+            {tasks !== null && totalSeconds > 0 ? <button className="btn btn-success float-right">Mis estadísticas</button> : null }
           
-              <button className="btn btn-success float-right">Mis estadísticas</button>
             
           </Link>
         </div>

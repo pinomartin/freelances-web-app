@@ -50,20 +50,20 @@ const Help = () => {
 
   return (
     <div className="container mt-2 mt-md-5">
-      <div className="row no-gutters justify-content-between">
-        <div className="col-12 col-md-6">
+      <div className="row no-gutters justify-content-between align-items-center">
+        <div className="col-12 col-md-6 pb-4">
           <h4 className="mb-2 mb-md-5  text-center">Preguntas Frecuentes</h4>
           <FrecuentQuestions />
         </div>
-        <div className="col-12 col-md-4 text-center">
+        <div className="col-12 col-md-4 text-center mb-2">
           <h4>No encontraste lo que buscabas? </h4>
           <p>
-            Llena el formulario y nos pondremos en contacto contigo a la
+            Completá el formulario y nos pondremos en contacto contigo a la
             brevedad.
           </p>
           <div className="row no-gutters justify-content-center">
             <div className="col-12">
-              {error && <div className="alert alert-warning">{error}</div>}
+              {error && <div className="alert alert-info text-center pt-2 pb-2">{error}</div>}
               <form onSubmit={(e) => procesarData(e)}>
                 <div className="input-group mt-1 mt-md-3">
                   {/* <span className="input-group-addon p-1 primaryFontColor">

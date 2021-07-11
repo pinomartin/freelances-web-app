@@ -11,35 +11,36 @@ const randomColorPicker = () => {
 
 console.log(randomColorPicker());
 
-const DoughtChart = ({ labels, data  }) => {
+const BarChart = ({ labels, data, subLabel, title  }) => {
   const chartRef = useRef(null);
   const [myChart, setMyChart] = useState(null);
   useEffect(() => {
     if (!chartRef) return;
     const ctx = chartRef.current.getContext("2d");
+    var delayed;
     const myChart = new Chart(ctx, {
       type: "bar",
       data: {
         labels: ["Dia 1", "Dia 2", "Dia 3", "Dia 4", "Dia 5", "Dia 6"],
         datasets: [
           {
-            label: "Horas",
+            label: subLabel,
             data: [10,20,1 , 20, 30, 5],
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
-              // "rgba(54, 162, 235, 0.2)",
-              // "rgba(255, 206, 86, 0.2)",
-              // "rgba(75, 192, 192, 0.2)",
-              // "rgba(153, 102, 255, 0.2)",
-              // "rgba(255, 159, 64, 0.2)"
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)"
             ],
             borderColor: [
               "rgba(255, 99, 132, 1)",
-              // "rgba(54, 162, 235, 1)",
-              // "rgba(255, 206, 86, 1)",
-              // "rgba(75, 192, 192, 1)",
-              // "rgba(153, 102, 255, 1)",
-              // "rgba(255, 159, 64, 1)"
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)"
             ],
             borderWidth: 1
           }
@@ -66,34 +67,49 @@ const DoughtChart = ({ labels, data  }) => {
       // }
       options: {
         responsive: true,
+        color: '#fff',
         plugins: {
             legend: {
                 position: 'bottom',
                 align: 'center',
                 labels: {
-                    color: 'rgb(255,255,255)'
+                    color: 'rgb(28,236,229)'
                 }
             },
             title: {
                 display: true,
                 position: 'top',
-                text: 'Usos por forma de pago',
-                color: "#fff",
+                text: title,
+                color: "rgb(28,236,229)",
                 font: {
-                    size: 20
+                    size: 15
                 },
                 padding: {
                     top: 10,
                     bottom: 30
                 }
+            },
+        },
+        animation: {
+          onComplete: () => {
+            delayed = true;
+          },
+          delay: (context) => {
+            let delay = 0;
+            if (context.type === 'data' && context.mode === 'default' && !delayed) {
+              delay = context.dataIndex * 150 + context.datasetIndex * 50;
             }
+            return delay;
+          },
         }
     }
     });
     setMyChart(myChart);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chartRef]);
 
   useEffect(() => {
+    
     if (!myChart) return;
     myChart.data.datasets[0].data = data;
     myChart.data.labels = labels;
@@ -103,7 +119,7 @@ const DoughtChart = ({ labels, data  }) => {
   return <canvas ref={chartRef} id="myChart" width="200" height="200" />;
 };
 
-export default DoughtChart;
+export default BarChart;
 
 
 // new Chart(ctx, {

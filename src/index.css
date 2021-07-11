@@ -847,3 +847,8 @@ height: 0; } */
     0 1px 4px 1px var(--boxShadow--boder-color);
   color: var(--primary-color);
 }
+
+/*------------UserSpecs Styles*/
+/* .userSpecs__select{
+  background-color: var(--card--primary-color)!important;
+} */
