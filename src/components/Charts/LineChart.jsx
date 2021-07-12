@@ -11,7 +11,7 @@ const randomColorPicker = () => {
 
 console.log(randomColorPicker());
 
-const BarChart = ({ labels, data, subLabel, title, xLabel, yLabel }) => {
+const LineChart = ({ labels, data, subLabel, title, xLabel, yLabel }) => {
   const chartRef = useRef(null);
   const [myChart, setMyChart] = useState(null);
   useEffect(() => {
@@ -19,7 +19,7 @@ const BarChart = ({ labels, data, subLabel, title, xLabel, yLabel }) => {
     const ctx = chartRef.current.getContext("2d");
     var delayed;
     const myChart = new Chart(ctx, {
-      type: "bar",
+      type: "line",
       data: {
         labels: ["Dia 1", "Dia 2", "Dia 3", "Dia 4", "Dia 5", "Dia 6"],
         datasets: [
@@ -131,7 +131,7 @@ const BarChart = ({ labels, data, subLabel, title, xLabel, yLabel }) => {
     myChart.update();
   }, [data, labels, myChart]);
 
-  return <canvas ref={chartRef} id="myChart" width="200" height="200" />;
+  return <canvas ref={chartRef} id="lineChart" width="200" height="200" />;
 };
 
-export default BarChart;
+export default LineChart;

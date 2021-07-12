@@ -1,11 +1,11 @@
 import { TaskTime } from "../interfaces/tasktime";
-import { getDate } from "date-fns";
+import { getWeekOfMonth } from "date-fns";
 import { getTotalSecondsFromSingleTask } from "./useTime";
 
-const useGetDateAndTimePerTask = (tasks: TaskTime[]) => {
+const useGetWeekAndTimePerTask = (tasks: TaskTime[]) => {
   const datesFromTasks = tasks.map((task) => {
     const array = {
-      date: getDate(task.creationDate),
+      week: getWeekOfMonth(task.creationDate),
       seconds: getTotalSecondsFromSingleTask(task),
       hours: Number((getTotalSecondsFromSingleTask(task) / 3600).toFixed(2)),
     };
@@ -14,7 +14,7 @@ const useGetDateAndTimePerTask = (tasks: TaskTime[]) => {
 
   const helper: any = {};
   const result = datesFromTasks.reduce(function (r, o) {
-    const key: number = o.date;
+    const key: number = o.week;
 
     if (!helper[key]) {
       helper[key] = Object.assign({}, o); 
@@ -30,4 +30,4 @@ const useGetDateAndTimePerTask = (tasks: TaskTime[]) => {
   return result;
 };
 
-export default useGetDateAndTimePerTask;
+export default useGetWeekAndTimePerTask;

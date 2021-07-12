@@ -5,7 +5,8 @@ import {
   endOfMonth,
   lastDayOfMonth,
   getUnixTime,
-  getDate
+  getDate,
+  getWeeksInMonth
 } from "date-fns";
 import { es } from "date-fns/esm/locale";
 
@@ -35,6 +36,15 @@ const getTotalDaysOfMonth = (month:number) => {
   var arr = []
 
 for (let i = 1; i <= getDate(lastDayOfMonth(month)); i++) {
+    arr.push(i);
+}
+return arr;
+}
+
+const getTotalWeekssOfMonth = (month:number) => {
+  var arr = []
+
+for (let i = 1; i <= getWeeksInMonth(month); i++) {
     arr.push(i);
 }
 return arr;
@@ -122,4 +132,5 @@ export {
   getStartOfMonth,
   getEndOfMonth,
   getTotalDaysOfMonth,
+  getTotalWeekssOfMonth,
 };

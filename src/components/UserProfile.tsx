@@ -271,9 +271,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
               pathname: "/userSpecs",
               state: {
                 tasks: tasks,
-                // projectData: projectData,
-                // projectUID: projectUID,
-                // expenses: expenses,
+                projects: projects
               },
             }}
           >
