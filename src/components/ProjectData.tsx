@@ -70,7 +70,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
             ) : (
               <strong className="text-success">{getRemaingHours}</strong>
             )}
-            <small className="d-block">Horas por quemar</small>
+            <small className="d-block">Horas a completar</small>
           </div>
           <div className="col-6 text-center">
             {projectData.type === "hour" ? (
