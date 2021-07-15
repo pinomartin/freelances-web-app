@@ -214,7 +214,6 @@ const Stopwatch = ({
       <br />
       {projectType === "total" && (
         <>
-          <p> </p>
           <Tippy content="Sólo podrás utilizarlo 1 vez por día" className="">
             <button
               disabled={isDisabled}

@@ -156,6 +156,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
             className="form-control form-control-sm mb-2 customForm__input currency"
             min="1"
             step="1"
+            max="24"
             data-number-to-fixed="2"
             data-number-stepfactor="100"
             onChange={(e: any) =>

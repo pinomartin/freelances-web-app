@@ -523,7 +523,7 @@ section {
 }
 
 .card-title{
-  height: 5rem;
+  height: 4.5rem;
 }
 
 .projectListItem__card__numbersContainer{
@@ -534,14 +534,17 @@ section {
   height: 5rem;
   vertical-align: middle;
   background-color: var(--card--primary-color);
+  margin-top: 1.3rem;
 }
 
 .projectListItem__card__descritionText{
-  text-align: justify;
+  text-align: left;
   font-size: 0.8rem;
-  width: 90%;
+  margin-top: 1rem;
+  width: 95%;
   height: 5rem;
-  overflow-y: scroll!important;
+  padding-right: 1rem;
+  overflow-y: auto!important;
 }
 
 .projectListItem__card__descritionText::-webkit-scrollbar {
@@ -549,7 +552,7 @@ section {
   height: 16px;
 }
 .projectListItem__card__descritionText::-webkit-scrollbar-thumb {
-  background-color: var(--error-color);
+  background-color: var(--primary-color);
   border-radius: 16px;
   box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, 0.25),
     inset -2px -2px 2px rgba(0, 0, 0, 0.25);

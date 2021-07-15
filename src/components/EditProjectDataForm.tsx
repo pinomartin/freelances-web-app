@@ -117,6 +117,7 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
             type="number"
             className="form-control form-control-sm mb-2 customForm__input currency"
             min="1"
+            max="24"
             step="1"
             data-number-to-fixed="2"
             data-number-stepfactor="100"
