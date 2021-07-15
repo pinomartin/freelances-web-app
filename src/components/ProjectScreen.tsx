@@ -161,7 +161,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                 </button>
               </div>
             </div> */}
-            <div className="w-75">
+            <div className="w-85">
               <div className="row m-0 justify-content-center">
                 <div className="col-12 mt-1">
                   {projectData.isDone === false ? (
@@ -244,7 +244,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                 </div>
                 <div className="col-12">
                   <h4 className="text-white">
-                    <small>Proyecto</small> {projectData?.name}
+                    <small>{projectData?.name}</small> 
                   </h4>
                 </div>
 

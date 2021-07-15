@@ -21,7 +21,7 @@ const Stopwatch = ({
   projectHoursPerDay,
   isAvaibleFastBurn,
 }: StopwatchProps) => {
-  const initialStateTask = {
+  const initialStateTask: TaskTime = {
     description: "",
     hours: 0,
     minutes: 0,
@@ -30,6 +30,7 @@ const Stopwatch = ({
     creationDate: 0,
     startTimerDate: 0,
     stopTimerDate: 0,
+    isFastHourCharge: false,
     projectUID: "",
     clientUID: "",
   };
@@ -60,6 +61,7 @@ const Stopwatch = ({
       minutes: 0,
       seconds: 0,
       creationDate: Date.now(),
+      isFastHourCharge: true,
       projectUID: projectUID,
       clientUID: clientUID,
     });
@@ -219,7 +221,9 @@ const Stopwatch = ({
               className="btn btn-secondary "
               onClick={() => fastBurningHoursPerDay(projectHoursPerDay)}
             >
-              {isDisabled ? 'Cargaste las horas del dia' : `Carga Rápida (${projectHoursPerDay} hs)`}
+              {isDisabled
+                ? "Cargaste las horas del dia"
+                : `Carga Rápida (${projectHoursPerDay} hs)` }
             </button>
           </Tippy>
         </>
@@ -243,9 +247,21 @@ const Stopwatch = ({
               value={taskTime.description}
             />
           </div>
-          <button className="btn btn-dark btn-lg btn-block mt-2" type="submit">
+          <button className="btn btn-dark btn-md btn-block mt-2" type="submit">
             Guardar Tarea!
           </button>
+          { isFastBurnButtonPressed && 
+            <button
+              className="btn btn-warning btn-sm btn-block mt-2"
+              type="button"
+              onClick={() => {
+                setisVisible(!isVisible);
+                setIsFastBurnButtonPressed(false);
+              }}
+            >
+              Cancelar
+            </button>
+          }
         </form>
       )}
     </div>

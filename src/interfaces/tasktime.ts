@@ -7,6 +7,7 @@ export interface TaskTime {
     creationDate: number;
     startTimerDate: number;
     stopTimerDate:number;
+    isFastHourCharge?: boolean;
     projectUID: string;
     clientUID: string;
     id?:string;

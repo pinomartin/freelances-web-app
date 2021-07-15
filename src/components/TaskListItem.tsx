@@ -2,20 +2,22 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { updateTask, deleteTask } from "../firebaseUtils/setFirestoreData";
 import { format } from "date-fns";
+import { TaskTime } from "../interfaces/tasktime";
+import Tippy from "@tippyjs/react";
 
 
 interface TaskListItemProps {
-  task: any;
+  task: TaskTime;
 }
 export const TaskListItem = ({ task }: TaskListItemProps) => {
-  const { id, description, hours, minutes, seconds, creationDate } = task;
+  const { id, description, hours, minutes, seconds, creationDate, isFastHourCharge } = task;
 
   const [taskEditionMode, setTaskEditionMode] = useState(false);
   const [onEditTaskData, setOnEditTaskData] = useState(task);
 
   const handleSubmitTaskDescriptionUpdate = (e: any) => {
     e.preventDefault();
-    updateTask(onEditTaskData, task.id);
+    task.id && updateTask(onEditTaskData, task.id);
     setTaskEditionMode(false);
   };
 
@@ -30,6 +32,7 @@ export const TaskListItem = ({ task }: TaskListItemProps) => {
           <span>       {hours}hs </span>
           <span>{minutes}min </span>
           <span>{seconds}sec </span>
+          {isFastHourCharge && (<Tippy content={'Carga Rápida'}><i className="fas fa-bolt text-warning"></i></Tippy>)}
         </p>
 
         <button

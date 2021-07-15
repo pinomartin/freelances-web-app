@@ -86,6 +86,7 @@ import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorF
         startTimerDate: task.startTimerDate,
         stopTimerDate: task.stopTimerDate,
         isDone: task.isActive,
+        isFastHourCharge: task.isFastHourCharge,
         userUID: task.clientUID,
       });
     } catch (error) {
@@ -106,7 +107,7 @@ import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorF
     }
     
     
-    const deleteTask = async (id:string) => {
+    const deleteTask = async (id:string | undefined) => {
       try{
         await db.collection('timetasks').doc(id).delete();  
       }

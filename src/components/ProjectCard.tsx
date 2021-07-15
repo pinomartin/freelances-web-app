@@ -51,10 +51,10 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
           <br />
           <br />
           <div className="card-body">
-            <h5 className="card-title primaryFontColor">{name? name: null}</h5>
+            <h5 className="card-title primaryFontColor w-75">{name? name: null}</h5>
             {/* <h6 className="card-subtitle mb-2 secondaryFontColor">{format(creationDate, 'dd/MM/yyyy')}</h6> */}
             <p className="card-text text-right">{client ? (<><strong>Cliente </strong> <p>{client}</p></>) :null}</p>
-            <p className="m-0">
+            <p className="m-0 projectListItem__card__descritionText">
                {description}
             </p>
             </div>
@@ -62,7 +62,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
 
          
            
-          <div className="container projectListItem__card__numbersContainer">
+          <div className="container projectListItem__card__numbersContainer pr-0 pl-0">
               <div className="row no-gutters rounded justify-content-between text-center">
                 <div className="col-4 col-md-4">
                   <small>Monto por Hora</small>
@@ -77,15 +77,15 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
                   {/* <p className="successFontColor">$ {estimatedTotal}</p> */}
                 </div>
               </div>
-              <div className="row no-gutters rounded justify-content-between text-center">
+              <div className="row no-gutters rounded justify-content-center text-center align-items-center">
                 <div className="col-4 col-md-4">
-                  <p><strong>$ {amountXHour}</strong></p>
+                  <p className="mb-0">$ {amountXHour}</p>
                 </div>
                 <div className="col-4 col-md-4">
-                  <p className="text-warning"><strong>{estimatedHours} hs</strong></p>
+                  <p className="text-warning mb-0">{estimatedHours} hs</p>
                 </div>
-                <div className="col-4 col-md-4">
-                  <p className="successFontColor"><strong>$ {estimatedTotal.toFixed(2)}</strong></p>
+                <div className="col-4 col-md-4 ">
+                  <p className="successFontColor mb-0">$ {estimatedTotal.toFixed(2)}</p>
                 </div>
               </div>
             </div>
