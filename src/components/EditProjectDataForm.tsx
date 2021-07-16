@@ -1,13 +1,14 @@
-import { differenceInBusinessDays } from "date-fns";
+import { differenceInBusinessDays, format } from "date-fns";
 import { useState, useEffect } from "react";
 import { updateProjectDB } from '../firebaseUtils/setFirestoreData'; 
 import { ProjectType } from '../interfaces/project';
 import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorForm';
+import { getDateUnixFromString } from "../utils/parsetime/getDateUnixFromString";
 
 
-export const EditProjectDataForm = ({projectData, projectUID }:any) => {
+export const EditProjectDataForm = ({projectData, projectUID, setProjectData, setEditionMode }:any) => {
     const [error, setError] = useState('');
-    const [onEditProjectData, setOnEditProjectData] = useState<ProjectType>({...projectData, estimatedFinishDate: new Date().toISOString().slice(0, 10)});
+    const [onEditProjectData, setOnEditProjectData] = useState<ProjectType>({...projectData, estimatedFinishDate: format(projectData.estimatedFinishDate, 'yyyy-MM-dd')});
 
     useEffect(() => {
       estimatedTotalXHourSetter(onEditProjectData.amountXHour, onEditProjectData.estimatedHours);
@@ -41,7 +42,9 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
       })
     };
   
-    console.log(onEditProjectData);
+    console.log(format(projectData.estimatedFinishDate, 'yyyy-MM-dd'));
+    console.log(getDateUnixFromString(onEditProjectData.estimatedFinishDate) )
+    console.log(new Date());
 
     const projectTypeUIHandler =
     onEditProjectData.type === "hour" ? (
@@ -150,7 +153,12 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
         console.log("Paso todas las pruebas");
         setError("");
 
-        updateProjectDB(onEditProjectData, projectUID);
+        updateProjectDB(onEditProjectData, projectUID).then(() => {
+          // VER ESTO !!!!!! COMO IMPACTA EN PROJECTDATA COMPONENT
+          setProjectData({...onEditProjectData, estimatedFinishDate: getDateUnixFromString(onEditProjectData.estimatedFinishDate)});
+          console.log(onEditProjectData);
+          setEditionMode(false);
+        } );
         
       };
     return (

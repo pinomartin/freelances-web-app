@@ -295,6 +295,8 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                       <EditProjectDataForm
                         projectData={projectData}
                         projectUID={projectUID}
+                        setProjectData={setProjectData}
+                        setEditionMode={setEditionMode}
                       />
                     </>
                   ) : (
