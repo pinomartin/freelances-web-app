@@ -3,7 +3,7 @@ import { TaskListItem } from "./TaskListItem";
 
 
 export const TasksList = ({ projectData, tasks, title }: TasksListProps) => {
-  // const { amountXHour }:any = projectData;
+  const { isDone }:any = projectData;
 
   // const [totalSeconds, setTotalSeconds] = useState(0);
   // const [timeToString, setTimeToString] = useState("");
@@ -131,7 +131,7 @@ export const TasksList = ({ projectData, tasks, title }: TasksListProps) => {
             {tasks.length !== 0
               ? tasks.map((item: any) => (
                   <>
-                    <TaskListItem task={item} key={item.id} />
+                    <TaskListItem task={item} key={item.id} isProjectDone={isDone} />
                   </>
                 ))
               : null}
