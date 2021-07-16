@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { updateProjectDB } from '../firebaseUtils/setFirestoreData'; 
 import { ProjectType } from '../interfaces/project';
 import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorForm';
-import { getDateUnixFromString } from "../utils/parsetime/getDateUnixFromString";
+import { getDateFromString } from "../utils/parsetime/getDateFromString";
 
 
 export const EditProjectDataForm = ({projectData, projectUID, setProjectData, setEditionMode }:any) => {
@@ -42,9 +42,9 @@ export const EditProjectDataForm = ({projectData, projectUID, setProjectData, se
       })
     };
   
-    console.log(format(projectData.estimatedFinishDate, 'yyyy-MM-dd'));
-    console.log(getDateUnixFromString(onEditProjectData.estimatedFinishDate) )
-    console.log(new Date());
+    // console.log(format(projectData.estimatedFinishDate, 'yyyy-MM-dd'));
+    // console.log(getDateUnixFromString(onEditProjectData.estimatedFinishDate) )
+    // console.log(new Date());
 
     const projectTypeUIHandler =
     onEditProjectData.type === "hour" ? (
@@ -155,7 +155,7 @@ export const EditProjectDataForm = ({projectData, projectUID, setProjectData, se
 
         updateProjectDB(onEditProjectData, projectUID).then(() => {
           // VER ESTO !!!!!! COMO IMPACTA EN PROJECTDATA COMPONENT
-          setProjectData({...onEditProjectData, estimatedFinishDate: getDateUnixFromString(onEditProjectData.estimatedFinishDate)});
+          setProjectData({...onEditProjectData, estimatedFinishDate: getDateFromString(onEditProjectData.estimatedFinishDate)});
           console.log(onEditProjectData);
           setEditionMode(false);
         } );
