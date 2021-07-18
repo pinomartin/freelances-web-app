@@ -219,7 +219,7 @@ const NewProjectForm = ({ history }: RouteComponentProps<any>) => {
         {/* <span className="primaryFontColor text-center d-block m-0 mb-2 p-0">
           {project.name}
         </span> */}
-        <div className="row justify-content-center m-0 p-0">
+        <div className="row justify-content-center align-items-center m-0 p-0">
           <div className="col-10 col-sm-8 col-md-6 col-xl-3 mb-5">
             <form onSubmit={(e) => procesarData(e)}>
               {error && <div className="alert alert-danger">{error}</div>}

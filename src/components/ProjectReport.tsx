@@ -60,103 +60,98 @@ const ProjectReport = () => {
           </button>
         </div>
       </div>
-    <div className="container bg-dark mt-4 mb-4">
       {clientMode ? (
-        <div className="row justify-content-between">
-          <div className="col-4 bg-dark text-center">
+        <div className="row justify-content-between no-gutters align-items-center mt-2">
+          <div className="col-4  text-center">
             <label>
               <input
                 type="checkbox"
                 className="report__checkboxInput"
                 checked={isShowPriceTimes}
-                onChange={(e: any) =>
-                  setisShowPriceTimes(e.target.checked)
-                }
+                onChange={(e: any) => setisShowPriceTimes(e.target.checked)}
               />
               Precio de Tareas
             </label>
           </div>
-          <div className="col-4 bg-dark text-center">
+          <div className="col-4  text-center">
             <label>
               <input
                 type="checkbox"
                 className="report__checkboxInput"
                 checked={isShowRealTotal}
-                onChange={(e: any) =>
-                  setIsShowRealTotal(e.target.checked)
-                }
+                onChange={(e: any) => setIsShowRealTotal(e.target.checked)}
               />
               Cobrar estimado
             </label>
           </div>
 
-          <div className="col-4 bg-dark text-center">
-
+          <div className="col-4  text-center">
             <label>
               <input
                 type="checkbox"
                 className="report__checkboxInput"
                 checked={isShowTimes}
-                onChange={(e: any) =>
-                  setIsShowTimes(e.target.checked)
-                }
+                onChange={(e: any) => setIsShowTimes(e.target.checked)}
               />
               Tiempos de Tareas
             </label>
           </div>
         </div>
       ) : (
-        <div className="row">
+        <div className="row no-gutters">
           <div className="col-12 pt-2 pb-2"></div>
         </div>
       )}
-      <br />
-
-      <div className="report__mainContainerPrintable bg-dark" ref={printRef}>
-        <Header />
-       
-        <ProjectSection data={projectData} />
+      <div className="container bg-dark mt-4 mb-4">
         <br />
-        <div className="row align-items-start justify-content-end bg-dark">
-          <div className="col-7 col-md-7 mt-2">
-            <TimesList
-              tasks={tasks}
-              title={"Tareas"}
-              projectData={projectData}
-              projectUID={projectUID}
-              isShowPriceTimes={isShowPriceTimes}
-              isShowTimes={isShowTimes}
-              isShowRealTotal={isShowRealTotal}
-            />
+
+        <div className="report__mainContainerPrintable bg-dark" ref={printRef}>
+          <Header />
+
+          <ProjectSection data={projectData} />
+          <br />
+          <div className="row align-items-start justify-content-end bg-dark">
+            <div className="col-7 col-md-7 mt-2">
+              <TimesList
+                tasks={tasks}
+                title={"Tareas"}
+                projectData={projectData}
+                projectUID={projectUID}
+                isShowPriceTimes={isShowPriceTimes}
+                isShowTimes={isShowTimes}
+                isShowRealTotal={isShowRealTotal}
+              />
+            </div>
+            <div className="col-5 col-md-5 mt-5">
+              <ExpensesReportList expenses={expenses} />
+            </div>
           </div>
-          <div className="col-5 col-md-5 mt-5">
-            <ExpensesReportList expenses={expenses} />
+          <div className="row align-items-end justify-content-start">
+            <div className="col-12 p-0 ">
+              <AmountsResume
+                projectData={projectData}
+                tasks={tasks}
+                expenses={expenses}
+                isClientMode={clientMode}
+                isShowPriceTimes={isShowPriceTimes}
+                isShowTimes={isShowTimes}
+                isShowRealTotal={isShowRealTotal}
+              />
+            </div>
+          </div>
+          <div className="row bg-dark">
+            <div className="col-12 text-center">
+              <Footer
+                primaryLabel={"Freelances App - Todos los derechos reservados."}
+              />
+            </div>
           </div>
         </div>
-        <div className="row align-items-end justify-content-start">
-          <div className="col-12 p-0 ">
-            <AmountsResume
-              projectData={projectData}
-              tasks={tasks}
-              expenses={expenses}
-              isClientMode={clientMode}
-              isShowPriceTimes={isShowPriceTimes}
-              isShowTimes={isShowTimes}
-              isShowRealTotal={isShowRealTotal}
-            />
-          </div>
-        </div>
-        <div className="row bg-dark">
-          <div className="col-12 text-center">
-            <Footer
-              primaryLabel={"Freelances App - Todos los derechos reservados."}
-            />
-          </div>
-        </div>
+        {projectData.isDone === false && (
+          <FinishProjectButton projectUID={projectUID} />
+        )}
+        <PrintPDFButton handlePrint={handlePrint} />
       </div>
-      {projectData.isDone === false &&  <FinishProjectButton projectUID={projectUID}/>}
-      <PrintPDFButton handlePrint={handlePrint} />
-    </div>
     </>
   );
 };

@@ -103,11 +103,12 @@ const getTotalTimeperProject = (totalSeconds: number) => {
   dateHelper.setSeconds(totalSeconds);
   const totalTimeperProject = formatDuration(
     {
+      days: dateHelper.getDay(),
       hours: dateHelper.getHours(),
       minutes: dateHelper.getMinutes(),
       seconds: dateHelper.getSeconds(),
     },
-    { zero: true, delimiter: " ", locale: es }
+    { zero: false, delimiter: " ", locale: es }
   );
   return totalTimeperProject;
 };
@@ -124,7 +125,7 @@ const getTotalTimeperProjectWithDays = (totalSeconds: number) => {
       minutes: dateHelper.getMinutes(),
       seconds: dateHelper.getSeconds(),
     },
-    { zero: true, delimiter: " ", locale: es }
+    { zero: false, delimiter: " ", locale: es }
   );
   return totalTimeperProject;
 };

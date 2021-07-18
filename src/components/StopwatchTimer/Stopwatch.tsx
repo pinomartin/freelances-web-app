@@ -52,7 +52,7 @@ const Stopwatch = ({
   const [isFastBurnButtonPressed, setIsFastBurnButtonPressed] = useState(false);
   const [isDisabled, setIsDisabled] = useState(!isAvaibleFastBurn);
 
-  console.log(isAvaibleFastBurn);
+  // console.log(isAvaibleFastBurn);
 
   const fastBurningHoursPerDay = (hours: number) => {
     setTaskTime({

@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-  differenceInBusinessDays,
-  formatDistanceStrict,
-} from "date-fns";
+import { differenceInBusinessDays, formatDistanceStrict } from "date-fns";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { es } from "date-fns/esm/locale";
 import {
   getTotalSecondsFromTasks,
   getTotalTimeperProject,
-  isPastDate
+  isPastDate,
 } from "../hooks/useTime";
 import {
   getEstimatedAmount,
@@ -17,9 +14,14 @@ import {
 } from "../hooks/useMoney";
 
 export const ProjectData = ({ projectData, tasks }: any) => {
-  const { amountXHour, isDone:isProjectDone, estimatedFinishDate }: any = projectData;
+  const {
+    amountXHour,
+    isDone: isProjectDone,
+    estimatedFinishDate,
+    estimatedHours,
+  }: any = projectData;
 
-  console.log('Datos de Proyecto', projectData);
+  console.log("Datos de Proyecto", projectData);
   console.log(tasks);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [timeToString, setTimeToString] = useState("");
@@ -41,24 +43,48 @@ export const ProjectData = ({ projectData, tasks }: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks, totalSeconds, estimatedTotal]);
 
-  const getDaysRemaining = formatDistanceStrict(
-    Date.now(),
-    projectData.estimatedFinishDate,
-    { unit: "day", addSuffix: false, locale: es }
-  );
+  const getDaysRemaining = (estimatedFinishDate: number) => {
+    if (isPastDate(estimatedFinishDate)) {
+      const daysRemaining = formatDistanceStrict(
+        estimatedFinishDate,
+        Date.now(),
+        { unit: "day", addSuffix: false, locale: es, roundingMethod: "floor" }
+      );
+      const message = (
+        <>
+          <strong className="text-danger">{daysRemaining}</strong>
+          <small className="d-block text-danger">de demora en entrega</small>
+        </>
+      );
+      return message;
+    }
+
+    const daysRemaining = formatDistanceStrict(
+      Date.now(),
+      estimatedFinishDate,
+      { unit: "day", addSuffix: false, locale: es }
+    );
+    const message = (
+      <>
+        <strong>{daysRemaining}</strong>
+        <small className="d-block">para entrega</small>
+      </>
+    );
+    return message;
+  };
 
   const getRemaingHours = Math.round(
     projectData.estimatedHours - totalSeconds / 3600
   );
 
-  const getFinishPercentage = (isProjectDone:boolean):number => {
-    if(isProjectDone){
-      return 100
+  const getFinishPercentage = (isProjectDone: boolean): number => {
+    if (isProjectDone) {
+      return 100;
     }
     const percentage = Math.round(
-    (totalSeconds / 3600 / projectData.estimatedHours) * 100
-  );
-   return percentage;
+      (totalSeconds / 3600 / projectData.estimatedHours) * 100
+    );
+    return percentage;
   };
 
   // const isPastDate = (estimatedDate:number) => {
@@ -66,8 +92,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
   //   return isPastDate;
   // }
 
-  console.log('Es fecha pasada ? ',isPastDate(estimatedFinishDate));
-  
+  console.log("Es fecha pasada ? ", isPastDate(estimatedFinishDate));
 
   const getLaboralDaysFromTotalProject = differenceInBusinessDays(
     projectData.estimatedFinishDate,
@@ -80,21 +105,19 @@ export const ProjectData = ({ projectData, tasks }: any) => {
       <div className="container projectData__container">
         <div className="row justify-content-end p-3">
           <div className="col-6 text-center">
-            {projectData.type === "hour" ? (
-              <strong className="text-success">{getRemaingHours}</strong>
-            ) : (
-              <strong className="text-success">{getRemaingHours}</strong>
-            )}
+            <strong className="primaryFontColor">
+              {getRemaingHours} <small className="text-white">/</small>{" "}
+              {estimatedHours}{" "}
+            </strong>
+
             <small className="d-block">Horas a completar</small>
           </div>
           <div className="col-6 text-center">
             {projectData.type === "hour" ? (
-              <strong>{getDaysRemaining}</strong>
+              getDaysRemaining(estimatedFinishDate)
             ) : (
               <strong>{getLaboralDaysFromTotalProject} dias</strong>
             )}
-
-            <small className="d-block">para entrega</small>
           </div>
         </div>
 
@@ -118,7 +141,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
               </div>
               <div className="col-6 text-center">
                 <strong className="text-success">$ {estimatedTotal}</strong>
-                <small className="d-block">A cobrar</small>
+                <small className="d-block">Disponible a cobrar</small>
               </div>
             </div>
 
@@ -139,9 +162,9 @@ export const ProjectData = ({ projectData, tasks }: any) => {
                     backgroundColor: "#fff",
                   })}
                 />
-
                 <small className="d-block">Proyecto terminado</small>
               </div>
+
               <div className="col-6 text-center">
                 <span className="text-danger">$ {amountGoal}</span>
                 <small className="d-block">Resto a cobrar</small>

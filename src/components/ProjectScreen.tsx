@@ -25,6 +25,8 @@ import ExpensesForm from "./ExpensesForm";
 import ExpensesList from "./ExpensesList";
 import { getTodayDateToString } from "../hooks/useTime";
 import Tippy from "@tippyjs/react";
+import totalAvatar from "../assets/total.svg";
+import hourAvatar from "../assets/hour.svg";
 
 interface URLParamsProps {
   id: string;
@@ -140,7 +142,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
     <div>
       {/*  {/*REVISAR ESTO !!!!*/}
 
-      <div className="d-flex p-0 justify-content-center">
+      <div className="d-flex p-0 justify-content-center mb-3">
         {isLoaderVisible ? (
           <SpinnerLoader />
         ) : (
@@ -161,7 +163,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                 </button>
               </div>
             </div> */}
-            <div className="w-85">
+            <div className="w-90">
               <div className="row m-0 justify-content-center">
                 <div className="col-12 mt-1">
                   {projectData.isDone === false ? (
@@ -216,22 +218,26 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                     </>
                   ) : null}
 
-                    <Link
-                      to={{
-                        pathname: "/projreport",
-                        state: {
-                          tasks: tasks,
-                          projectData: projectData,
-                          projectUID: projectUID,
-                          expenses: expenses,
-                        },
-                      }}
+                  <Link
+                    to={{
+                      pathname: "/projreport",
+                      state: {
+                        tasks: tasks,
+                        projectData: projectData,
+                        projectUID: projectUID,
+                        expenses: expenses,
+                      },
+                    }}
+                  >
+                    <Tippy
+                      content={
+                        projectData.isDone
+                          ? "Ver Informe"
+                          : "Informe y Finalizar"
+                      }
+                      placement="bottom"
+                      arrow={true}
                     >
-                      <Tippy
-                        content={projectData.isDone ? "Ver Informe" : "Informe y Finalizar"}
-                        placement="bottom"
-                        arrow={true}
-                      >
                       <button className="btn btn-success float-right">
                         {projectData.isDone === false ? (
                           <i className="fas fa-check"></i>
@@ -239,28 +245,35 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                           <i className="far fa-file-alt"></i>
                         )}
                       </button>
-                  </Tippy>
-                    </Link>
+                    </Tippy>
+                  </Link>
                 </div>
                 <div className="col-12">
                   <h4 className="text-white">
-                    <small>{projectData?.name}</small> 
+                    <small>{projectData?.name}</small>
+                    {projectData.type === "hour" ? (
+                      <Tippy content="Presupuesto x hora">
+                        <img
+                          className="img-fluid"
+                          src={hourAvatar}
+                          alt="Avatar"
+                          width="35px"
+                        />
+                      </Tippy>
+                    ) : (
+                      <Tippy content="Presupuesto Total">
+                        <img
+                          className="img-fluid"
+                          src={totalAvatar}
+                          alt="Avatar total"
+                          width="30px"
+                        />
+                      </Tippy>
+                    )}
                   </h4>
                 </div>
-
-                <div className="col-10 col-md-5 p-0">
-                  <TasksList
-                    title={"Tiempos & Tareas"}
-                    projectUID={projectUID}
-                    projectData={projectData}
-                    clientUID={projectData?.userId}
-                    tasks={tasks}
-                  />
-                  <br />
-                  <ExpensesList expenses={expenses} projectData={projectData} />
-                </div>
-                <div className="col-10 col-md-3 text-center">
-                  {projectData.isDone === false ? (
+                {projectData.isDone === false ? (
+                  <div className="col-10 col-md-3 text-center mb-3 align-self-center">
                     <>
                       <Stopwatch
                         projectUID={projectUID}
@@ -281,13 +294,24 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                         />
                       ) : null}
                       <button
-                        className="btn btn-info mt-2"
+                        className="btn btn-info btn-sm mt-2"
                         onClick={() => setShowExpenseForm(!showExpenseForm)}
                       >
                         {showExpenseForm ? "Cerrar" : "Cargar gastos Extras"}
                       </button>
                     </>
-                  ) : null}
+                  </div>
+                ) : null}
+                <div className="col-10 col-md-5 p-0">
+                  <TasksList
+                    title={"Tiempos & Tareas"}
+                    projectUID={projectUID}
+                    projectData={projectData}
+                    clientUID={projectData?.userId}
+                    tasks={tasks}
+                  />
+                  <br />
+                  <ExpensesList expenses={expenses} projectData={projectData} />
                 </div>
                 <div className="col-10 col-md-4">
                   {editionMode ? (

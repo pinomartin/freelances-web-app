@@ -498,8 +498,8 @@ section {
 /*
 ---------PROJECT SCREEN
 /*-----*/
-.w-85{
-  width: 85%!important;
+.w-90{
+  width: 90%!important;
 }
 /*----- PROJECT CARDS*/
 .projectListItem__card {
@@ -749,7 +749,7 @@ height: 0; } */
 /*-----------------Time Task Styles-----------------*/
 
 .accordion {
-  height: 50vh;
+  height: 45vh;
   border-radius: 10px;
 }
 
@@ -766,7 +766,8 @@ height: 0; } */
 
 /*------------- Expenses List Styles------*/
 .accordion__expenses__height {
-  height: auto;
+  height: fit-content;
+  max-height: 15vh;
 }
 
 .expenses__listItem {
@@ -800,7 +801,7 @@ height: 0; } */
   position: absolute;
   width: 2.5rem;
   top: 3.5rem;
-  right: -0.4rem;
+  right: -0.7rem;
   border-radius: 100%;
   align-self: center;
 }
@@ -808,7 +809,7 @@ height: 0; } */
 @media only screen and (min-width: 768px) {
   .stopwatch__resetButton {
     top: 3.5rem;
-    right: 0.5rem;
+    right: 1.5rem;
   }
 }
 

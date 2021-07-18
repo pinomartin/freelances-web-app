@@ -32,7 +32,8 @@ const ExpensesList = ({expenses, projectData}:any) => {
         <>
           <div className="row justify-content-center align-items-center mt-3">
             <div className="col-12 text-center">
-              <p className="badge badge-info p-3"> Aún no tienes gastos extras! </p>
+              {!isProjectDone ? (<p className="badge badge-info p-3"> Aún no tienes gastos extras! </p>) : (<p className="badge badge-info p-3"> No tuviste gastos extras </p>)}
+
             </div>
           </div>
         </>
