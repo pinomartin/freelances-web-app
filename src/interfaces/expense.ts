@@ -4,4 +4,5 @@ export interface Expense{
     amount:number;
     clientUID?:string;
     projectUID?:string;
+    isProjectDone?: boolean;
 }

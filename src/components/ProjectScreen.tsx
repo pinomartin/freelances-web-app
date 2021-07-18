@@ -257,7 +257,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                     tasks={tasks}
                   />
                   <br />
-                  <ExpensesList expenses={expenses} />
+                  <ExpensesList expenses={expenses} projectData={projectData} />
                 </div>
                 <div className="col-10 col-md-3 text-center">
                   {projectData.isDone === false ? (

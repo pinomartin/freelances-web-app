@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import formatDistanceStrict from "date-fns/formatDistanceStrict";
-import differenceInBusinessDays from "date-fns/differenceInBusinessDays";
+import {
+  differenceInBusinessDays,
+  formatDistanceStrict,
+} from "date-fns";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-
-// import formatDistance from "date-fns/formatDistance";
 import { es } from "date-fns/esm/locale";
 import {
   getTotalSecondsFromTasks,
   getTotalTimeperProject,
+  isPastDate
 } from "../hooks/useTime";
 import {
   getEstimatedAmount,
@@ -16,9 +17,9 @@ import {
 } from "../hooks/useMoney";
 
 export const ProjectData = ({ projectData, tasks }: any) => {
-  const { amountXHour }: any = projectData;
+  const { amountXHour, isDone:isProjectDone, estimatedFinishDate }: any = projectData;
 
-  console.log(projectData);
+  console.log('Datos de Proyecto', projectData);
   console.log(tasks);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [timeToString, setTimeToString] = useState("");
@@ -45,14 +46,28 @@ export const ProjectData = ({ projectData, tasks }: any) => {
     projectData.estimatedFinishDate,
     { unit: "day", addSuffix: false, locale: es }
   );
-  
+
   const getRemaingHours = Math.round(
     projectData.estimatedHours - totalSeconds / 3600
   );
 
-  const getFinishPercentage = Math.round(
+  const getFinishPercentage = (isProjectDone:boolean):number => {
+    if(isProjectDone){
+      return 100
+    }
+    const percentage = Math.round(
     (totalSeconds / 3600 / projectData.estimatedHours) * 100
   );
+   return percentage;
+  };
+
+  // const isPastDate = (estimatedDate:number) => {
+  //   const isPastDate = isAfter(new Date().setHours(0, 0, 0 ,0), estimatedDate);
+  //   return isPastDate;
+  // }
+
+  console.log('Es fecha pasada ? ',isPastDate(estimatedFinishDate));
+  
 
   const getLaboralDaysFromTotalProject = differenceInBusinessDays(
     projectData.estimatedFinishDate,
@@ -110,11 +125,10 @@ export const ProjectData = ({ projectData, tasks }: any) => {
             <div className="row justify-content-end align-items-center p-3">
               <div className="col-6 text-center">
                 {/* <strong className="text-success">{getFinishPercentage} % </strong> */}
-
                 <CircularProgressbar
                   className="img-fluid w-50"
-                  value={getFinishPercentage}
-                  text={`${getFinishPercentage}%`}
+                  value={getFinishPercentage(isProjectDone)}
+                  text={`${getFinishPercentage(isProjectDone)}%`}
                   styles={buildStyles({
                     rotation: 0,
                     strokeLinecap: "butt",

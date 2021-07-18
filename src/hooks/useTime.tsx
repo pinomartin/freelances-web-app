@@ -6,7 +6,8 @@ import {
   lastDayOfMonth,
   getUnixTime,
   getDate,
-  getWeeksInMonth
+  getWeeksInMonth,
+  isAfter
 } from "date-fns";
 import { es } from "date-fns/esm/locale";
 
@@ -23,6 +24,11 @@ const getStartOfMonth = (month?: number) => {
 
   return getUnixTime(endOfMonth(new Date()));
 };
+
+const isPastDate = (estimatedDate:number) => {
+  const isPastDate = isAfter(new Date().setHours(0, 0, 0 ,0), estimatedDate);
+  return isPastDate;
+}
 
 const getEndOfMonth = (month?: number) => {
   if (month) {
@@ -133,4 +139,5 @@ export {
   getEndOfMonth,
   getTotalDaysOfMonth,
   getTotalWeekssOfMonth,
+  isPastDate,
 };

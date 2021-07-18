@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { deleteExpense } from "../firebaseUtils/setFirestoreData";
 
 
-const ExpensesListItem = ({ amount, description, uid }:Expense) => {
+const ExpensesListItem = ({ amount, description, uid, isProjectDone }:Expense) => {
 
   
     return (
@@ -15,7 +15,9 @@ const ExpensesListItem = ({ amount, description, uid }:Expense) => {
             $ {amount}
           </p>
 
-          
+          {
+            !isProjectDone ? (
+
           <button
                 className="btn btn-danger d-inline float-right ml-1"
                 type="button"
@@ -43,6 +45,8 @@ const ExpensesListItem = ({ amount, description, uid }:Expense) => {
               >
                 <i className="far fa-trash-alt"></i>
               </button>
+            ) : null
+          }
               <button
             className="btn btn-primary float-right"
             type="button"

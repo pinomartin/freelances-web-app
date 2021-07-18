@@ -1,6 +1,8 @@
 import ExpensesListItem from "./ExpensesListItem";
 
-const ExpensesList = ({expenses}:any) => {
+const ExpensesList = ({expenses, projectData}:any) => {
+
+    const { isDone: isProjectDone } = projectData;
 
     console.log(expenses);
     return expenses.length !== 0 ? (
@@ -12,7 +14,7 @@ const ExpensesList = ({expenses}:any) => {
                 {expenses.length !== 0
                   ? expenses.map((item: any, index:number) => (
                       <>
-                        <ExpensesListItem description={item.description} amount={item.amount} key={item.id} uid={item.uid}/>
+                        <ExpensesListItem description={item.description} amount={item.amount} key={item.id} uid={item.uid} isProjectDone={isProjectDone}/>
                       </>
                     ))
                   : null}
