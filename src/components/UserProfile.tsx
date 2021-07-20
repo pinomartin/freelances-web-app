@@ -13,8 +13,9 @@ import SpinnerLoader from "./SpinnerLoader";
 import { FreelancesContext } from "../context/FreelancesProvider";
 import {
   getTotalSecondsFromTasks,
-  // getTotalTimeperProject,
-  getTotalTimeperProjectWithDays,
+  getTotalTimeperProject,
+  // getTotalTimeperProjectWithDays,
+  totalTimeperProjectToString,
 } from "../hooks/useTime";
 import DoughtChart from "./Charts/DoughtChart";
 import {
@@ -23,6 +24,8 @@ import {
 } from "../firebaseUtils/setFirestoreData";
 
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
+  const SECONDS_IN_A_DAY = 86400;
+
   const {
     authUser,
     userProjects: projectsFromContext,
@@ -33,6 +36,9 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
   const [userProjects, setUserProjects] = useState<any>({});
   const [tasks, setTasks] = useState([]);
   const [totalSeconds, setTotalSeconds] = useState(0);
+  const [timeToStringWithDays, setTimeToStringWithDays] = useState<Duration>(
+    {}
+  );
   const [timeToString, setTimeToString] = useState("");
   const [projects, setProjects] = useState<any>({});
   const [chartData, setChartData] = useState<any>({});
@@ -66,10 +72,9 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
 
   useEffect(() => {
     getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
-    setTimeToString(getTotalTimeperProjectWithDays(totalSeconds));
+    setTimeToString(getTotalTimeperProject(totalSeconds));
+    setTimeToStringWithDays(totalTimeperProjectToString(totalSeconds));
   }, [tasks, totalSeconds, projects]);
-
- 
 
   const selectPhotoArchive = (newImg: any) => {
     console.log(newImg.target.files[0]);
@@ -145,6 +150,8 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
       timesPerProject,
     };
   };
+
+  console.log("IntervalDuration", totalTimeperProjectToString(totalSeconds));
 
   return user.profilePhotoURL ? (
     <div className="row justify-content-center align-content-center mt-5 p-0 m-0">
@@ -271,14 +278,15 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
               pathname: "/userSpecs",
               state: {
                 tasks: tasks,
-                projects: projects
+                projects: projects,
               },
             }}
           >
-              
-            {tasks !== null && totalSeconds > 0 ? <button className="btn btn-success float-right">Mis estadísticas</button> : null }
-          
-            
+            {tasks !== null && totalSeconds > 0 ? (
+              <button className="btn btn-success float-right">
+                Mis estadísticas
+              </button>
+            ) : null}
           </Link>
         </div>
         <hr />
@@ -302,7 +310,11 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
         <div className="row justify-content-center align-items-center">
           <div className="col-6 text-center userProfile__totalTimer">
             {tasks !== null && totalSeconds > 0 ? (
-              <span>{timeToString}</span>
+              <span>
+                {totalSeconds > SECONDS_IN_A_DAY
+                  ? `${timeToStringWithDays.days} días ${timeToStringWithDays.hours} horas ${timeToStringWithDays.minutes} minutos ${timeToStringWithDays.seconds} segundos `
+                  : timeToString}
+              </span>
             ) : (
               <>
                 <p className="badge badge-warning m-0">

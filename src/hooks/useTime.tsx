@@ -7,7 +7,8 @@ import {
   getUnixTime,
   getDate,
   getWeeksInMonth,
-  isAfter
+  isAfter,
+  intervalToDuration,
 } from "date-fns";
 import { es } from "date-fns/esm/locale";
 
@@ -25,38 +26,36 @@ const getStartOfMonth = (month?: number) => {
   return getUnixTime(endOfMonth(new Date()));
 };
 
-const isPastDate = (estimatedDate:number) => {
-  const isPastDate = isAfter(new Date().setHours(0, 0, 0 ,0), estimatedDate);
+const isPastDate = (estimatedDate: number) => {
+  const isPastDate = isAfter(new Date().setHours(0, 0, 0, 0), estimatedDate);
   return isPastDate;
-}
+};
 
 const getEndOfMonth = (month?: number) => {
   if (month) {
     return getUnixTime(endOfMonth(new Date().setMonth(month)));
   }
-  
+
   return getUnixTime(endOfMonth(new Date()));
 };
 
-const getTotalDaysOfMonth = (month:number) => {
-  var arr = []
+const getTotalDaysOfMonth = (month: number) => {
+  var arr = [];
 
-for (let i = 1; i <= getDate(lastDayOfMonth(month)); i++) {
+  for (let i = 1; i <= getDate(lastDayOfMonth(month)); i++) {
     arr.push(i);
-}
-return arr;
-}
+  }
+  return arr;
+};
 
-const getTotalWeekssOfMonth = (month:number) => {
-  var arr = []
+const getTotalWeekssOfMonth = (month: number) => {
+  var arr = [];
 
-for (let i = 1; i <= getWeeksInMonth(month); i++) {
+  for (let i = 1; i <= getWeeksInMonth(month); i++) {
     arr.push(i);
-}
-return arr;
-}
-
-
+  }
+  return arr;
+};
 
 const getTotalSecondsFromTasks = async (tasks: any) => {
   const totalSeconds = await tasks.reduce(function (
@@ -103,7 +102,7 @@ const getTotalTimeperProject = (totalSeconds: number) => {
   dateHelper.setSeconds(totalSeconds);
   const totalTimeperProject = formatDuration(
     {
-      days: dateHelper.getDay(),
+      days: 0,
       hours: dateHelper.getHours(),
       minutes: dateHelper.getMinutes(),
       seconds: dateHelper.getSeconds(),
@@ -130,6 +129,15 @@ const getTotalTimeperProjectWithDays = (totalSeconds: number) => {
   return totalTimeperProject;
 };
 
+const totalTimeperProjectToString = (seconds: number) => {
+  const totalDurationOfProject = intervalToDuration({
+    start: 0,
+    end: seconds * 1000,
+  });
+  return totalDurationOfProject;
+};
+// { hours: 2, minutes: 46, seconds: 40 }
+
 export {
   getTotalSecondsFromTasks,
   getTotalTimeperProject,
@@ -141,4 +149,5 @@ export {
   getTotalDaysOfMonth,
   getTotalWeekssOfMonth,
   isPastDate,
+  totalTimeperProjectToString,
 };

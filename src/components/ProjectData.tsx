@@ -5,8 +5,9 @@ import "react-circular-progressbar/dist/styles.css";
 import { es } from "date-fns/esm/locale";
 import {
   getTotalSecondsFromTasks,
-  getTotalTimeperProject,
   isPastDate,
+  totalTimeperProjectToString,
+  getTotalTimeperProject,
 } from "../hooks/useTime";
 import {
   getEstimatedAmount,
@@ -14,6 +15,8 @@ import {
 } from "../hooks/useMoney";
 
 export const ProjectData = ({ projectData, tasks }: any) => {
+  const SECONDS_IN_A_DAY = 86400;
+
   const {
     amountXHour,
     isDone: isProjectDone,
@@ -25,11 +28,15 @@ export const ProjectData = ({ projectData, tasks }: any) => {
   console.log(tasks);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [timeToString, setTimeToString] = useState("");
+  const [timeToStringWhitDays, setTimeToStringWhitDays] = useState<Duration>(
+    {}
+  );
   const [estimatedTotal, setEstimatedTotal] = useState(0);
   const [amountGoal, setAmountGoal] = useState(0);
 
   useEffect(() => {
     getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
+    setTimeToStringWhitDays(totalTimeperProjectToString(totalSeconds));
     setTimeToString(getTotalTimeperProject(totalSeconds));
     setEstimatedTotal(getEstimatedAmount(totalSeconds, amountXHour));
     setAmountGoal(
@@ -94,10 +101,32 @@ export const ProjectData = ({ projectData, tasks }: any) => {
 
   console.log("Es fecha pasada ? ", isPastDate(estimatedFinishDate));
 
-  const getLaboralDaysFromTotalProject = differenceInBusinessDays(
-    projectData.estimatedFinishDate,
-    projectData.creationDate
-  );
+  const getLaboralDaysFromTotalProject = (estimatedFinishDate: number) => {
+    if (isPastDate(estimatedFinishDate)) {
+      const daysPastDue = differenceInBusinessDays(
+        Date.now(),
+        estimatedFinishDate
+      );
+      const message = (
+        <>
+          <strong className="text-danger">{daysPastDue} dias</strong>
+          <small className="d-block text-danger"> de demora en entrega</small>
+        </>
+      );
+      return message;
+    }
+    const daysRemaining = differenceInBusinessDays(
+      estimatedFinishDate,
+      Date.now()
+    );
+    const message = (
+      <>
+        <strong>{daysRemaining} dias</strong>
+        <small className="d-block">para entrega</small>
+      </>
+    );
+    return message;
+  };
 
   return (
     <>
@@ -116,7 +145,11 @@ export const ProjectData = ({ projectData, tasks }: any) => {
             {projectData.type === "hour" ? (
               getDaysRemaining(estimatedFinishDate)
             ) : (
-              <strong>{getLaboralDaysFromTotalProject} dias</strong>
+              <strong>
+                {getLaboralDaysFromTotalProject(
+                  projectData.estimatedFinishDate
+                )}{" "}
+              </strong>
             )}
           </div>
         </div>
@@ -136,7 +169,11 @@ export const ProjectData = ({ projectData, tasks }: any) => {
 
             <div className="row justify-content-end align-items-center p-3">
               <div className="col-6 text-center">
-                <span className="text-warning">{timeToString}</span>
+                <span className="text-warning">
+                  {totalSeconds > SECONDS_IN_A_DAY
+                    ? `${timeToStringWhitDays.days} días ${timeToStringWhitDays.hours} horas ${timeToStringWhitDays.minutes} minutos ${timeToStringWhitDays.seconds} segundos `
+                    : timeToString}
+                </span>
                 <small className="d-block">Tiempo total</small>
               </div>
               <div className="col-6 text-center">
