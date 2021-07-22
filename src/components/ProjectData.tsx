@@ -219,7 +219,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
                       {higherTask[0].description}
                     </small>
                     <span className="badge rounded-pill bg-dark secondaryFontColor">
-                      {higherTask[0].date +'  '+ higherTask[0].hour}
+                      {higherTask[0].date +'   '+ higherTask[0].hour}
                     </span>
                   </>
                 ) : null}
