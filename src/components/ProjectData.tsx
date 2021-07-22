@@ -13,6 +13,8 @@ import {
   getEstimatedAmount,
   getEstimatedTotalVSCurrentAmount,
 } from "../hooks/useMoney";
+import getFormattedTasks from "../hooks/getFormattedTasks";
+import getHigherTask from "../hooks/getHigherTask";
 
 export const ProjectData = ({ projectData, tasks }: any) => {
   const SECONDS_IN_A_DAY = 86400;
@@ -33,6 +35,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
   );
   const [estimatedTotal, setEstimatedTotal] = useState(0);
   const [amountGoal, setAmountGoal] = useState(0);
+  const [higherTask, setHigherTask] = useState<any>([{}]);
 
   useEffect(() => {
     getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
@@ -46,9 +49,12 @@ export const ProjectData = ({ projectData, tasks }: any) => {
         estimatedTotal
       )
     );
+    setHigherTask(getHigherTask(getFormattedTasks(tasks)));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks, totalSeconds, estimatedTotal]);
+
+  console.log(higherTask[0]);
 
   const getDaysRemaining = (estimatedFinishDate: number) => {
     if (isPastDate(estimatedFinishDate)) {
@@ -203,8 +209,20 @@ export const ProjectData = ({ projectData, tasks }: any) => {
               </div>
 
               <div className="col-6 text-center">
-                <span className="text-danger">$ {amountGoal}</span>
-                <small className="d-block">Resto a cobrar</small>
+                {higherTask[0] ? (
+                  <>
+                    <small className="d-block">Tarea mas larga</small>
+                    <span className="primaryFontColor">
+                      {higherTask[0].duration}
+                    </span>
+                    <small className="d-block">
+                      {higherTask[0].description}
+                    </small>
+                    <span className="badge rounded-pill bg-dark secondaryFontColor">
+                      {higherTask[0].date +'  '+ higherTask[0].hour}
+                    </span>
+                  </>
+                ) : null}
               </div>
             </div>
           </>

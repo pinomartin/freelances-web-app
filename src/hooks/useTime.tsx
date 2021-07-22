@@ -136,6 +136,16 @@ const totalTimeperProjectToString = (seconds: number) => {
   });
   return totalDurationOfProject;
 };
+
+const parseDateToString = (date:number) => {
+  const parsedDate = format(date, 'dd/MM/yyyy', {locale: es});
+  return parsedDate;
+};
+
+const getHourFromDate = (date:number) => {
+  const hour = format(date, 'p', {locale: es})
+  return hour;
+}
 // { hours: 2, minutes: 46, seconds: 40 }
 
 export {
@@ -150,4 +160,6 @@ export {
   getTotalWeekssOfMonth,
   isPastDate,
   totalTimeperProjectToString,
+  parseDateToString,
+  getHourFromDate
 };
