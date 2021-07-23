@@ -11,6 +11,7 @@ import TermsConditions from "./components/TermsConditions";
 import Help from "./components/Help";
 import ResetPassword from "./components/ResetPassword";
 import UserSpecs from "./components/UserSpecs";
+import ProjectDataDetails from "./components/ProjectDataDetails";
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path="/newproject">
             <NewProjectForm />
+          </Route>
+          <Route path="/projectDetails" exact>
+            <ProjectDataDetails />
           </Route>
           <Route path="/userSpecs" exact>
             <UserSpecs />

@@ -1,0 +1,37 @@
+[
+    {
+        "id": "1",
+        "label": "Domingo",
+        "value": "0"
+    },
+    {
+        "id": "2",
+        "label": "Lunes",
+        "value": "1"
+    },
+    {
+        "id": "3",
+        "label": "Martes",
+        "value": "2"
+    },
+    {
+        "id": "4",
+        "label": "Miércoles",
+        "value": "3"
+    },
+    {
+        "id": "5",
+        "label": "Jueves",
+        "value": "4"
+    },
+    {
+        "id": "6",
+        "label": "Viernes",
+        "value": "5"
+    },
+    {
+        "id": "7",
+        "label": "Sábado",
+        "value": "6"
+    }
+]

@@ -250,7 +250,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                 </div>
                 <div className="col-12">
                   <h4 className="text-white">
-                    <small>{projectData?.name}</small>
+                    <strong>{projectData?.name}</strong>
                     {projectData.type === "hour" ? (
                       <Tippy content="Presupuesto x hora">
                         <img
@@ -273,7 +273,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                   </h4>
                 </div>
                 {projectData.isDone === false ? (
-                  <div className="col-10 col-md-3 text-center mb-3 align-self-center">
+                  <div className="col-10 col-md-3 text-center mb-4 align-self-center">
                     <>
                       <Stopwatch
                         projectUID={projectUID}
@@ -302,7 +302,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                     </>
                   </div>
                 ) : null}
-                <div className="col-10 col-md-5 p-0">
+                <div className="col-10 col-md-5 mb-4 p-0">
                   <TasksList
                     title={"Tiempos & Tareas"}
                     projectUID={projectUID}

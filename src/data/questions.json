@@ -21,13 +21,13 @@
     },
     {
         "id": "5",
-        "question": "Como editar descripcion de un tiempo ?",
+        "question": "Como editar descripción de un tiempo ?",
         "answer": "Una vez cargado un tiempo, en el dashboard 'Tiempos & Tareas', hacer click sobre el boton i, y luego en el boton Editar. "
     },
     {
         "id": "6",
         "question": "Como imprimir reporte de proyecto en PDF? ",
-        "answer": "Desde la pantalla de 'Administración de Proyectos', pulsar sobre boton 'Finalizar Proyecto'. Una vez dentro de la pantalla de 'Reporte de Proyecto' pulsar sobre boton 'Guardar en PDF'."
+        "answer": "Desde la pantalla de 'Administración de Proyectos', pulsar sobre boton 'Informe y Finalizar Proyecto'. Una vez dentro de la pantalla de 'Reporte de Proyecto' pulsar sobre boton 'Guardar en PDF'."
     },
     {
         "id": "7",
@@ -36,6 +36,11 @@
     },
     {
         "id": "8",
+        "question": "Como finalizar un proyecto?",
+        "answer": "Desde la pantalla de 'Administración de Proyectos', pulsar sobre boton 'Informe y Finalizar Proyecto'. Una vez dentro de la pantalla de 'Reporte de Proyecto' pulsar sobre boton 'Finalizar Proyecto'. Este cambio será permanente y el Proyecto podrá ser accedido sólo en modo consulta."
+    },
+    {
+        "id": "9",
         "question": "Como agregar gastos extras al proyecto?",
         "answer": "Desde la pantalla de 'Administración de Proyectos', pulsar sobre boton 'Cargar gastos Extras' y se habilitará un simple formulario en el cual podrás ingresar el monto y el motivo del gasto extra."
     }

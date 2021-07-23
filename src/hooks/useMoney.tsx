@@ -9,6 +9,9 @@ const getEstimatedAmount = (seconds: number, amountPerHour: number):number => {
 
 const getEstimatedTotalVSCurrentAmount = (estimatedProjectHours:number,estimatedProjectAmountXHour:number ,realTotalAmount:number):number => {
     const difference = Number(((estimatedProjectHours * estimatedProjectAmountXHour) - realTotalAmount).toFixed(2));
+    if(difference < 0){
+        return 0;
+    }
     return difference;
 }
 

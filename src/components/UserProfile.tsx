@@ -318,7 +318,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
             ) : (
               <>
                 <p className="badge badge-warning m-0">
-                  Aun no has cargado tiempos
+                  Aún no has cargado tiempos
                 </p>
               </>
             )}

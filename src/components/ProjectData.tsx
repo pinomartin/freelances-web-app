@@ -15,6 +15,7 @@ import {
 } from "../hooks/useMoney";
 import getFormattedTasks from "../hooks/getFormattedTasks";
 import getHigherTask from "../hooks/getHigherTask";
+import { Link } from "react-router-dom";
 
 export const ProjectData = ({ projectData, tasks }: any) => {
   const SECONDS_IN_A_DAY = 86400;
@@ -26,8 +27,6 @@ export const ProjectData = ({ projectData, tasks }: any) => {
     estimatedHours,
   }: any = projectData;
 
-  console.log("Datos de Proyecto", projectData);
-  console.log(tasks);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [timeToString, setTimeToString] = useState("");
   const [timeToStringWhitDays, setTimeToStringWhitDays] = useState<Duration>(
@@ -44,8 +43,8 @@ export const ProjectData = ({ projectData, tasks }: any) => {
     setEstimatedTotal(getEstimatedAmount(totalSeconds, amountXHour));
     setAmountGoal(
       getEstimatedTotalVSCurrentAmount(
-        projectData.estimatedHours,
-        projectData.amountXHour,
+        estimatedHours,
+        amountXHour,
         estimatedTotal
       )
     );
@@ -55,6 +54,15 @@ export const ProjectData = ({ projectData, tasks }: any) => {
   }, [tasks, totalSeconds, estimatedTotal]);
 
   console.log(higherTask[0]);
+  console.log(timeToStringWhitDays);
+
+  const doneProjectMessage = () => {
+    return (
+      <>
+          <small className="d-block primaryFontColor mt-2">Proyecto Finalizado</small>
+        </>
+    )
+  }
 
   const getDaysRemaining = (estimatedFinishDate: number) => {
     if (isPastDate(estimatedFinishDate)) {
@@ -77,6 +85,15 @@ export const ProjectData = ({ projectData, tasks }: any) => {
       estimatedFinishDate,
       { unit: "day", addSuffix: false, locale: es }
     );
+    if (daysRemaining === "0 días") {
+      const message = (
+        <>
+          <strong>Ultimas horas</strong>
+          <small className="d-block">para la entrega</small>
+        </>
+      );
+      return message;
+    }
     const message = (
       <>
         <strong>{daysRemaining}</strong>
@@ -86,26 +103,42 @@ export const ProjectData = ({ projectData, tasks }: any) => {
     return message;
   };
 
-  const getRemaingHours = Math.round(
-    projectData.estimatedHours - totalSeconds / 3600
-  );
+  const getRemaingHours = (estimatedHours: number, totalSeconds: number) => {
+    const remainingHours = Math.round(estimatedHours - totalSeconds / 3600);
+
+    if (remainingHours < 0) {
+      return(
+        <>
+        <small className="d-block">Horas ({estimatedHours}) Estimadas Completas</small>
+        <small className="d-block">+</small>
+        <small className="primaryFontColor">
+          {remainingHours * (-1) } Horas Extras
+          <small></small>
+        </small>
+      </>
+      )
+    }
+    return (
+      <>
+        <strong className="primaryFontColor">
+          {remainingHours} <small className="text-white">/</small>{" "}
+          {estimatedHours}{" "}
+        </strong>
+        <small className="d-block">Horas a completar</small>
+      </>
+    );
+  };
 
   const getFinishPercentage = (isProjectDone: boolean): number => {
     if (isProjectDone) {
       return 100;
     }
     const percentage = Math.round(
-      (totalSeconds / 3600 / projectData.estimatedHours) * 100
+      (totalSeconds / 3600 / estimatedHours) * 100
     );
+    if(percentage > 100) return 100;
     return percentage;
   };
-
-  // const isPastDate = (estimatedDate:number) => {
-  //   const isPastDate = isAfter(new Date().setHours(0, 0, 0 ,0), estimatedDate);
-  //   return isPastDate;
-  // }
-
-  console.log("Es fecha pasada ? ", isPastDate(estimatedFinishDate));
 
   const getLaboralDaysFromTotalProject = (estimatedFinishDate: number) => {
     if (isPastDate(estimatedFinishDate)) {
@@ -125,6 +158,15 @@ export const ProjectData = ({ projectData, tasks }: any) => {
       estimatedFinishDate,
       Date.now()
     );
+    if (daysRemaining === 0) {
+      const message = (
+        <>
+          <strong>Ultimas horas</strong>
+          <small className="d-block">para la entrega</small>
+        </>
+      );
+      return message;
+    }
     const message = (
       <>
         <strong>{daysRemaining} dias</strong>
@@ -140,21 +182,22 @@ export const ProjectData = ({ projectData, tasks }: any) => {
       <div className="container projectData__container">
         <div className="row justify-content-end p-3">
           <div className="col-6 text-center">
-            <strong className="primaryFontColor">
+            {/* <strong className="primaryFontColor">
               {getRemaingHours} <small className="text-white">/</small>{" "}
               {estimatedHours}{" "}
             </strong>
 
-            <small className="d-block">Horas a completar</small>
+            <small className="d-block">Horas a completar</small> */}
+            {getRemaingHours(estimatedHours, totalSeconds)}
           </div>
           <div className="col-6 text-center">
             {projectData.type === "hour" ? (
-              getDaysRemaining(estimatedFinishDate)
+             !projectData.isDone ?  getDaysRemaining(estimatedFinishDate) : doneProjectMessage()
             ) : (
               <strong>
-                {getLaboralDaysFromTotalProject(
-                  projectData.estimatedFinishDate
-                )}{" "}
+                {!projectData.isDone ? getLaboralDaysFromTotalProject(
+                  estimatedFinishDate
+                ) : doneProjectMessage() }{" "}
               </strong>
             )}
           </div>
@@ -176,7 +219,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
             <div className="row justify-content-end align-items-center p-3">
               <div className="col-6 text-center">
                 <span className="text-warning">
-                  {totalSeconds > SECONDS_IN_A_DAY
+                  {totalSeconds >= SECONDS_IN_A_DAY
                     ? `${timeToStringWhitDays.days} días ${timeToStringWhitDays.hours} horas ${timeToStringWhitDays.minutes} minutos ${timeToStringWhitDays.seconds} segundos `
                     : timeToString}
                 </span>
@@ -213,13 +256,13 @@ export const ProjectData = ({ projectData, tasks }: any) => {
                   <>
                     <small className="d-block">Tarea mas larga</small>
                     <span className="primaryFontColor">
-                      {higherTask[0].duration}
+                      {higherTask[0].duration === '' ? `${timeToStringWhitDays.days} días ${timeToStringWhitDays.hours} horas ${timeToStringWhitDays.minutes} minutos ${timeToStringWhitDays.seconds} segundos` : higherTask[0].duration}
                     </span>
                     <small className="d-block">
                       {higherTask[0].description}
                     </small>
                     <span className="badge rounded-pill bg-dark secondaryFontColor">
-                      {higherTask[0].date +'   '+ higherTask[0].hour}
+                      {higherTask[0].date + "   " + higherTask[0].hour}
                     </span>
                   </>
                 ) : null}
@@ -231,12 +274,31 @@ export const ProjectData = ({ projectData, tasks }: any) => {
             <div className="row justify-content-end align-items-center p-3">
               <div className="col-12 text-center">
                 <p className="badge badge-danger">
-                  Aun no tienes Tiempos cargados
+                  Comienza a cargar tiempos y verás tu progreso.
                 </p>
               </div>
             </div>
           </>
         )}
+      </div>
+      <div className="row justify-content-center mt-2 ">
+        <div className="col-12 col-md-4 text-center">
+        <Link
+            to={{
+              pathname: "/projectDetails",
+              state: {
+                tasks: tasks,
+                project: projectData,
+              },
+            }}
+          >
+            {tasks !== null && totalSeconds > 0 ? (
+              <button className="btn btn-primary btn-sm">
+                Ver más
+              </button>
+            ) : null}
+          </Link>
+        </div>
       </div>
     </>
   );
