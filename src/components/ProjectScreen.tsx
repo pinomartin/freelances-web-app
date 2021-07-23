@@ -59,22 +59,6 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
       .catch((e) => console.log(e));
   }, [projectUID]);
 
-  // useEffect(() => {
-  //   const unsubscribe = streamProject(projectUID, {
-  //     next: (querySnapshot: any) => {
-  //       const updatedProjectData = querySnapshot.docs.map(
-  //         (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
-  //       );
-  //       setProjectData(updatedProjectData);
-  //       setIsLoaderVisible(false);
-  //     },
-  //     error: () => console.log("task-list-item-failed"),
-  //   });
-
-  //   return unsubscribe;
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [projectUID, setProjectData]);
-
   /**REVISAR ESTE PROBLEMA QUE NO TRAE EL USUARIO..... IMPLEMENTAR CONTEXT  */
 
   const fastBurnHoursUIHandler = (
@@ -140,8 +124,6 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
 
   return (
     <div>
-      {/*  {/*REVISAR ESTO !!!!*/}
-
       <div className="d-flex p-0 justify-content-center mb-3">
         {isLoaderVisible ? (
           <SpinnerLoader />
@@ -248,7 +230,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                     </Tippy>
                   </Link>
                 </div>
-                <div className="col-12">
+                <div className="col-12 mb-3">
                   <h4 className="text-white">
                     <strong>{projectData?.name}</strong>
                     {projectData.type === "hour" ? (

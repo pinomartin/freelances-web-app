@@ -1,5 +1,6 @@
 import { TasksListProps } from "../interfaces/tasklist";
 import { TaskListItem } from "./TaskListItem";
+import Notimes from '../assets/noTimes2.svg'
 
 
 export const TasksList = ({ projectData, tasks, title }: TasksListProps) => {
@@ -147,9 +148,12 @@ export const TasksList = ({ projectData, tasks, title }: TasksListProps) => {
         </>
   ) : (
     <>
-      <div className="row justify-content-center align-items-center h-100">
+      <div className="row justify-content-center align-items-center">
         <div className="col-12 text-center">
-          <p className="badge badge-info p-3">Carga tiempos para ver tu progreso ! </p>
+          <h5>Ups ! Aún no tienes tiempos cargados</h5>
+        <img src={Notimes} alt="" className="img-fluid" width='85px'/>
+        <p className="mt-2">Utiliza el contador de tiempos para registrarlos.</p>
+          {/* <p className="badge badge-info p-3">Carga tiempos para ver tu progreso ! </p> */}
         </div>
       </div>
     </>

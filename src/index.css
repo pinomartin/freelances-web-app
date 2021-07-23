@@ -143,6 +143,10 @@ label:focus,
   filter: brightness(1.2);
 }
 
+.badge{
+  white-space: pre-wrap!important;
+}
+
 /*-----Home **************/
 /* .jumbotron{
   min-height: 90vh;

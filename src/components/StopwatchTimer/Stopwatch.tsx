@@ -176,7 +176,7 @@ const Stopwatch = ({
 
   return (
     <div>
-      <h4>Contador Tiempos</h4>
+      <h4>Contador de Tiempos</h4>
       <StopwatchDisplay
         // currentTimeMs={currentTimeMs}
         currentTimeSec={currentTimeSec}

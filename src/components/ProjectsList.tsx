@@ -109,11 +109,16 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
                   </>
                 ))
               ) : (
+                finishedProjects !== null && finishedProjects.length > 0 ? 
                 finishedProjects.map((item: any, index: number) => (
                   <div className="col-12 col-sm-8 col-md-4">
                     <ProjectCard data={item} key={index} />
                   </div>
-                ))
+                )) : (<>
+                <div className="col-12 text-center">
+                  <h3>Aún no tienes proyectos Finalizados!</h3>
+                </div>
+                </>)
               )
             ) : (
               <WelcomeNewUser />
