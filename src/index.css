@@ -15,6 +15,7 @@
   --success-color: #5ae277;
   --error-color: #e91e63;
   --disabled-color: #92abcf;
+  --disabled-secondary-color:#3E444A;
   --button--hover-color: #8c5cfd;
 }
 
@@ -478,6 +479,7 @@ section {
   animation: spinerRotate 1s infinite;
 }
 
+
 /*------------Form Inputs */
 .customForm__input {
   border: none;
@@ -657,7 +659,23 @@ section {
 /*Project Report Styles*/
 
 .report__mainContainerPrintable {
-  /* height: 95vh; */
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.report__mainContainerPrintable::-webkit-scrollbar {
+  width: 10px;
+  height: 16px;
+}
+.report__mainContainerPrintable::-webkit-scrollbar-thumb {
+  background-color: var(--error-color);
+  border-radius: 16px;
+  box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, 0.25),
+    inset -2px -2px 2px rgba(0, 0, 0, 0.25);
+}
+.report__mainContainerPrintable::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #434343, #434343 1px, #111 0, #111);
 }
 
 .reportButton__PDF {
@@ -725,24 +743,30 @@ section {
 }
 
 .report__rightColumn{
-  /* flex-direction: column-reverse; */
-  /* justify-content: flex-end!important; */
-  background-color: #11ece5;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
-  /* align-items: flex-end!important; */
-  /* align-items: flex-end; */
-  /* height: 100%!important; */
+  justify-content: space-between!important;
+ 
+}
+.report__amountResume__container{
+  background-color: var(--disabled-secondary-color);
+  border-radius: 10px;
+}
+
+.report__amountResume__item{
+  border-radius: 10px;
+  /* background-color: #11ece5; */
 }
 
 @media print {
   /* @page { size: inherit;
   overflow: hidden;
 height: 0; } */
-  @page {
-    size: 100%;
+  /* @page {
+    size: unset;
     /* background-color: #343a40; */
-  }
+ 
   /* .table-dark {
     color: #fff;
     background-color: #343a40!important;

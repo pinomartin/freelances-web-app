@@ -113,7 +113,7 @@ const ProjectReport = () => {
           <ProjectSection data={projectData} />
           <br />
           <div className="row justify-content-between bg-dark">
-            <div className="col-7 col-md-7 mt-2">
+            <div className="col-7 col-md-7 mt-1">
               <TimesList
                 tasks={tasks}
                 title={"Tareas"}
@@ -124,24 +124,18 @@ const ProjectReport = () => {
                 isShowRealTotal={isShowRealTotal}
               />
             </div>
-            <div className="col-5 col-md-5 mt-2 ">
-              
-               <div className="report__rightColumn">
-                  <ExpensesReportList expenses={expenses} />
-              
-            
-                  <AmountsResume
-                    projectData={projectData}
-                    tasks={tasks}
-                    expenses={expenses}
-                    isClientMode={clientMode}
-                    isShowPriceTimes={isShowPriceTimes}
-                    isShowTimes={isShowTimes}
-                    isShowRealTotal={isShowRealTotal}
-                  />
+            <div className="col-5 col-md-5 mt-1 report__rightColumn">
+                <ExpensesReportList expenses={expenses} />
 
-               </div>
-               
+                <AmountsResume
+                  projectData={projectData}
+                  tasks={tasks}
+                  expenses={expenses}
+                  isClientMode={clientMode}
+                  isShowPriceTimes={isShowPriceTimes}
+                  isShowTimes={isShowTimes}
+                  isShowRealTotal={isShowRealTotal}
+                />
             </div>
           </div>
 

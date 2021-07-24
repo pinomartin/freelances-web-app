@@ -30,13 +30,13 @@ const AmountsResume = ({
   }, [tasks, totalSeconds, estimatedTotalWithExpenses]);
 
   return (
-    <div className="row no-gutters text-center">
-      <div className="col-6 bg-dark pt-2 pb-2">
-        <p className="primaryFontColor">Total a Cobrar <br /> (sin gastos)</p>
+    <div className="row no-gutters text-center align-items-center justify-content-between mb-2 report__amountResume__container">
+      <div className="col-5  pt-2 pb-2 report__amountResume__item">
+        <p className="primaryFontColor">Total a Cobrar <br /><span className="secondaryFontColor">(sin gastos)</span></p>
         <h4 className="text-success">$ {isShowRealTotal? estimatedTotal.toFixed(2) : estimatedSubtotal.toFixed(2)}</h4>
       </div>
-      <div className="col-6 bg-dark pt-2 pb-2">
-        <p className="primaryFontColor">Total a Cobrar <br /> (gastos incluidos)</p>
+      <div className="col-5 pt-2 pb-2 report__amountResume__item">
+        <p className="primaryFontColor">Total a Cobrar <br /> <span className="secondaryFontColor">(gastos incluidos)</span></p>
         <h4 className="text-success">$ {isShowRealTotal? (estimatedTotal + getTotalExpensesAmount(expenses)).toFixed(2) : estimatedTotalWithExpenses.toFixed(2)}</h4>
       </div>
     </div>

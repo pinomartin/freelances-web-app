@@ -180,7 +180,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
     <>
       <h4 className="text-center">Tu progreso</h4>
       <div className="container projectData__container">
-        <div className="row justify-content-end p-3">
+        <div className="row justify-content-end align-items-center p-3">
           <div className="col-6 text-center">
             {/* <strong className="primaryFontColor">
               {getRemaingHours} <small className="text-white">/</small>{" "}

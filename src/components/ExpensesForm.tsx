@@ -34,6 +34,7 @@ const ExpensesForm = ({ projectUID, clientUID }:any) => {
             <input
               placeholder="Descripcion de Gasto"
               type="text"
+              maxLength={25}
               className="form-control form-control-sm mb-2 customForm__input"
               onChange={(e) =>
                 setExpenseData({ ...expenseData, description: e.target.value })
