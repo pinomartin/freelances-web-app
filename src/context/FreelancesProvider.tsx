@@ -69,6 +69,10 @@ export const FreelancesProvider = (props:any) => {
         setUserDB({uid:user?.uid, userName: user?.userName, profilePhotoURL: user?.profilePhotoURL , email: user?.email});
     }
 
+    const updateUserProjects = (projects:any) => {
+       setUserProjects(projects);
+    }
+
   
 
     // const loadMessagesFromDB = () => {
@@ -95,7 +99,7 @@ export const FreelancesProvider = (props:any) => {
 
 
     return (
-            <FreelancesContext.Provider value={{userDB, authUser, userLogin, userSignOut, userProjects, updateContextUser}}>
+            <FreelancesContext.Provider value={{userDB, authUser, userLogin, userSignOut, userProjects, updateUserProjects,updateContextUser}}>
                 {props.children}
             </FreelancesContext.Provider>
     )

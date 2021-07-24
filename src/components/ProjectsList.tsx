@@ -7,13 +7,14 @@ import SpinnerLoader from "./SpinnerLoader";
 import AddProjectButton from "./AddProjectButton";
 import WelcomeNewUser from "./WelcomeNewUser";
 
+
 const ProjectsList = ({ history }: RouteComponentProps<any>) => {
-  // const [usuario, setUsuario] = useState<any | null>(null);
-  const { userDB, authUser } = useContext(FreelancesContext);
+
+  const { userDB, authUser, updateUserProjects } = useContext(FreelancesContext);
   const [projects, setProjects] = useState<any>([]);
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [isActiveVisible, setIsActiveVisible] = useState(true);
-  //VER ESTO !!!!!
+
   const [activeProjects, setActiveProjects] = useState<any>([]);
   const [finishedProjects, setFinishedProjects] = useState<any>([]);
 
@@ -43,9 +44,9 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
         .then((projects) => {
           setProjects(projects);
           setIsLoaderVisible(false);
+          updateUserProjects(projects);
         })
         .catch((e) => console.log(e));
-      console.log(projects);
     } else {
       history.push("/login");
     }
@@ -60,6 +61,7 @@ const ProjectsList = ({ history }: RouteComponentProps<any>) => {
     );
     setActiveProjects(actives);
     setFinishedProjects(finalized);
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projects]);
 

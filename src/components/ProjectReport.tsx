@@ -12,7 +12,9 @@ import FinishProjectButton from "./Report/FinishProjectButton";
 
 const ProjectReport = () => {
   const location = useLocation();
-  const { tasks, expenses, projectData, projectUID }: any = location.state;
+  const { tasks, expenses, projectData, projectUID, user }: any =
+    location.state;
+  console.log(user);
   const printRef = useRef<HTMLDivElement>(null);
   const [clientMode, setClientMode] = useState(false);
 
@@ -110,7 +112,7 @@ const ProjectReport = () => {
 
           <ProjectSection data={projectData} />
           <br />
-          <div className="row align-items-start justify-content-end bg-dark">
+          <div className="row justify-content-between bg-dark">
             <div className="col-7 col-md-7 mt-2">
               <TimesList
                 tasks={tasks}
@@ -122,11 +124,28 @@ const ProjectReport = () => {
                 isShowRealTotal={isShowRealTotal}
               />
             </div>
-            <div className="col-5 col-md-5 mt-5">
-              <ExpensesReportList expenses={expenses} />
+            <div className="col-5 col-md-5 mt-2 ">
+              
+               <div className="report__rightColumn">
+                  <ExpensesReportList expenses={expenses} />
+              
+            
+                  <AmountsResume
+                    projectData={projectData}
+                    tasks={tasks}
+                    expenses={expenses}
+                    isClientMode={clientMode}
+                    isShowPriceTimes={isShowPriceTimes}
+                    isShowTimes={isShowTimes}
+                    isShowRealTotal={isShowRealTotal}
+                  />
+
+               </div>
+               
             </div>
           </div>
-          <div className="row align-items-end justify-content-start">
+
+          {/* <div className="row align-items-end justify-content-start">
             <div className="col-12 p-0 ">
               <AmountsResume
                 projectData={projectData}
@@ -138,8 +157,20 @@ const ProjectReport = () => {
                 isShowRealTotal={isShowRealTotal}
               />
             </div>
-          </div>
-          <div className="row bg-dark">
+          </div> */}
+          {user ? (
+            <div className="row align-items-center justify-content-end bg-dark">
+              <div className="col-12 p-0 text-center">
+                <p className="p-0 m-0">
+                  Proyecto desarrollado por{" "}
+                  <strong className="secondaryFontColor">
+                    {user.userName}
+                  </strong>
+                </p>
+              </div>
+            </div>
+          ) : null}
+          <div className="row bg-dark pt-2">
             <div className="col-12 text-center">
               <Footer
                 primaryLabel={"Freelances App - Todos los derechos reservados."}

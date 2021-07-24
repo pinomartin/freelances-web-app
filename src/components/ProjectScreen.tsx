@@ -34,7 +34,7 @@ interface URLParamsProps {
 
 const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
   const { id: projectUID } = useParams<URLParamsProps>();
-  const { authUser } = useContext(FreelancesContext);
+  const { authUser, userDB } = useContext(FreelancesContext);
   const [projectData, setProjectData] = useState<any>({});
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [editionMode, setEditionMode] = useState(false);
@@ -208,6 +208,7 @@ const ProjectScreen = ({ history }: RouteComponentProps<any>) => {
                         projectData: projectData,
                         projectUID: projectUID,
                         expenses: expenses,
+                        user: userDB
                       },
                     }}
                   >

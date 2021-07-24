@@ -79,7 +79,7 @@ const ProjectCard = ({ data: projectData, history }: Props) => {
               </div>
               <div className="row no-gutters rounded justify-content-center text-center align-items-center">
                 <div className="col-4 col-md-4">
-                  <p className="mb-0">$ {amountXHour}</p>
+                  <p className="mb-0">$ {isFinite(amountXHour) ? amountXHour : 0}</p>
                 </div>
                 <div className="col-4 col-md-4">
                   <p className="text-warning mb-0">{estimatedHours} hs</p>

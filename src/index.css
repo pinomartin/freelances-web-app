@@ -657,7 +657,7 @@ section {
 /*Project Report Styles*/
 
 .report__mainContainerPrintable {
-  height: 95vh;
+  /* height: 95vh; */
 }
 
 .reportButton__PDF {
@@ -722,6 +722,17 @@ section {
 .report__checkboxInput:hover,
 .report__checkboxInput:checked {
   opacity: 1 !important;
+}
+
+.report__rightColumn{
+  /* flex-direction: column-reverse; */
+  /* justify-content: flex-end!important; */
+  background-color: #11ece5;
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-end!important; */
+  /* align-items: flex-end; */
+  /* height: 100%!important; */
 }
 
 @media print {
