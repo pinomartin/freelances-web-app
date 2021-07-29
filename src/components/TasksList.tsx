@@ -150,9 +150,10 @@ export const TasksList = ({ projectData, tasks, title }: TasksListProps) => {
     <>
       <div className="row justify-content-center align-items-center">
         <div className="col-12 text-center">
-          <h5>Ups ! Aún no tienes tiempos cargados</h5>
+          {!isDone ? <h5>Ups ! Aún no tienes tiempos cargados</h5>: <h5>Ups ! Has finalizado este proyecto sin cargar tiempos</h5> }
+          {/* <h5>Ups ! Aún no tienes tiempos cargados</h5> */}
         <img src={Notimes} alt="" className="img-fluid" width='85px'/>
-        <p className="mt-2">Utiliza el contador de tiempos para registrarlos.</p>
+        {!isDone ? <p className="mt-2">Utiliza el contador de tiempos para registrarlos.</p> : null}
           {/* <p className="badge badge-info p-3">Carga tiempos para ver tu progreso ! </p> */}
         </div>
       </div>

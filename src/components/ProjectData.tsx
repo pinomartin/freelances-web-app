@@ -59,10 +59,12 @@ export const ProjectData = ({ projectData, tasks }: any) => {
   const doneProjectMessage = () => {
     return (
       <>
-          <small className="d-block primaryFontColor mt-2">Proyecto Finalizado</small>
-        </>
-    )
-  }
+        <small className="d-block primaryFontColor mt-2">
+          Proyecto Finalizado
+        </small>
+      </>
+    );
+  };
 
   const getDaysRemaining = (estimatedFinishDate: number) => {
     if (isPastDate(estimatedFinishDate)) {
@@ -105,26 +107,39 @@ export const ProjectData = ({ projectData, tasks }: any) => {
 
   const getRemaingHours = (estimatedHours: number, totalSeconds: number) => {
     const remainingHours = Math.round(estimatedHours - totalSeconds / 3600);
-
+    const completedHours = Math.round(totalSeconds / 3600);
     if (remainingHours < 0) {
-      return(
+      return (
         <>
-        <small className="d-block">Horas ({estimatedHours}) Estimadas Completas</small>
-        <small className="d-block">+</small>
-        <small className="primaryFontColor">
-          {remainingHours * (-1) } Horas Extras
-          <small></small>
-        </small>
-      </>
-      )
+          <small className="d-block">
+            Horas ({estimatedHours}) Estimadas Completas
+          </small>
+          <small className="d-block">+</small>
+          <small className="primaryFontColor">
+            {remainingHours * -1} Horas Extras
+            <small></small>
+          </small>
+        </>
+      );
     }
     return (
       <>
-        <strong className="primaryFontColor">
-          {remainingHours} <small className="text-white">/</small>{" "}
-          {estimatedHours}{" "}
-        </strong>
-        <small className="d-block">Horas a completar</small>
+        {!isProjectDone ? (
+          <>
+            <strong className="primaryFontColor">
+              {remainingHours} <small className="text-white">/</small>{" "}
+              {estimatedHours}{" "}
+            </strong>
+            <small className="d-block">Horas a completar</small>
+          </>
+        ) : (
+          <>
+            <strong className="primaryFontColor">
+              {completedHours}
+            </strong>
+            <small className="d-block">Horas completadas</small>
+          </>
+        )}
       </>
     );
   };
@@ -133,10 +148,8 @@ export const ProjectData = ({ projectData, tasks }: any) => {
     if (isProjectDone) {
       return 100;
     }
-    const percentage = Math.round(
-      (totalSeconds / 3600 / estimatedHours) * 100
-    );
-    if(percentage > 100) return 100;
+    const percentage = Math.round((totalSeconds / 3600 / estimatedHours) * 100);
+    if (percentage > 100) return 100;
     return percentage;
   };
 
@@ -192,12 +205,16 @@ export const ProjectData = ({ projectData, tasks }: any) => {
           </div>
           <div className="col-6 text-center">
             {projectData.type === "hour" ? (
-             !projectData.isDone ?  getDaysRemaining(estimatedFinishDate) : doneProjectMessage()
+              !projectData.isDone ? (
+                getDaysRemaining(estimatedFinishDate)
+              ) : (
+                doneProjectMessage()
+              )
             ) : (
               <strong>
-                {!projectData.isDone ? getLaboralDaysFromTotalProject(
-                  estimatedFinishDate
-                ) : doneProjectMessage() }{" "}
+                {!projectData.isDone
+                  ? getLaboralDaysFromTotalProject(estimatedFinishDate)
+                  : doneProjectMessage()}{" "}
               </strong>
             )}
           </div>
@@ -256,7 +273,9 @@ export const ProjectData = ({ projectData, tasks }: any) => {
                   <>
                     <small className="d-block">Tarea mas larga</small>
                     <span className="primaryFontColor">
-                      {higherTask[0].duration === '' ? `${timeToStringWhitDays.days} días ${timeToStringWhitDays.hours} horas ${timeToStringWhitDays.minutes} minutos ${timeToStringWhitDays.seconds} segundos` : higherTask[0].duration}
+                      {higherTask[0].duration === ""
+                        ? `${timeToStringWhitDays.days} días ${timeToStringWhitDays.hours} horas ${timeToStringWhitDays.minutes} minutos ${timeToStringWhitDays.seconds} segundos`
+                        : higherTask[0].duration}
                     </span>
                     <small className="d-block">
                       {higherTask[0].description}
@@ -273,9 +292,15 @@ export const ProjectData = ({ projectData, tasks }: any) => {
           <>
             <div className="row justify-content-end align-items-center p-3">
               <div className="col-12 text-center">
-                <p className="badge badge-danger">
-                  Comienza a cargar tiempos y verás tu progreso.
-                </p>
+                {!isProjectDone ? (
+                  <p className="badge badge-danger">
+                    Comienza a cargar tiempos y verás tu progreso.
+                  </p>
+                ) : (
+                  <p className="badge badge-success">
+                    No cargaste tiempos en este proyecto.
+                  </p>
+                )}
               </div>
             </div>
           </>
@@ -283,7 +308,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
       </div>
       <div className="row justify-content-center mt-2 ">
         <div className="col-12 col-md-4 text-center">
-        <Link
+          <Link
             to={{
               pathname: "/projectDetails",
               state: {
@@ -293,9 +318,7 @@ export const ProjectData = ({ projectData, tasks }: any) => {
             }}
           >
             {tasks !== null && totalSeconds > 0 ? (
-              <button className="btn btn-primary btn-sm">
-                Ver más
-              </button>
+              <button className="btn btn-primary btn-sm">Ver más</button>
             ) : null}
           </Link>
         </div>
