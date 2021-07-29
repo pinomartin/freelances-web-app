@@ -18,9 +18,8 @@ import LineChart from "./Charts/LineChart";
 
 const UserSpecs = () => {
   const location = useLocation();
-  const { tasks, projects }: any = location.state;
+  const { tasks }: any = location.state;
 
-  console.log(projects);
   const currentMonthToString = new Date().getMonth().toString();
 
   const [daysChartData, setDaysChartData] = useState<any>({});
@@ -82,7 +81,6 @@ const UserSpecs = () => {
     setWeeks(getTotalWeekssOfMonth(Number(month.value)));
   }, [tasks, month.value]);
 
-  console.log("semanas", hoursPerWeek);
 
   useEffect(() => {
     setAllTasksPerDay(getDateAndTimePerTask(tasksPerMonth));
@@ -95,13 +93,6 @@ const UserSpecs = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days, allTasksPerDay, weeks]);
 
-  // console.log(hours);
-  // console.log(allTasksPerDay);
-  // console.log(hoursPerDay(3));
-
-  // console.log("TODAS LAS DEL DIA",allTasksPerDay);
-  // console.log('HOURS',hours);
-  // console.log('DAYS',days);
 
   useEffect(() => {
     setDaysChartData({

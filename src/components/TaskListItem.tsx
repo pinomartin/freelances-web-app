@@ -29,7 +29,6 @@ export const TaskListItem = ({ task, isProjectDone }: TaskListItemProps) => {
     setTaskEditionMode(false);
   };
 
-  console.log(task);
 
   return (
     <div className="card bg-dark">

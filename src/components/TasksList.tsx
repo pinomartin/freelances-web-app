@@ -1,127 +1,9 @@
 import { TasksListProps } from "../interfaces/tasklist";
 import { TaskListItem } from "./TaskListItem";
-import Notimes from '../assets/noTimes2.svg'
-
+import Notimes from "../assets/noTimes2.svg";
 
 export const TasksList = ({ projectData, tasks, title }: TasksListProps) => {
-  const { isDone }:any = projectData;
-
-  // const [totalSeconds, setTotalSeconds] = useState(0);
-  // const [timeToString, setTimeToString] = useState("");
-  // const [estimatedTotal, setEstimatedTotal] = useState(0);
-
-  // const getTotalSecondsFromTasks = async (tasks: any) => {
-  //   const totalSeconds = await tasks.reduce(function (
-  //     accumulator: number,
-  //     tasks: any
-  //   ) {
-  //     const initialDate = new Date(2021, 5, 29, 0, 0, 0, 0);
-  //     const finalDate = new Date(
-  //       2021,
-  //       5,
-  //       29,
-  //       tasks.hours,
-  //       tasks.minutes,
-  //       tasks.seconds,
-  //       0
-  //     );
-  //     const seconds = (finalDate.getTime() - initialDate.getTime()) / 1000;
-
-  //     return accumulator + seconds;
-  //   },
-  //   0);
-
-  //   return totalSeconds;
-  // };
-
-  // const getTotalTimeperProject = (totalSeconds: number) => {
-  //   const dateHelper = new Date(new Date().setHours(0, 0, 0, 0));
-  //   dateHelper.setHours(0, 0, 0, 0);
-  //   dateHelper.setSeconds(totalSeconds);
-  //   const totalTimeperProject = formatDuration(
-  //     {
-  //       hours: dateHelper.getHours(),
-  //       minutes: dateHelper.getMinutes(),
-  //       seconds: dateHelper.getSeconds(),
-  //     },
-  //     { zero: true, delimiter: " ", locale: es }
-  //   );
-  //   return totalTimeperProject;
-  // };
-
-  // const getEstimatedAmount = (seconds: number, amountPerHour: number):number => {
-  //     const hourPortion = seconds / 3600;
-  //     const estimatedTotalAmount = Number((hourPortion * amountPerHour).toFixed(2));
-
-  //     return estimatedTotalAmount;
-  // }
-
-  // useEffect(() => {
-  //   const unsuscribe = db
-  //     .collection("timetasks")
-  //     .where("userUID", "==", clientUID)
-  //     .where("projectUID", "==", projectUID)
-  //     .orderBy("creationDate", "desc")
-  //     .onSnapshot((query: any) => {
-  //       const tasks = query.docs.map((item: any) => ({
-  //         id: item.id,
-  //         ...item.data(),
-  //       }));
-  //       setTasks(tasks);
-  //       getTotalSecondsFromTasks(tasks).then(seconds => setTotalSeconds(seconds));
-  //       setTimeToString(getTotalTimeperProject(totalSeconds));
-  //     });
-  //   return unsuscribe;
-  // }, [clientUID, projectUID]);
-
-  // useEffect(() => {
-  //   const unsubscribe = streamTasksFromProject(clientUID, projectUID, {
-  //     next: (querySnapshot: any) => {
-  //       const updatedTasksItems = querySnapshot.docs.map(
-  //         (docSnapshot: any) => ({ id: docSnapshot.id, ...docSnapshot.data() })
-  //       );
-  //       setTasks(updatedTasksItems);
-  //     },
-  //     error: () => console.log("task-list-item-failed"),
-  //   });
-
-  //   return unsubscribe;
-  // }, [clientUID, projectUID, setTasks, setTotalSeconds]);
-
-  // useEffect(() => {
-  //   getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
-  //   setTimeToString(getTotalTimeperProject(totalSeconds));
-  //   setEstimatedTotal(getEstimatedAmount(totalSeconds, amountXHour));
-  // }, [tasks, totalSeconds]);
-
-  /** REVISAR ESTO !!!  */
-
-  // const totalSeconds1 = tasks.reduce(
-  //   (acc: number, seconds: any) => acc + seconds.seconds,
-  //   0
-  // );
-  // const totalMinutes = tasks.reduce(
-  //   (acc: number, minutes: any) => acc + minutes.minutes,
-  //   0
-  // );
-  // const totalHours = tasks.reduce(
-  //   (acc: number, hours: any) => acc + hours.hours,
-  //   0
-  // );
-
-  // console.log(formatISO(dateHelper, {representation: 'time'}).substr(0,8));
-
-  // const getMapFromArray = (tasks:any) =>
-  // tasks.reduce((acc:any, item:any) => {
-  //   // add object key to our object i.e. charmander: { type: 'water' }
-  //   acc[item] = { seconds: item.seconds,
-  //                       minutes: item.minutes,
-  //                     hours: item.hours };
-  //   return acc;
-  // }, {});
-
-  // console.log(getMapFromArray(tasks));
-  // console.log(totalHours, totalMinutes, totalSeconds1);
+  const { isDone }: any = projectData;
 
   return tasks.length !== 0 ? (
     <>
@@ -132,29 +14,33 @@ export const TasksList = ({ projectData, tasks, title }: TasksListProps) => {
             {tasks.length !== 0
               ? tasks.map((item: any) => (
                   <>
-                    <TaskListItem task={item} key={item.id} isProjectDone={isDone} />
+                    <TaskListItem
+                      task={item}
+                      key={item.id}
+                      isProjectDone={isDone}
+                    />
                   </>
                 ))
               : null}
           </div>
         </div>
-        </div>
-        {/* <div className="row justify-content-center">
-          {tasks.length !== 0 && (<p>Tiempo total: {timeToString}</p>)}
-          </div>
-          <div className="row justify-content-center">
-          {tasks.length !== 0 && (<p>Monto a cobrar: ${estimatedTotal}</p>)}
-        </div> */}
-        </>
+      </div>
+    </>
   ) : (
     <>
       <div className="row justify-content-center align-items-center">
         <div className="col-12 text-center">
-          {!isDone ? <h5>Ups ! Aún no tienes tiempos cargados</h5>: <h5>Ups ! Has finalizado este proyecto sin cargar tiempos</h5> }
-          {/* <h5>Ups ! Aún no tienes tiempos cargados</h5> */}
-        <img src={Notimes} alt="" className="img-fluid" width='85px'/>
-        {!isDone ? <p className="mt-2">Utiliza el contador de tiempos para registrarlos.</p> : null}
-          {/* <p className="badge badge-info p-3">Carga tiempos para ver tu progreso ! </p> */}
+          {!isDone ? (
+            <h5>Ups ! Aún no tienes tiempos cargados</h5>
+          ) : (
+            <h5>Ups ! Has finalizado este proyecto sin cargar tiempos</h5>
+          )}
+          <img src={Notimes} alt="" className="img-fluid" width="85px" />
+          {!isDone ? (
+            <p className="mt-2">
+              Utiliza el contador de tiempos para registrarlos.
+            </p>
+          ) : null}
         </div>
       </div>
     </>
