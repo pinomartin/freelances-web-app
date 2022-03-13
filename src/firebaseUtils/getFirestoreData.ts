@@ -28,6 +28,16 @@ const getProjectByID = async (projectID: string | any) => {
   return singleProject;
 };
 
+const streamProject = (
+  projectUID: string,
+  observer: any
+) => {
+  return db
+    .collection("projects")
+    .doc(projectUID)
+    .onSnapshot(observer);
+};
+
 const getTasksFromProjectUser = async (userId: string, projectUID: string) => {
   const tasks: any = await db
     .collection("timetasks")
@@ -55,10 +65,47 @@ const streamTasksFromProject = (
     .onSnapshot(observer);
 };
 
+const getAllTasksFromUser = async (userId: string) => {
+  const tasks: any = await db
+    .collection("timetasks")
+    .where("userUID", "==", userId)
+    .get();
+  const userprojectsData = await tasks.docs.map((doc: any) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  return userprojectsData;
+};
+
+const streamExpensesFromProject = (
+  userId: string,
+  projectUID: string,
+  observer: any
+) => {
+  return db
+    .collection("expenses")
+    .where("userUID", "==", userId)
+    .where("projectUID", "==", projectUID)
+    .onSnapshot(observer);
+};
+
+const getLastFastBurnDate = async (projectUID: string) => {
+  const lastDateFromDB: any = await db
+    .collection("fastburnhours")
+    .doc(projectUID)
+    .get();
+  const lastBurnDate = await lastDateFromDB.data();
+  return lastBurnDate;
+};
+
 export {
   getUserFromDB,
   getProjectsFromUser,
   getProjectByID,
+  streamProject,
   getTasksFromProjectUser,
-  streamTasksFromProject
+  streamTasksFromProject,
+  getAllTasksFromUser,
+  streamExpensesFromProject,
+  getLastFastBurnDate
 };

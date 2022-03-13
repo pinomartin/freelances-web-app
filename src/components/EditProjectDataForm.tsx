@@ -1,14 +1,23 @@
+import { differenceInBusinessDays, format } from "date-fns";
 import { useState, useEffect } from "react";
 import { updateProjectDB } from '../firebaseUtils/setFirestoreData'; 
 import { ProjectType } from '../interfaces/project';
+import { finishDateProcessorForm } from '../utils/parsetime/finishDateProcessorForm';
+import { getDateFromString } from "../utils/parsetime/getDateFromString";
 
-export const EditProjectDataForm = ({projectData, projectUID }:any) => {
+
+export const EditProjectDataForm = ({projectData, projectUID, setProjectData, setEditionMode }:any) => {
     const [error, setError] = useState('');
-    const [onEditProjectData, setOnEditProjectData] = useState<ProjectType>({...projectData, estimatedFinishDate: new Date().toISOString().slice(0, 10)});
+    const [onEditProjectData, setOnEditProjectData] = useState<ProjectType>({...projectData, estimatedFinishDate: format(projectData.estimatedFinishDate, 'yyyy-MM-dd')});
 
     useEffect(() => {
-      estimatedTotalXHourSetter(onEditProjectData.amountXHour, onEditProjectData.estimatedHours)
-    }, [onEditProjectData.amountXHour, onEditProjectData.estimatedHours]);
+      estimatedTotalXHourSetter(onEditProjectData.amountXHour, onEditProjectData.estimatedHours);
+      if(projectData.type === 'total'){
+        getHoursAndAmountXHourOnFromTotalProject(finishDateProcessorForm(`${onEditProjectData.estimatedFinishDate}`), onEditProjectData.creationDate);
+      }
+    },
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+     [onEditProjectData.amountXHour, onEditProjectData.estimatedHours, onEditProjectData.estimatedFinishDate, onEditProjectData.creationDate, onEditProjectData.estimatedTotal, onEditProjectData.estimatedHoursPerDay]);
 
     const estimatedTotalXHourSetter = (amountXHour: number, estimatedHours: number) => {
       if (onEditProjectData.amountXHour !== 0 || onEditProjectData.estimatedHours !== 0) {
@@ -21,8 +30,21 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
         });
       }
     };
+
+    const getHoursAndAmountXHourOnFromTotalProject = (estimatedFinishDate:number, creationDate:number) => {
+      const days =  differenceInBusinessDays(estimatedFinishDate, creationDate);
+      const workHours = days * onEditProjectData.estimatedHoursPerDay;
+      const amountXHour = Math.round(onEditProjectData.estimatedTotal / workHours);
+      setOnEditProjectData({
+        ...onEditProjectData,
+        amountXHour: amountXHour,
+        estimatedHours: workHours
+      })
+    };
   
-    console.log(onEditProjectData);
+    // console.log(format(projectData.estimatedFinishDate, 'yyyy-MM-dd'));
+    // console.log(getDateUnixFromString(onEditProjectData.estimatedFinishDate) )
+    // console.log(new Date());
 
     const projectTypeUIHandler =
     onEditProjectData.type === "hour" ? (
@@ -90,6 +112,24 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
             value={onEditProjectData.estimatedTotal}
           />
         </div>
+        <div className="input-group">
+          <span className="input-group-addon p-1 primaryFontColor w-50">
+          Horas x dia
+          </span>
+          <input
+            type="number"
+            className="form-control form-control-sm mb-2 customForm__input currency"
+            min="1"
+            max="24"
+            step="1"
+            data-number-to-fixed="2"
+            data-number-stepfactor="100"
+            onChange={(e: any) =>
+              setOnEditProjectData({ ...onEditProjectData, estimatedHoursPerDay: Number(e.target.value) })
+            }
+            value={onEditProjectData.estimatedHoursPerDay}
+          />
+        </div>
       </>
     );
     const procesarData = (e: any) => {
@@ -113,7 +153,12 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
         console.log("Paso todas las pruebas");
         setError("");
 
-        updateProjectDB(onEditProjectData, projectUID);
+        updateProjectDB(onEditProjectData, projectUID).then(() => {
+          // VER ESTO !!!!!! COMO IMPACTA EN PROJECTDATA COMPONENT
+          setProjectData({...onEditProjectData, estimatedFinishDate: getDateFromString(onEditProjectData.estimatedFinishDate)});
+          console.log(onEditProjectData);
+          setEditionMode(false);
+        } );
         
       };
     return (
@@ -180,8 +225,8 @@ export const EditProjectDataForm = ({projectData, projectUID }:any) => {
 
               {projectTypeUIHandler}
 
-              <div className="input-group">
-                <span className="input-group-addon p-1 primaryFontColor w-25">
+              <div className="input-group mb-3">
+                <span className="input-group-addon p-1 primaryFontColor w-50">
                   Fecha tentativa
                 </span>
                 <input

@@ -1,54 +1,120 @@
-import { useEffect, useState } from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
-import { auth } from "../firebase";
+import { useContext, useEffect, useState } from "react";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import {
-  getUserFromDB,
+  // getUserFromDB,
   getProjectsFromUser,
+  getAllTasksFromUser,
+  getTasksFromProjectUser,
 } from "../firebaseUtils/getFirestoreData";
 
 import Tippy from "@tippyjs/react";
-import 'tippy.js/dist/tippy.css';
+import "tippy.js/dist/tippy.css";
 import SpinnerLoader from "./SpinnerLoader";
-import { Doughnut } from "react-chartjs-2";
+import { FreelancesContext } from "../context/FreelancesProvider";
+import {
+  getTotalSecondsFromTasks,
+  getTotalTimeperProject,
+  // getTotalTimeperProjectWithDays,
+  totalTimeperProjectToString,
+} from "../hooks/useTime";
+import DoughtChart from "./Charts/DoughtChart";
+import {
+  updateUserName,
+  updateUserProfilePhoto,
+} from "../firebaseUtils/setFirestoreData";
 
 const UserProfile = ({ history }: RouteComponentProps<any>) => {
+  const SECONDS_IN_A_DAY = 86400;
+
+  const {
+    authUser,
+    userProjects: projectsFromContext,
+    updateContextUser,
+    userDB,
+  } = useContext(FreelancesContext);
   const [user, setUser] = useState<any>({});
   const [userProjects, setUserProjects] = useState<any>({});
+  const [tasks, setTasks] = useState([]);
+  const [totalSeconds, setTotalSeconds] = useState(0);
+  const [timeToStringWithDays, setTimeToStringWithDays] = useState<Duration>(
+    {}
+  );
+  const [timeToString, setTimeToString] = useState("");
+  const [projects, setProjects] = useState<any>({});
+  const [chartData, setChartData] = useState<any>({});
+
+  const [loading, setLoading] = useState(false);
+  const [isEditModeActive, setIsEditModeActive] = useState(false);
+  // const [myChart, setMyChart] = useState(null);
+  // const chartRef = useRef(null);
+  const [imgError, setImgError] = useState(false);
+
+  console.log(userProjects);
 
   useEffect(() => {
-    if (auth.currentUser) {
-      getUserFromDB(auth.currentUser?.email).then((user) => setUser(user));
-      getProjectsFromUser(auth.currentUser?.email).then((project) =>
-        setUserProjects(getStateOfProjects(project))
-      );
+    if (authUser) {
+      // getUserFromDB(authUser.email).then((user) => setUser(user));
+      setUser(userDB);
+      getProjectsFromUser(authUser.email).then((projects) => {
+        setUserProjects(getStateOfProjects(projects));
+        setProjects(projects);
+      });
+      setChartData(getTotalDataperProject(projectsFromContext));
+      getAllTasksFromUser(authUser.email).then((tasks) => setTasks(tasks));
     } else {
       history.push("/login");
     }
+  }, [history, authUser, projectsFromContext, userDB]); //Cuidado con ese userDB
 
-  }, [history]);
+  // useEffect(() => {
+  //   setChartData(getTotalDataperProject(projectsFromContext));
+  // }, [projectsFromContext])
 
-  const data = {
-    labels: ['Activos', 'Terminados'],
-    datasets: [
-      {
-        label: 'Proyectos',
-        // data: [userProjects.numberDoneProjects, userProjects.numberDoneProjects],
-        data: [10, 15],
-        backgroundColor: [
-          'rgba(17, 236, 229, 1)',
-          'rgba(164, 125, 255, 0.5)',],
-      }
-    ]
+  useEffect(() => {
+    getTotalSecondsFromTasks(tasks).then((seconds) => setTotalSeconds(seconds));
+    setTimeToString(getTotalTimeperProject(totalSeconds));
+    setTimeToStringWithDays(totalTimeperProjectToString(totalSeconds));
+  }, [tasks, totalSeconds, projects]);
+
+  const selectPhotoArchive = (newImg: any) => {
+    console.log(newImg.target.files[0]);
+    const newImgData = newImg.target.files[0];
+    if (newImgData === undefined) {
+      console.log("Image file not Selected!!");
+      return;
+    }
+    if (
+      newImgData.type === "image/png" ||
+      newImgData.type === "image/jpg" ||
+      newImgData.type === "image/jpeg"
+    ) {
+      setLoading(true);
+      updateUserProfilePhoto(user.email, newImgData).then((imgURL) => {
+        setImgError(false);
+        updateContextUser({ ...user, profilePhotoURL: imgURL });
+        setUser({ ...user, profilePhotoURL: imgURL });
+        setLoading(false);
+      });
+    } else {
+      setImgError(true);
+      setLoading(false);
+    }
   };
 
-  const options = { 
-    legend: {
-        labels: {
-            fontColor: "#ffffff",
-            fontSize: 18
-        }
-    }};
+  const procesarData = (e: any) => {
+    e.preventDefault();
+    if (!user.userName.trim()) {
+      // setError("Ingrese Nombre de Proyecto");
+      return;
+    }
 
+    // setError("");
+    updateUserName(user.userName, user.email).then((newName) => {
+      updateContextUser({ ...user, userName: newName });
+      setUser({ ...user, userName: newName });
+      setIsEditModeActive(false);
+    });
+  };
 
   const getStateOfProjects = (projects: any) => {
     const activeProjects = projects.filter(
@@ -59,7 +125,6 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     const numberDoneProjects = doneProjects.length;
     const totalProjects = numberActiveProjects + numberDoneProjects;
 
-
     return {
       numberActiveProjects,
       numberDoneProjects,
@@ -67,39 +132,120 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
     };
   };
 
-  // const TooltipContent = ({ color, label, value }: any) => {
-  //   return (
-  //     <div className="svg-radial-chart-tooltip">
-  //       <span
-  //         className="svg-radial-chart-tooltip-symbol"
-  //         style={{ backgroundColor: color }}
-  //       />
-  //       <span className="svg-radial-chart-tooltip-label">{label}</span>
-  //       <span dangerouslySetInnerHTML={{ __html: "&nbsp;&mdash;&nbsp;" }} />
-  //       <span className="svg-radial-chart-tooltip-value">{value}</span>
-  //     </div>
-  //   );
-  // };
+  const getTotalDataperProject = (projects: Array<Object>) => {
+    // console.log(projects.forEach(element => console.log(element)));
+    let projectsNames: string[] = [];
+    let timesPerProject: any[] = [];
+    if (projects !== null) {
+      projects.forEach(async (project: any) => {
+        projectsNames.push(project.name);
+        const tasks = await getTasksFromProjectUser(project.userId, project.id);
+        const totalSeconds = await getTotalSecondsFromTasks(tasks);
+        timesPerProject.push(Math.round(totalSeconds / 3600));
+      });
+    }
 
+    return {
+      projectsNames,
+      timesPerProject,
+    };
+  };
+
+  console.log("IntervalDuration", totalTimeperProjectToString(totalSeconds));
 
   return user.profilePhotoURL ? (
     <div className="row justify-content-center align-content-center mt-5 p-0 m-0">
       <div className="col-10 col-md-6 col-lg-4 userProfileCard__headerContainer">
-        <div className="row justify-content-center m-2">
-          <Tippy content="Cambiar foto" placement='right-start' arrow={true}>
-            <img
-              src={user.profilePhotoURL}
-              alt="Foto de Perfil de usuario"
-              className="userProfileCard__image"
-              width="100px"
-              onClick={() => {
-                console.log("gola");
-              }}
-            />
-          </Tippy>
+        <div className="row justify-content-center m-2 p-0 align-items-center">
+          <div className="userProfile__imageContainer text-center">
+            {imgError ? (
+              <p className="alert alert-warning">
+                Tipos compatibles .PNG, .JPG, .JPEG
+              </p>
+            ) : null}
+            {loading ? (
+              <div className="spinner-border text-primary" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            ) : (
+              <>
+                <img
+                  src={user.profilePhotoURL}
+                  alt="Foto de Perfil de usuario"
+                  className="userProfileCard__image"
+                />
+                <input
+                  type="file"
+                  className="custom-file-input"
+                  id="inputGroupFile01"
+                  aria-describedby="inputGroupFileAddon01"
+                  style={{ display: "none" }}
+                  onChange={(e) => selectPhotoArchive(e)}
+                  disabled={loading}
+                />
+                <Tippy
+                  content="Cambiar foto"
+                  placement="right-start"
+                  arrow={true}
+                >
+                  <label
+                    className={
+                      loading
+                        ? "btn btn-primary mt-2 disabled"
+                        : "btn btn-primary mt-2"
+                    }
+                    htmlFor="inputGroupFile01"
+                  >
+                    <i className="fas fa-sync-alt"></i>
+                    &nbsp;
+                    <i className="far fa-file-image"></i>
+                  </label>
+                </Tippy>
+              </>
+            )}
+
+            {/* </div> */}
+          </div>
         </div>
         <div className="row justify-content-center">
-          <p className="p-0 m-2 userProfileCard__userName">{user.userName}</p>
+          {isEditModeActive ? (
+            <>
+              <form onSubmit={(e) => procesarData(e)} className="d-inline p-0">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control form-control-sm mb-2 customForm__input w-50"
+                    onChange={(e) =>
+                      setUser({ ...user, userName: e.target.value })
+                    }
+                    value={user.userName}
+                  />
+                  <button type="submit" className="btn btn-success float-right">
+                    <i className="far fa-check-square"></i>
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger  float-right"
+                    onClick={() => setIsEditModeActive(false)}
+                  >
+                    <i className="far fa-window-close"></i>
+                  </button>
+                </div>
+              </form>
+            </>
+          ) : (
+            <>
+              <p className="p-0 m-2 userProfileCard__userName">
+                {user.userName}
+              </p>
+              <button
+                className="btn bg-transparent p-0 m-0 text-white"
+                onClick={() => setIsEditModeActive(true)}
+              >
+                <i className="fas fa-pencil-alt"></i>
+              </button>
+            </>
+          )}
         </div>
         <div className="row justify-content-center">
           <small className="userProfileCard__userEmail">{user.email}</small>
@@ -108,22 +254,40 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
         <div className="row justify-content-center mt-2 ">
           <div className="col-12 text-center">
             <p className="">
-              <strong>Proyectos</strong>
+              <strong>Horas por Proyecto</strong>
             </p>
           </div>
-          </div>
-          <div className="row justify-content-center">
-          <div className="col-12 mb-2 text-center">    
-          <div className="userProfile-chart">
-                {
-                  userProjects.totalProjects !== 0 &&  userProjects.totalProjects !== undefined ? (
-                    
-                    <Doughnut type='' data={data} options={options} />
-                   
-                    ) : (<p className="badge badge-info">Aun no tienes Proyectos</p>)
-                }
-                 </div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-12 mb-2 text-center">
+            <div className="userProfile-chart">
+              {chartData.timesPerProject.length !== 0 &&
+              chartData.projectsNames.length !== 0 ? (
+                <DoughtChart
+                  data={chartData.timesPerProject}
+                  labels={chartData.projectsNames}
+                />
+              ) : (
+                <p className="badge badge-danger">Aun no tienes Proyectos</p>
+              )}
             </div>
+          </div>
+
+          <Link
+            to={{
+              pathname: "/userSpecs",
+              state: {
+                tasks: tasks,
+                projects: projects,
+              },
+            }}
+          >
+            {tasks !== null && totalSeconds > 0 ? (
+              <button className="btn btn-success float-right">
+                Mis estadísticas
+              </button>
+            ) : null}
+          </Link>
         </div>
         <hr />
         <div className="row justify-content-center mt-2 ">
@@ -133,7 +297,7 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
             </p>
           </div>
           {/* <div className="row justify-content-center"> */}
-            {/* <div className="col-4 text-center successFontColor">
+          {/* <div className="col-4 text-center successFontColor">
             <p className="userProfileCard__projectsNumbers">{userProjects.numberActiveProjects}hs</p>
           </div>
           <div className="col-4 text-center userProfileCard__userEmail">
@@ -142,10 +306,27 @@ const UserProfile = ({ history }: RouteComponentProps<any>) => {
           <div className="col-4 text-center primaryFontColor">
             <p className="userProfileCard__projectsNumbers">{userProjects.totalProjects}seg</p>
           </div>  */}
-           
+        </div>
+        <div className="row justify-content-center align-items-center">
+          <div className="col-6 text-center userProfile__totalTimer">
+            {tasks !== null && totalSeconds > 0 ? (
+              <span>
+                {totalSeconds > SECONDS_IN_A_DAY
+                  ? `${timeToStringWithDays.days} días ${timeToStringWithDays.hours} horas ${timeToStringWithDays.minutes} minutos ${timeToStringWithDays.seconds} segundos `
+                  : timeToString}
+              </span>
+            ) : (
+              <>
+                <p className="badge badge-warning m-0">
+                  Aún no has cargado tiempos
+                </p>
+              </>
+            )}
           </div>
         </div>
+        <hr />
       </div>
+    </div>
   ) : (
     <SpinnerLoader />
   );
